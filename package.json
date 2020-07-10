@@ -1,0 +1,33 @@
+{
+  "name": "gmtk-2020",
+  "version": "0.0.1",
+  "description": "Our participation in the Game Makers Tool Kit Game Jam 2020 : https://itch.io/jam/gmtk-2020",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TomKauffeld/GMTK-2020.git"
+  },
+  "author": "Tom KAUFFELD",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TomKauffeld/GMTK-2020/issues"
+  },
+  "homepage": "https://github.com/TomKauffeld/GMTK-2020#readme",
+  "devDependencies": {
+    "@babel/core": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "@webpack-cli/init": "^0.2.2",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "terser-webpack-plugin": "^3.0.6",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0",
+    "workbox-webpack-plugin": "^5.1.3"
+  }
+}

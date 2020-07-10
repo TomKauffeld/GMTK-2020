@@ -1,4 +1,6 @@
 import p5 from 'p5';
+import Game from './game/Game';
+import GameModeMenu from './game/modes/GameModeMenu';
 
 /**
  * 
@@ -6,18 +8,25 @@ import p5 from 'p5';
  */
 function s(sketch)
 {
-    let x = 5;
-    let y = 5;
+    let game = new Game(new GameModeMenu());
+    const width = 10;
+    const height = 10;
     
+    sketch.preload = () => {
+        game.load(sketch);
+    };
+
     sketch.setup = () => {
         const sk = document.getElementById('sketch');
         sketch.createCanvas(sk.clientWidth / 2, sk.clientHeight / 2);
     };
 
     sketch.draw = () => {
+        game.tick(sketch, sketch.deltaTime / 1000);
+        sketch.clear();
         sketch.background(0);
-        sketch.fill(255);
-        sketch.rect(x,y,50,50);
+        const scale = Math.min(sketch.width / width, sketch.height / height);
+        game.render(sketch, scale, sketch.width / scale, sketch.height / scale);
     };
 }
 

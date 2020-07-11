@@ -74,9 +74,11 @@ class Mob extends Entity
         }
     }
 
-    attack(mob)
+    attack()
     {
-        mob.takeDamages(40);
+        if(this.world.player.posX == this.posX){
+            this.world.player.takeDamages(2);
+        }
     }
 
     /**

@@ -123,6 +123,7 @@ function load()
         Tile.Create(`grassland_${i}`, 'grass_t_m_dirt', 1, 1, false, 1, 1, BORDER_TOP);
         Tile.Create(`grassland_${i}`, 'grass_b_m_dirt', 1, 3, false, 1, 1, BORDER_BOTTOM);
     }
+
     Tile.Create('grassland_3', 'light', 1, 2, false, 1, 1);
     Tile.Create('grassland_3', 'dark', 1, 0, false, 1, 1);
     Tile.Create('grassland_3', 'light_t_l_dark', 0, 1, false, 1, 1);
@@ -144,6 +145,29 @@ function load()
     Tile.Create('grassland_4', 'dirt_b_r_grass', 2, 3, true, 1, 1, BORDER_BOTTOM_RIGHT);
     Tile.Create('grassland_4', 'dirt_t_m_grass', 1, 1, true, 1, 1, BORDER_TOP);
     Tile.Create('grassland_4', 'dirt_b_m_grass', 1, 3, true, 1, 1, BORDER_BOTTOM);
+
+    Tile.Create('town_2', 'stone', 1, 2, false, 1, 1);
+    Tile.Create('town_2', 'grass', 1, 0, false, 1, 1);
+    Tile.Create('town_2', 'stone_t_l_grass', 0, 1, false, 1, 1);
+    Tile.Create('town_2', 'stone_m_l_grass', 0, 2, false, 1, 1);
+    Tile.Create('town_2', 'stone_b_l_grass', 0, 3, false, 1, 1);
+    Tile.Create('town_2', 'stone_t_r_grass', 2, 1, false, 1, 1);
+    Tile.Create('town_2', 'stone_m_r_grass', 2, 2, false, 1, 1);
+    Tile.Create('town_2', 'stone_b_r_grass', 2, 3, false, 1, 1);
+    Tile.Create('town_2', 'stone_t_m_grass', 1, 1, false, 1, 1);
+    Tile.Create('town_2', 'stone_b_m_grass', 1, 3, false, 1, 1);
+    for (let i = 3; i <= 18; i++)
+    {
+        Tile.Create(`town_${i}`, 'floor', 1, 2, false, 1, 1);
+        Tile.Create(`town_${i}`, 'floor_t_l_wall', 0, 1, false, 1, 1, BORDER_TOP_LEFT);
+        Tile.Create(`town_${i}`, 'floor_m_l_wall', 0, 2, false, 1, 1, BORDER_LEFT);
+        Tile.Create(`town_${i}`, 'floor_b_l_wall', 0, 3, false, 1, 1, BORDER_BOTTOM_LEFT);
+        Tile.Create(`town_${i}`, 'floor_t_r_wall', 2, 1, false, 1, 1, BORDER_TOP_RIGHT);
+        Tile.Create(`town_${i}`, 'floor_m_r_wall', 2, 2, false, 1, 1, BORDER_RIGHT);
+        Tile.Create(`town_${i}`, 'floor_b_r_wall', 2, 3, false, 1, 1, BORDER_BOTTOM_RIGHT);
+        Tile.Create(`town_${i}`, 'floor_t_m_wall', 1, 1, false, 1, 1, BORDER_TOP);
+        Tile.Create(`town_${i}`, 'floor_b_m_wall', 1, 3, false, 1, 1, BORDER_BOTTOM);
+    }
 }
 load();
 

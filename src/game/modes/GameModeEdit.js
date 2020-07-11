@@ -201,18 +201,30 @@ class GameModeEdit extends GameMode
                         }
                         else if (sketch.mouseY < 10)
                         {
-                            const data = this.table.export();
-                            var blob = new Blob([data], {type: 'text/csv'});
-                            if(window.navigator.msSaveOrOpenBlob) {
-                                window.navigator.msSaveBlob(blob, 'world.csv');
+                            if (sketch.mouseX - this.x < (sketch.width - this.x) / 2)
+                            {
+                                const data = this.table.export();
+                                var blob = new Blob([data], {type: 'text/csv'});
+                                if(window.navigator.msSaveOrOpenBlob) {
+                                    window.navigator.msSaveBlob(blob, 'world.csv');
+                                }
+                                else{
+                                    var elem = window.document.createElement('a');
+                                    elem.href = window.URL.createObjectURL(blob);
+                                    elem.download = 'world.csv';        
+                                    document.body.appendChild(elem);
+                                    elem.click();        
+                                    document.body.removeChild(elem);
+                                }
                             }
-                            else{
-                                var elem = window.document.createElement('a');
-                                elem.href = window.URL.createObjectURL(blob);
-                                elem.download = 'world.csv';        
-                                document.body.appendChild(elem);
-                                elem.click();        
-                                document.body.removeChild(elem);
+                            else
+                            {
+                                const file = prompt('file');
+                                const reader = new FileReader();
+                                reader.onload = () => {
+                                    console.log(reader.result);
+                                };
+                                reader.readAsText(file);
                             }
                         }
                         else
@@ -347,30 +359,33 @@ class GameModeEdit extends GameMode
         sketch.translate(this.x, 0);
         sketch.fill(0);
         sketch.rect(0, 0, 4 * scale, height * scale);
-        sketch.textAlign(sketch.LEFT, sketch.BOTTOM);
         sketch.fill(255);
         sketch.textSize(10);
+        sketch.textAlign(sketch.RIGHT, sketch.BOTTOM);
+        sketch.text('Import', 4 * scale, 10);
+        sketch.textAlign(sketch.LEFT, sketch.BOTTOM);
         sketch.text('Export', 10, 10);
         sketch.text(`selected type : ${this.types[this.selectedType]}`, 10, 30);
         const keys = Object.keys(Tile.collection[this.types[this.selectedType]]);
-        for (let i = 0; i < keys.length; i++)
+        for (let i = 0; i <= keys.length; i++)
         {
             const tile = Tile.collection[this.types[this.selectedType]][keys[i]];
+            
+            const x = Math.floor(i  / (height - 2)) + 1;
+            const y = i % (height - 2) + 1;
+            if (this.selectedBlock === i)
+            {
+                sketch.stroke(0, 0, 255);
+            }
+            else
+            {
+                sketch.stroke(255);
+            }
+            sketch.strokeWeight(4);
+            sketch.noFill();
+            sketch.square(x * scale, y * scale, scale);
             if (typeof tile === 'object')
             {
-                const x = Math.floor(i  / (height - 2)) + 1;
-                const y = i % (height - 2) + 1;
-                if (this.selectedBlock === i)
-                {
-                    sketch.stroke(0, 0, 255);
-                }
-                else
-                {
-                    sketch.stroke(255);
-                }
-                sketch.strokeWeight(4);
-                sketch.noFill();
-                sketch.square(x * scale, y * scale, scale);
                 tile.render(sketch, scale, x, y);
             }
         }

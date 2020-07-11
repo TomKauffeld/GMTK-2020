@@ -10,11 +10,20 @@ import TileSet from './TileSet';
 function load(sketch) {
     for(let i = 1; i <= 4; i++)
     {
-        Tiles[`grassland_${i}`] = new TileSet(sketch, `/res/tiles/grasslands${i}.png`, 3);
+        sketch.loadImage(`/res/tiles/grasslands${i}.png`, (image1) => {
+            sketch.loadImage(`/res/tiles/grasslands${i}_corner.png`, (image2) => {
+                const image3 = sketch.createImage(Math.max(image1.width, image2.width), image1.height + image2.height);
+                image3.copy(image1, 0, 0, image1.width, image1.height, 0, 0, image1.width, image1.height);
+                image3.copy(image2, 0, 0, image2.width, image2.height, 0, image1.height, image2.width, image2.height);
+                const tile = new TileSet(image3, 3);
+                tile.calculate();
+                Tiles[`grassland_${i}`] = tile;
+            });
+        });
     }
     for(let i = 2; i <= 18; i++)
     {
-        Tiles[`town_${i}`] = new TileSet(sketch, `/res/tiles/town${i}.png`, 3);
+        Tiles[`town_${i}`] = TileSet.Create(sketch, `/res/tiles/town${i}.png`, 3);
     }
     return Tiles;
 }

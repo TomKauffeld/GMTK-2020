@@ -42,6 +42,11 @@ class Tile
         this.y = y;
         this.border = border;
         Tile.tiles[`${type}:${name}`] = this;
+        if (typeof Tile.collection[type] === 'undefined')
+        {
+            Tile.collection[type] = {};
+        }
+        Tile.collection[type][name] = this;
     }
 
     /**
@@ -87,6 +92,7 @@ class Tile
     }
 }
 Tile.tiles = {};
+Tile.collection = {};
 /**
  * 
  * @param {string} type

@@ -36,6 +36,7 @@ class Mob extends Entity
             time: 0.5 / this.texture.size.x
         };
         this.oldImage = null;
+        this.strength = 20;
     }
     
     isDead()
@@ -155,12 +156,6 @@ class Mob extends Entity
                 this.pos.y = oldY;
             }
         }
-    }
-
-
-    getStrength()
-    {
-        return 10;
     }
 
     /**

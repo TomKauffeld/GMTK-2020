@@ -180,7 +180,7 @@ class World
         {
             if (this.mobs[i].entityId !== mob.entityId && this.inRange(mob, this.mobs[i]))
             {
-                this.mobs[i].life -= mob.getStrength();
+                this.mobs[i].life -= mob.strength;
             }
         }
     }

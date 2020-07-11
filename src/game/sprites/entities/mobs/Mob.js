@@ -203,13 +203,6 @@ class Mob extends Entity
         }
     }
 
-    attack()
-    {
-        if(this.world.player.posX == this.posX){
-            this.world.player.takeDamages(2);
-        }
-    }
-
     /**
      * 
      * @param {p5.p5InstanceExtensions} sketch 

@@ -52,6 +52,7 @@ class Player extends Mob
         {
             return;
         }
+        
         this.attack = false;
         if (this.keyIsDown(sketch, 'up'))
         {
@@ -84,6 +85,7 @@ class Player extends Mob
     {
         this.score+=score;
     }
+
 
     /**
      * 

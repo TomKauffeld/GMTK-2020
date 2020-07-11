@@ -29,8 +29,6 @@ class DesertMob extends Monster
         {
             return;
         }
-        this.takeDamages(1);
-        super.tick(sketch, time);
     }
 
     /**

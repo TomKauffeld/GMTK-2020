@@ -29,7 +29,6 @@ class SnowMob extends Monster
         {
             return;
         }
-        this.takeDamages(1);
     }
 
     /**

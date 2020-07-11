@@ -29,7 +29,6 @@ class ForestMob extends Monster
         {
             return;
         }
-        this.takeDamages(1);
     }
 
     /**

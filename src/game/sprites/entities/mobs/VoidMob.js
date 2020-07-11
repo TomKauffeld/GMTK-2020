@@ -29,7 +29,6 @@ class VoidMob extends Monster
         {
             return;
         }
-        this.takeDamages(1);
     }
 
     /**

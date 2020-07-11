@@ -83,7 +83,12 @@ class Player extends Mob
 
     incrementScore(score)
     {
-        this.score+=score;
+        this.score += score;
+    }
+
+    getStrength()
+    {
+        return 100;
     }
 
 

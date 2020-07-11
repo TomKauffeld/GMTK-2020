@@ -127,6 +127,10 @@ class Mob extends Entity
                 this.dead += time;
                 this.animation.frame = this.texture.size.x - 1;
             }
+            if (this.animation.frame === 3 && this.attack)
+            {
+                this.world.attack(this);
+            }
             this.animation.frame %= this.texture.size.x;
         }
         if (this.life > 0)
@@ -153,28 +157,10 @@ class Mob extends Entity
         }
     }
 
-    /**
-     * 
-     * @param {number} damages 
-     */
-    takeDamages(damages)
-    {
-        this.life-=damages;
-        if (this.life <= 0){
-            this.world.player.incrementScore(1);
-        }
-    }
 
-    /**
-     * 
-     * @param {number} number 
-     */
-    addLife(number)
+    getStrength()
     {
-        this.life+=number;
-        if (this.life > 100){
-            this.life = 100;
-        }
+        return 10;
     }
 
     /**

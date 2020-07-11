@@ -8,11 +8,19 @@ import Entity from './Entity';
 
 class GameItem extends Entity
 {
+    /**
+     * @param {World} world
+     * @param {number} score
+     */
     constructor(world, name, posX, posY, dir, width = 1, height = 1, score)
     {
         super(name, posX, posY, dir, width, height);
         this.world = world;
         this.score = score;
+    }
+
+    take(){
+        this.world.player.incrementScore(1);
     }
 
 }

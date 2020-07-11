@@ -136,7 +136,8 @@ class Mob extends Entity
     {
         this.life-=damages;
         if (this.life <= 0){
-            return false;
+            this.dead = true;
+            this.world.player.incrementScore(1);
         }
     }
 

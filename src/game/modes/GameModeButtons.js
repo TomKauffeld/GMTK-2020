@@ -14,6 +14,7 @@ class GameModeButtons extends GameMode
     {
         super(name);
         this.buttons = buttons;
+        this.pressed = false;
     }
 
     /**
@@ -33,6 +34,15 @@ class GameModeButtons extends GameMode
     // eslint-disable-next-line no-unused-vars
     onClick(button)
     {
+    }
+
+    /**
+     * 
+     * @param {p5.p5InstanceExtensions} sketch 
+     */
+    isPressed(sketch)
+    {
+        return sketch.mouseIsPressed && sketch.mouseButton === sketch.LEFT;
     }
     
     /**
@@ -57,14 +67,21 @@ class GameModeButtons extends GameMode
         let image = null;
         if (sketch.mouseX >= x && sketch.mouseX <= x + w && sketch.mouseY >= y && sketch.mouseY <= y + h)
         {
-            if (sketch.mouseIsPressed)
+            if (this.isPressed(sketch))
             {
                 image = b === null ? null : b.selected;
-                this.onClick(button);
             }
             else
             {
-                image = b === null ? null : b.highlighted;
+                if (this.pressed)
+                {
+                    this.onClick(button);
+                    image = b === null ? null : b.selected;
+                }
+                else
+                {
+                    image = b === null ? null : b.highlighted;
+                }
             }
         }
         else
@@ -113,6 +130,7 @@ class GameModeButtons extends GameMode
             this.drawButton(sketch, width * scale, height * scale, this.buttons[i], 0, y);
             y += 1.5;
         }
+        this.pressed = this.isPressed(sketch);
     }
 }
 

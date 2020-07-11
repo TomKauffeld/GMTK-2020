@@ -3,7 +3,6 @@ import p5 from 'p5';
 // eslint-disable-next-line no-unused-vars
 import World from '../../../World';
 import Mob from './Mob';
-import Player from '../../../../gfx/mobs/Player';
 
 class Monster extends Mob
 {

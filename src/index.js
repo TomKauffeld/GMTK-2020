@@ -13,12 +13,14 @@ function s(sketch)
     const width = 10;
     const height = 10;
     const parent = document.getElementById('sketch');
+    
     sketch.preload = () => {
         Ressources.load(sketch);
     };
 
     sketch.setup = () => {
         sketch.createCanvas(parent.clientWidth, parent.clientHeight);
+        sketch.frameRate(60);
     };
 
     sketch.draw = () => {

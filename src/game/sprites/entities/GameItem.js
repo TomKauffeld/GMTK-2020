@@ -9,9 +9,9 @@ class GameItem extends Entity
      * @param {World} world
      * @param {number} score
      */
-    constructor(world, texture, name, posX, posY, dir, score, width = 1, height = 1)
+    constructor(world, texture, name, posX, posY, score, width = 1, height = 1)
     {
-        super(name, posX, posY, dir, width, height);
+        super(name, posX, posY, width, height);
         this.world = world;
         this.score = score;
         this.texture = texture;

@@ -13,9 +13,9 @@ class Item extends GameItem
      * @param {World} world
      * @param {number} score
      */
-    constructor(world, posX, posY, dir)
+    constructor(world, posX, posY)
     {
-        super(world, Ressources.sprites.item.item, '???', posX, posY, dir, 1, 1);
+        super(world, Ressources.sprites.item.item, '???', posX, posY, 1, 1);
     }
 
 }

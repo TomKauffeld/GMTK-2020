@@ -144,7 +144,7 @@ class World
             this.mobs[i].tick(sketch, time);
             if (this.mobs[i].dead > 1)
             {
-                this.addItem(new Item(this,this.mobs[i].getPointX(),this.mobs[i].getPointY(),2));
+                this.addItem(new Item(this,this.mobs[i].getPointX(),this.mobs[i].getPointY()));
                 this.mobs.splice(i, 1);
             }
         }

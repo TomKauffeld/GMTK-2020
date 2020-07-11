@@ -45,25 +45,29 @@ class Player extends Mob
      */
     tick(sketch, time)
     {
+        if (this.dead)
+        {
+            return;
+        }
         this.attack = false;
         if (this.keyIsDown(sketch, 'up'))
         {
-            this.pos.d = 0;
+            this.setPosD(0);
             this.speed = this.maxSpeed;
         }
         else if (this.keyIsDown(sketch, 'right'))
         {
-            this.pos.d = 1;
+            this.setPosD(1);
             this.speed = this.maxSpeed;
         }
         else if (this.keyIsDown(sketch, 'down'))
         {
-            this.pos.d = 2;
+            this.setPosD(2);
             this.speed = this.maxSpeed;
         }
         else if (this.keyIsDown(sketch, 'left'))
         {
-            this.pos.d = 3;
+            this.setPosD(3);
             this.speed = this.maxSpeed;
         }
         else

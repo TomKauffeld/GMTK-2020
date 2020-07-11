@@ -8,16 +8,16 @@ import TileSet from '../TileSet';
  */
 function load(sketch)
 {
-    ForestMob.female_thief = new TileSet(sketch, '/res/sprites/mobs/forestMob/female_thief.png', 4);
-    return ForestMob;
+    Monster.forest_mob = new TileSet(sketch, '/res/sprites/mobs/monster/02.png', 4);
+    return Monster;
 }
 
-const ForestMob = {
+const Monster = {
     load,
     /**
      * @type TileSet
      */
-    female_thief: null,
+    forest_mob: null,
 };
 
-export default ForestMob;
+export default Monster;

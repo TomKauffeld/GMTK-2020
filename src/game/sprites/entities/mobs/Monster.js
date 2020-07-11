@@ -40,6 +40,10 @@ class Monster extends Mob
      */
     tick(sketch, time)
     {
+        if (this.dead)
+        {
+            return;
+        }
         this.action.timer += time;
         if (this.action.timer > 0.5)
         {
@@ -49,22 +53,22 @@ class Monster extends Mob
         this.attack = false;
         if (this.action.currentAction === 'up')
         {
-            this.pos.d = 0;
+            this.setPosD(0);
             this.speed = this.maxSpeed;
         }
         else if (this.action.currentAction === 'right')
         {
-            this.pos.d = 1;
+            this.setPosD(1);
             this.speed = this.maxSpeed;
         }
         else if (this.action.currentAction === 'down')
         {
-            this.pos.d = 2;
+            this.setPosD(2);
             this.speed = this.maxSpeed;
         }
         else if (this.action.currentAction === 'left')
         {
-            this.pos.d = 3;
+            this.setPosD(3);
             this.speed = this.maxSpeed;
         }
         /*else

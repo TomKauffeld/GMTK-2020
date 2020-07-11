@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import p5 from 'p5';
 import Player from './Player';
-import ForestMob from './ForestMob';
+import Monster from './Monster';
 
 /**
  * 
@@ -10,14 +10,14 @@ import ForestMob from './ForestMob';
 function load(sketch)
 {
     Mobs.player.load(sketch);
-    Mobs.forestMob.load(sketch);
+    Mobs.monster.load(sketch);
     return Mobs;
 }
 
 const Mobs = {
     load,
     player: Player,
-    forestMob: ForestMob,
+    monster: Monster,
 };
 
 export default Mobs;

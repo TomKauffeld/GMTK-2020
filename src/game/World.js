@@ -208,10 +208,19 @@ class World
     //score displaying method:
     displayScore(sketch, score)
     {
-        sketch.text('Score : ' + score, 20, 70);
         sketch.textAlign('left');
         sketch.fill(0, 102, 153);
         sketch.textSize(30);
+        sketch.text('Score : ' + score, 20, 70);
+    }
+
+    //Strength displaying method:
+    displayStrength(sketch, strength)
+    {
+        sketch.textAlign('left');
+        sketch.fill(0, 102, 153);
+        sketch.textSize(30);
+        sketch.text('Strength : ' + strength, 20, 100);
     }
 
     /**
@@ -262,8 +271,9 @@ class World
         sketch.image(Ressources.ui.life_bar_back, 0, 0, size, size * res);
         const part = this.player.life / 100;
         sketch.image(Ressources.ui.life_bar_front, 0, 0, size * part, size * res, 0, 0, part * Ressources.ui.life_bar_front.width, Ressources.ui.life_bar_front.height);
-        //score displaying :
+        //score & strength displaying :
         this.displayScore(sketch, this.player.score);
+        this.displayStrength(sketch, this.player.strength);
     }
 }
 

@@ -16,6 +16,7 @@ class Mob extends Entity
      * @param {number} maxSpeed 
      * @param {number} width 
      * @param {number} height 
+     * @param {number} life
      */
     constructor(world, name, posX, posY, dir, maxSpeed = 1, width = 1, height = 1)
     {
@@ -23,6 +24,7 @@ class Mob extends Entity
         this.world = world;
         this.speed = 0;
         this.maxSpeed = maxSpeed;
+        this.life = 100;
     }
 
     /**
@@ -54,6 +56,16 @@ class Mob extends Entity
             this.pos.y = oldY;
         }
         super.tick(sketch, time);
+    }
+
+    takeDamages(damages)
+    {
+        this.life-=damages;
+    }
+
+    addLife(number)
+    {
+        this.life+=number;
     }
 
     /**

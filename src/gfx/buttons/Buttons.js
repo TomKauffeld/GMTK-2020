@@ -3,6 +3,7 @@ import p5 from 'p5';
 import ButtonNone from './ButtonNone';
 import ButtonPlay from './ButtonPlay';
 import ButtonSettings from './ButtonSettings';
+import TileSet from '../TileSet';
 
 /**
  * 
@@ -10,9 +11,13 @@ import ButtonSettings from './ButtonSettings';
  */
 function load(sketch)
 {
-    Buttons.none.load(sketch);
-    Buttons.play.load(sketch);
-    Buttons.settings.load(sketch);
+    sketch.loadImage('/res/buttons.png', (image) => {
+        const main = new TileSet(image, 3, 3);
+        main.calculate();
+        Buttons.none.load(main.getTile(0, 0, 3, 1));
+        Buttons.play.load(main.getTile(0, 1, 3, 1));
+        Buttons.settings.load(main.getTile(0, 2, 3, 1));
+    });
     return Buttons;
 }
 

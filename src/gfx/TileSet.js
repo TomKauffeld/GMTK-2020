@@ -35,6 +35,7 @@ class TileSet
         {
             this.scale.y = this.image.height / this.size.y;
         }
+        return this;
     }
 
     /**

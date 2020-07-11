@@ -84,6 +84,14 @@ class Tile
     }
 
     /**
+     * @returns {p5.Image}
+     */
+    getImage()
+    {
+        return Ressources.tiles[this.type].getTile(this.x, this.y, this.resWidth, this.resHeight);
+    }
+
+    /**
      * 
      * @param {p5.p5InstanceExtensions} sketch 
      * @param {number} scale
@@ -133,8 +141,8 @@ function load()
         Tile.Create(`grassland_${i}`, 'dirt_b_l_grass', 1, 4, true, 1, 1, BORDER_TOP_RIGHT, 0.6);
         Tile.Create(`grassland_${i}`, 'dirt_t_r_grass', 0, 5, true, 1, 1, BORDER_BOTTOM_LEFT, 0.6);
         Tile.Create(`grassland_${i}`, 'dirt_t_l_grass', 1, 5, true, 1, 1, BORDER_BOTTOM_RIGHT, 0.6);
-        Tile.Create(`grassland_${i}`, 'grass_line_v', 0, 6, false, 1, 1, BORDER_LEFT | BORDER_RIGHT);
-        Tile.Create(`grassland_${i}`, 'grass_line_h', 1, 6, false, 1, 1, BORDER_TOP | BORDER_BOTTOM);
+        Tile.Create(`grassland_${i}`, 'grass_line_v', 2, 4, false, 1, 1, BORDER_LEFT | BORDER_RIGHT);
+        Tile.Create(`grassland_${i}`, 'grass_line_h', 2, 5, false, 1, 1, BORDER_TOP | BORDER_BOTTOM);
     }
 
     Tile.Create('grassland_3', 'light', 1, 2, false, 1, 1);
@@ -153,8 +161,8 @@ function load()
     Tile.Create('grassland_3', 'dark_b_l_light', 1, 4, false, 1, 1);
     Tile.Create('grassland_3', 'dark_t_r_light', 0, 5, false, 1, 1);
     Tile.Create('grassland_3', 'dark_t_l_light', 1, 5, false, 1, 1);
-    Tile.Create('grassland_3', 'grass_line_v', 0, 6, false, 1, 1);
-    Tile.Create('grassland_3', 'grass_line_h', 1, 6, false, 1, 1);
+    Tile.Create('grassland_3', 'grass_line_v', 2, 4, false, 1, 1);
+    Tile.Create('grassland_3', 'grass_line_h', 2, 5, false, 1, 1);
 
     Tile.Create('grassland_4', 'dirt', 1, 2, true, 1, 1);
     Tile.Create('grassland_4', 'grass', 1, 0, false, 1, 1);
@@ -172,10 +180,8 @@ function load()
     Tile.Create('grassland_4', 'grass_b_l_dirt', 1, 4, false, 1, 1, BORDER_TOP_RIGHT);
     Tile.Create('grassland_4', 'grass_t_r_dirt', 0, 5, false, 1, 1, BORDER_BOTTOM_LEFT);
     Tile.Create('grassland_4', 'grass_t_l_dirt', 1, 5, false, 1, 1, BORDER_BOTTOM_RIGHT);
-    Tile.Create('grassland_4', 'grass_line_v', 0, 6, true, 1, 1, BORDER_LEFT | BORDER_RIGHT);
-    Tile.Create('grassland_4', 'grass_line_h', 1, 6, true, 1, 1, BORDER_TOP | BORDER_BOTTOM);
-
-
+    Tile.Create('grassland_4', 'grass_line_v', 2, 4, true, 1, 1, BORDER_LEFT | BORDER_RIGHT);
+    Tile.Create('grassland_4', 'grass_line_h', 2, 5, true, 1, 1, BORDER_TOP | BORDER_BOTTOM);
 
     Tile.Create('iceland', 'snow', 1, 2, false, 1, 1);
     Tile.Create('iceland', 'ice', 1, 0, true, 1, 1);
@@ -195,47 +201,47 @@ function load()
     Tile.Create('iceland', 'ice_t_l_snow', 1, 5, true, 1, 1, BORDER_BOTTOM_RIGHT, 0.6);
 
 
-    Tile.Create('town_2', 'stone', 1, 2, false, 1, 1);
-    Tile.Create('town_2', 'grass', 1, 0, false, 1, 1);
-    Tile.Create('town_2', 'stone_t_l_grass', 0, 1, false, 1, 1);
-    Tile.Create('town_2', 'stone_m_l_grass', 0, 2, false, 1, 1);
-    Tile.Create('town_2', 'stone_b_l_grass', 0, 3, false, 1, 1);
-    Tile.Create('town_2', 'stone_t_r_grass', 2, 1, false, 1, 1);
-    Tile.Create('town_2', 'stone_m_r_grass', 2, 2, false, 1, 1);
-    Tile.Create('town_2', 'stone_b_r_grass', 2, 3, false, 1, 1);
-    Tile.Create('town_2', 'stone_t_m_grass', 1, 1, false, 1, 1);
-    Tile.Create('town_2', 'stone_b_m_grass', 1, 3, false, 1, 1);
-    Tile.Create('town_2', 'stone_m_m_grass', 0, 0, false,  1, 1);
-    Tile.Create('town_2', 'grass_m_m_stone', 2, 0, false,  1, 1);
-    Tile.Create('town_2', 'corner_1_t_l', 0, 4, false,  1, 1, BORDER_TOP_LEFT);
-    Tile.Create('town_2', 'corner_1_t_r', 1, 4, false,  1, 1, BORDER_TOP_RIGHT);
-    Tile.Create('town_2', 'corner_1_b_l', 0, 5, false,  1, 1, BORDER_BOTTOM_LEFT);
-    Tile.Create('town_2', 'corner_1_b_r', 1, 5, false,  1, 1, BORDER_BOTTOM_RIGHT);
-    Tile.Create('town_2', 'corner_2_b_r', 0, 6, true,  1, 1, BORDER_BOTTOM_RIGHT, 0.6);
-    Tile.Create('town_2', 'corner_2_b_l', 1, 6, true,  1, 1, BORDER_BOTTOM_LEFT, 0.6);
-    Tile.Create('town_2', 'corner_2_t_r', 0, 7, true,  1, 1, BORDER_TOP_RIGHT, 0.6);
-    Tile.Create('town_2', 'corner_2_t_l', 1, 7, true,  1, 1, BORDER_TOP_LEFT, 0.6);
+    Tile.Create('town_2', 'stone',           1, 1, false, 1, 1);
+    Tile.Create('town_2', 'grass',           3, 1, false, 1, 1);
+    Tile.Create('town_2', 'stone_t_l_grass', 0, 0, false, 1, 1);
+    Tile.Create('town_2', 'stone_m_l_grass', 0, 1, false, 1, 1);
+    Tile.Create('town_2', 'stone_b_l_grass', 0, 2, false, 1, 1);
+    Tile.Create('town_2', 'stone_t_r_grass', 2, 0, false, 1, 1);
+    Tile.Create('town_2', 'stone_m_r_grass', 2, 1, false, 1, 1);
+    Tile.Create('town_2', 'stone_b_r_grass', 2, 2, false, 1, 1);
+    Tile.Create('town_2', 'stone_t_m_grass', 1, 0, false, 1, 1);
+    Tile.Create('town_2', 'stone_b_m_grass', 1, 2, false, 1, 1);
+    Tile.Create('town_2', 'stone_m_m_grass', 3, 0, false,  1, 1);
+    Tile.Create('town_2', 'grass_m_m_stone', 3, 2, false,  1, 1);
+    Tile.Create('town_2', 'corner_1_t_l',    0, 3, false,  1, 1, BORDER_TOP_LEFT);
+    Tile.Create('town_2', 'corner_1_t_r',    1, 3, false,  1, 1, BORDER_TOP_RIGHT);
+    Tile.Create('town_2', 'corner_1_b_l',    0, 4, false,  1, 1, BORDER_BOTTOM_LEFT);
+    Tile.Create('town_2', 'corner_1_b_r',    1, 4, false,  1, 1, BORDER_BOTTOM_RIGHT);
+    Tile.Create('town_2', 'corner_2_b_r',    2, 3, true,  1, 1, BORDER_BOTTOM_RIGHT, 0.6);
+    Tile.Create('town_2', 'corner_2_b_l',    3, 3, true,  1, 1, BORDER_BOTTOM_LEFT, 0.6);
+    Tile.Create('town_2', 'corner_2_t_r',    2, 4, true,  1, 1, BORDER_TOP_RIGHT, 0.6);
+    Tile.Create('town_2', 'corner_2_t_l',    3, 4, true,  1, 1, BORDER_TOP_LEFT, 0.6);
 
     for (let i = 3; i <= 18; i++)
     {
-        Tile.Create(`town_${i}`, 'floor', 1, 2, false, 1, 1);
-        Tile.Create(`town_${i}`, 'floor_t_l_wall', 0, 1, false, 1, 1, BORDER_TOP_LEFT);
-        Tile.Create(`town_${i}`, 'floor_m_l_wall', 0, 2, false, 1, 1, BORDER_LEFT);
-        Tile.Create(`town_${i}`, 'floor_b_l_wall', 0, 3, false, 1, 1, BORDER_BOTTOM_LEFT);
-        Tile.Create(`town_${i}`, 'floor_t_r_wall', 2, 1, false, 1, 1, BORDER_TOP_RIGHT);
-        Tile.Create(`town_${i}`, 'floor_m_r_wall', 2, 2, false, 1, 1, BORDER_RIGHT);
-        Tile.Create(`town_${i}`, 'floor_b_r_wall', 2, 3, false, 1, 1, BORDER_BOTTOM_RIGHT);
-        Tile.Create(`town_${i}`, 'floor_t_m_wall', 1, 1, false, 1, 1, BORDER_TOP);
-        Tile.Create(`town_${i}`, 'floor_b_m_wall', 1, 3, false, 1, 1, BORDER_BOTTOM);
-        Tile.Create(`town_${i}`, 'floor_m_m_wall', 0, 0, true,  1, 1, BORDER_ALL);
-        Tile.Create(`town_${i}`, 'corner_1_t_l', 0, 4, false,  1, 1, BORDER_TOP_LEFT);
-        Tile.Create(`town_${i}`, 'corner_1_t_r', 1, 4, false,  1, 1, BORDER_TOP_RIGHT);
-        Tile.Create(`town_${i}`, 'corner_1_b_l', 0, 5, false,  1, 1, BORDER_BOTTOM_LEFT);
-        Tile.Create(`town_${i}`, 'corner_1_b_r', 1, 5, false,  1, 1, BORDER_BOTTOM_RIGHT);
-        Tile.Create(`town_${i}`, 'corner_2_b_r', 0, 6, true,  1, 1, BORDER_BOTTOM_RIGHT, 0.6);
-        Tile.Create(`town_${i}`, 'corner_2_b_l', 1, 6, true,  1, 1, BORDER_BOTTOM_LEFT, 0.6);
-        Tile.Create(`town_${i}`, 'corner_2_t_r', 0, 7, true,  1, 1, BORDER_TOP_RIGHT, 0.6);
-        Tile.Create(`town_${i}`, 'corner_2_t_l', 1, 7, true,  1, 1, BORDER_TOP_LEFT, 0.6);
+        Tile.Create(`town_${i}`, 'floor',          1, 1, false, 1, 1);
+        Tile.Create(`town_${i}`, 'floor_t_l_wall', 0, 0, false, 1, 1, BORDER_TOP_LEFT);
+        Tile.Create(`town_${i}`, 'floor_m_l_wall', 0, 1, false, 1, 1, BORDER_LEFT);
+        Tile.Create(`town_${i}`, 'floor_b_l_wall', 0, 2, false, 1, 1, BORDER_BOTTOM_LEFT);
+        Tile.Create(`town_${i}`, 'floor_t_r_wall', 2, 0, false, 1, 1, BORDER_TOP_RIGHT);
+        Tile.Create(`town_${i}`, 'floor_m_r_wall', 2, 1, false, 1, 1, BORDER_RIGHT);
+        Tile.Create(`town_${i}`, 'floor_b_r_wall', 2, 2, false, 1, 1, BORDER_BOTTOM_RIGHT);
+        Tile.Create(`town_${i}`, 'floor_t_m_wall', 1, 0, false, 1, 1, BORDER_TOP);
+        Tile.Create(`town_${i}`, 'floor_b_m_wall', 1, 2, false, 1, 1, BORDER_BOTTOM);
+        Tile.Create(`town_${i}`, 'floor_m_m_wall', 3, 2, true,  1, 1, BORDER_ALL);
+        Tile.Create(`town_${i}`, 'corner_1_t_l',   3, 4, true,  1, 1, BORDER_TOP_LEFT, 0.6);
+        Tile.Create(`town_${i}`, 'corner_1_t_r',   2, 4, true,  1, 1, BORDER_TOP_RIGHT, 0.6);
+        Tile.Create(`town_${i}`, 'corner_1_b_l',   3, 3, true,  1, 1, BORDER_BOTTOM_LEFT, 0.6);
+        Tile.Create(`town_${i}`, 'corner_1_b_r',   2, 3, true,  1, 1, BORDER_BOTTOM_RIGHT, 0.6);
+        Tile.Create(`town_${i}`, 'corner_2_t_l',   1, 4, true,  1, 1, BORDER_TOP_LEFT, 0.6);
+        Tile.Create(`town_${i}`, 'corner_2_t_r',   0, 4, true,  1, 1, BORDER_TOP_RIGHT, 0.6);
+        Tile.Create(`town_${i}`, 'corner_2_b_l',   1, 3, true,  1, 1, BORDER_BOTTOM_LEFT, 0.6);
+        Tile.Create(`town_${i}`, 'corner_2_b_r',   0, 3, true,  1, 1, BORDER_BOTTOM_RIGHT, 0.6);
     }
 }
 load();

@@ -325,7 +325,30 @@ class GameModeEdit extends GameMode
                 {
                     if (!this.lastClick)
                     {
-                        if (sketch.mouseY > 20 && sketch.mouseY < 30)
+                        if (sketch.mouseY > 40 && sketch.mouseY < 50)
+                        {
+                            if (sketch.mouseX - this.x >= (sketch.width - this.x) / 2)
+                            {
+                                if (confirm('export ? '))
+                                {
+                                    const image = sketch.createImage(this.table.getColumnCount() * 16, this.table.getRowCount() * 16);
+                                    for (let x = 0; x < this.table.getColumnCount(); x++)
+                                    {
+                                        for (let y = 0; y < this.table.getRowCount(); y++)
+                                        {
+                                            const tile = this.getTile(x, y);
+                                            if (tile !== null)
+                                            {
+                                                const i = tile.getImage();
+                                                image.copy(i, 0, 0, i.width, i.height, x * 16, y * 16, 16, 16);
+                                            }
+                                        }
+                                    }
+                                    image.save('map.png', 'png');
+                                }
+                            }
+                        }
+                        else if (sketch.mouseY > 20 && sketch.mouseY < 30)
                         {
                             if (sketch.mouseX - this.x < (sketch.width - this.x) / 2)
                             {
@@ -547,6 +570,7 @@ class GameModeEdit extends GameMode
         sketch.textAlign(sketch.RIGHT, sketch.BOTTOM);
         sketch.text('Import', 4 * scale, 10);
         sketch.text('Delete', 4 * scale, 30);
+        sketch.text('Save', 4 * scale, 50);
         sketch.textAlign(sketch.LEFT, sketch.BOTTOM);
         sketch.text('Export', 10, 10);
         sketch.text(`selected type : ${this.types[this.selectedType]}`, 10, 30);

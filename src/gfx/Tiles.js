@@ -8,50 +8,22 @@ import TileSet from './TileSet';
  * @param {p5.p5InstanceExtensions} sketch 
  */
 function load(sketch) {
-    for(let i = 1; i <= 4; i++)
-    {
-        sketch.loadImage(`/res/tiles/grasslands${i}.png`, (image1) => {
-            sketch.loadImage(`/res/tiles/grasslands${i}_corner.png`, (image2) => {
-                sketch.loadImage(`/res/tiles/grasslands${i}_line_v.png`, (image3) => {
-                    sketch.loadImage(`/res/tiles/grasslands${i}_line_h.png`, (image4) => {
-                        const image = sketch.createImage(Math.max(image1.width, image2.width), image1.height + image2.height + image3.height);
-                        image.copy(image1, 0, 0, image1.width, image1.height, 0, 0, image1.width, image1.height);
-                        image.copy(image2, 0, 0, image2.width, image2.height, 0, image1.height, image2.width, image2.height);
-                        image.copy(image3, 0, 0, image3.width, image3.height, 0, image1.height + image2.height, image3.width, image3.height);
-                        image.copy(image4, 0, 0, image4.width, image4.height, image4.width, image1.height + image2.height, image4.width, image4.height);
-                        const tile = new TileSet(image, 3);
-                        tile.calculate();
-                        Tiles[`grassland_${i}`] = tile;
-                    });
-                });
-            });
-        });
-    }
-    for(let i = 2; i <= 18; i++)
-    {
-        sketch.loadImage(`/res/tiles/town${i}.png`, (image1) => {
-            sketch.loadImage(`/res/tiles/town${i}_corner1.png`, (image2) => {
-                sketch.loadImage(`/res/tiles/town${i}_corner2.png`, (image3) => {
-                    const image = sketch.createImage(image1.width, image1.height + image2.height + image3.height);
-                    image.copy(image1, 0, 0, image1.width, image1.height, 0, 0, image1.width, image1.height);
-                    image.copy(image2, 0, 0, image2.width, image2.height, 0, image1.height, image2.width, image2.height);
-                    image.copy(image3, 0, 0, image3.width, image3.height, 0, image1.height + image2.height, image3.width, image3.height);
-                    const tile = new TileSet(image, 3);
-                    tile.calculate();
-                    Tiles[`town_${i}`] = tile;
-                });
-            });
-        });
-    }
-    sketch.loadImage('/res/tiles/iceland.png', (image1) => {
-        sketch.loadImage('/res/tiles/iceland_corner1.png', (image2) => {
-            const image = sketch.createImage(image1.width, image1.height + image2.height);
-            image.copy(image1, 0, 0, image1.width, image1.height, 0, 0, image1.width, image1.height);
-            image.copy(image2, 0, 0, image2.width, image2.height, 0, image1.height, image2.width, image2.height);
-            const tile = new TileSet(image, 3);
-            tile.calculate();
-            Tiles.iceland = tile;
-        });
+    sketch.loadImage('/res/tiles.png', (image) => {
+        const main = new TileSet(image, 16);
+        main.calculate();
+        for(let i = 0; i < 4; i++)
+        {
+            Tiles[`grassland_${i+1}`] = new TileSet(main.getTile(i * 3, 0, 3, 6), 3).calculate();
+        }
+        Tiles.iceland = new TileSet(main.getTile(12, 0, 3, 6), 3).calculate();
+        for (let i = 0; i < 17; i++)
+        {
+            const w = 4;
+            const h = 5;
+            const x = i % w;
+            const y = Math.floor(i / w);
+            Tiles[`town_${i+2}`] = new TileSet(main.getTile(x * w, y * h + 6, w, h), w).calculate();
+        }
     });
     return Tiles;
 }

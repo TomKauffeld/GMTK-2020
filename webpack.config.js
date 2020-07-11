@@ -28,14 +28,13 @@ const TerserPlugin = require('terser-webpack-plugin');
 const workboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
-    mode: 'production',
+    mode: 'development',
 
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
         compress: true,
         port: 9000,
         open: true,
-		
     },
 
     plugins: [

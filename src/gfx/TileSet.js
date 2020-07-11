@@ -65,17 +65,25 @@ class TileSet
      * @param {number} w 
      * @param {number} h 
      */
-    draw(sketch, dx, dy, scale, sx, sy, w = 1, h = 1)
+    draw(sketch, dx, dy, scale, sx, sy, dw = 1, dh = 1, sw = null, sh = null)
     {
+        if (sw === null)
+        {
+            sw = dw;
+        }
+        if (sh === null)
+        {
+            sh = dh;
+        }
         if (this.scale.x === 0 || this.scale.y === 0)
         {
             return null;
         }
-        if (sx < 0 || sy < 0 || sx + w >= this.rows || sy + h >= this.rows || w <= 0 || h <= 0)
+        if (sx < 0 || sy < 0 || sx + sw >= this.rows || sy + sh >= this.rows || sw <= 0 || sh <= 0)
         {
             return null;
         }
-        sketch.image(this.image, dx * scale, dy * scale, w * scale, h * scale, sx * this.scale.x, sy * this.scale.y, w * this.scale.x, h * this.scale.y);
+        sketch.image(this.image, dx * scale, dy * scale, dw * scale, dh * scale, sx * this.scale.x, sy * this.scale.y, sw * this.scale.x, sh * this.scale.y);
     }
 }
 

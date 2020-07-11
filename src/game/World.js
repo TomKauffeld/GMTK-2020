@@ -211,28 +211,6 @@ class World
     }
 
     /**
-     * score displaying method
-     * @param {p5.p5InstanceExtensions} sketch 
-     * @param {number} score 
-     */
-    displayScore(sketch, score)
-    {
-        sketch.textAlign('left');
-        sketch.fill(0, 102, 153);
-        sketch.textSize(30);
-        sketch.text('Score : ' + score, 20, 70);
-    }
-
-    //Strength displaying method:
-    displayStrength(sketch, strength)
-    {
-        sketch.textAlign('left');
-        sketch.fill(0, 102, 153);
-        sketch.textSize(30);
-        sketch.text('Strength : ' + strength, 20, 100);
-    }
-
-    /**
      * 
      * @param {p5.p5InstanceExtensions} sketch 
      * @param {number} scale 
@@ -281,8 +259,14 @@ class World
         const part = this.player.life / 100;
         sketch.image(Ressources.ui.life_bar_front, 0, 0, size * part, size * res, 0, 0, part * Ressources.ui.life_bar_front.width, Ressources.ui.life_bar_front.height);
         //score & strength displaying :
-        this.displayScore(sketch, this.player.score);
-        this.displayStrength(sketch, this.player.strength);
+        sketch.textAlign('left');
+        sketch.fill(0, 102, 153);
+        sketch.textSize(30);
+        const x = (sketch.textWidth('Strength : '), sketch.textWidth('Score : '));
+        sketch.text('Strength : ', 20, 100);
+        sketch.text('Score : ', 20, 70);
+        sketch.text(this.player.strength, 60 + x, 100);
+        sketch.text(this.player.score, 60 + x, 70);
     }
 }
 

@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import p5 from 'p5';
+import {p5InstanceExtensions} from 'p5';
 import Mobs from './mobs/Mobs';
 import Item from './item/Item';
 
@@ -7,7 +7,7 @@ import Item from './item/Item';
 
 /**
  * 
- * @param {p5.p5InstanceExtensions} sketch 
+ * @param {p5InstanceExtensions} sketch 
  */
 function load(sketch)
 {

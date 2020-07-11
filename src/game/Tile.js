@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import p5 from 'p5';
+import {p5InstanceExtensions, Image} from 'p5';
 import Ressources from '../gfx/Ressources';
 
 const BORDER_NONE = 0x00;
@@ -84,7 +84,7 @@ class Tile
     }
 
     /**
-     * @returns {p5.Image}
+     * @returns {Image}
      */
     getImage()
     {
@@ -93,7 +93,7 @@ class Tile
 
     /**
      * 
-     * @param {p5.p5InstanceExtensions} sketch 
+     * @param {p5InstanceExtensions} sketch 
      * @param {number} scale
      * @param {number} posX
      * @param {number} posY

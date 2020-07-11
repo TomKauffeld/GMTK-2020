@@ -1,12 +1,12 @@
 // eslint-disable-next-line no-unused-vars
-import p5 from 'p5';
+import {p5InstanceExtensions, Image} from 'p5';
 
 class TileSet
 {
 
     /**
      * 
-     * @param {p5.Image} image 
+     * @param {Image} image 
      * @param {number} cols 
      * @param {number} rows
      */
@@ -60,7 +60,7 @@ class TileSet
 
     /**
      * 
-     * @param {p5.p5InstanceExtensions} sketch 
+     * @param {p5InstanceExtensions} sketch 
      * @param {number} dx 
      * @param {number} dy 
      * @param {number} scale 
@@ -93,7 +93,7 @@ class TileSet
 
 /**
  * 
- * @param {p5.p5InstanceExtensions} sketch 
+ * @param {p5InstanceExtensions} sketch 
  * @param {string} path
  * @param {number} cols 
  * @param {number} rows

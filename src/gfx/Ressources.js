@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import p5 from 'p5';
+import {p5InstanceExtensions} from 'p5';
 import Tiles from './Tiles';
 import Sprites from './Sprites';
 import Worlds from './Worlds';
@@ -8,7 +8,7 @@ import UI from './ui/UI';
 
 /**
  * 
- * @param {p5.p5InstanceExtensions} sketch 
+ * @param {p5InstanceExtensions} sketch 
  */
 function load(sketch) {
     Ressources.tiles.load(sketch);

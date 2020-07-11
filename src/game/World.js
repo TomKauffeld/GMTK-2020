@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import p5 from 'p5';
+import {p5InstanceExtensions} from 'p5';
 // eslint-disable-next-line no-unused-vars
 import Mob from './sprites/entities/mobs/Mob';
 // eslint-disable-next-line no-unused-vars
@@ -172,7 +172,7 @@ class World
 
     /**
      * 
-     * @param {p5.p5InstanceExtensions} sketch 
+     * @param {p5InstanceExtensions} sketch 
      * @param {number} time 
      */
     tick(sketch, time)
@@ -283,7 +283,7 @@ class World
 
     /**
      * 
-     * @param {p5.p5InstanceExtensions} sketch 
+     * @param {p5InstanceExtensions} sketch 
      * @param {number} scale 
      * @param {number} width 
      * @param {number} height 

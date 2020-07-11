@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import p5 from 'p5';
+import {p5InstanceExtensions} from 'p5';
 // eslint-disable-next-line no-unused-vars
 import World from '../../World';
 
@@ -54,7 +54,7 @@ class Entity
 
     /**
      * 
-     * @param {p5.p5InstanceExtensions} sketch 
+     * @param {p5InstanceExtensions} sketch 
      * @param {number} time 
      */
     // eslint-disable-next-line no-unused-vars
@@ -62,7 +62,7 @@ class Entity
 
     /**
      * 
-     * @param {p5.p5InstanceExtensions} sketch 
+     * @param {p5InstanceExtensions} sketch 
      * @param {number} scale
      */
     // eslint-disable-next-line no-unused-vars

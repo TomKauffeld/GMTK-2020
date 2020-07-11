@@ -1,9 +1,9 @@
 // eslint-disable-next-line no-unused-vars
-import p5 from 'p5';
+import {Image} from 'p5';
 import TileSet from '../TileSet';
 /**
  * 
- * @param {p5.Image} image 
+ * @param {Image} image 
  */
 function load(image)
 {
@@ -18,11 +18,11 @@ function load(image)
 
 const ButtonNone = {
     load,
-    /** @type {p5.Image} */
+    /** @type {Image} */
     normal: null,
-    /** @type {p5.Image} */
+    /** @type {Image} */
     highlighted: null,
-    /** @type {p5.Image} */
+    /** @type {Image} */
     selected: null,
 };
 

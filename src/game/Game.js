@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import p5 from 'p5';
+import {p5InstanceExtensions} from 'p5';
 // eslint-disable-next-line no-unused-vars
 import GameMode from './modes/GameMode';
 
@@ -40,7 +40,7 @@ class Game
 
     /**
      * 
-     * @param {p5.p5InstanceExtensions} sketch 
+     * @param {p5InstanceExtensions} sketch 
      * @param {number} time 
      */
     tick(sketch, time)
@@ -64,7 +64,7 @@ class Game
 
     /**
      * 
-     * @param {p5.p5InstanceExtensions} sketch 
+     * @param {p5InstanceExtensions} sketch 
      * @param {number} scale
      * @param {number} width
      * @param {number} height

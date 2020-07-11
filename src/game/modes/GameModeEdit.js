@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import p5 from 'p5';
+import {p5InstanceExtensions, TableRow, Table as p5Table} from 'p5';
 import GameMode from './GameMode';
 import Settings from '../Settings';
 import GameModeMenu from './GameModeMenu';
@@ -210,7 +210,7 @@ class GameModeEdit extends GameMode
 
     /**
      * 
-     * @param {p5.p5InstanceExtensions} sketch 
+     * @param {p5InstanceExtensions} sketch 
      * @param {string} action 
      * @returns {boolean}
      */
@@ -225,7 +225,7 @@ class GameModeEdit extends GameMode
 
     /**
      * 
-     * @param {p5.p5InstanceExtensions} sketch 
+     * @param {p5InstanceExtensions} sketch 
      */
     isPressed(sketch)
     {
@@ -234,7 +234,7 @@ class GameModeEdit extends GameMode
 
     /**
      * 
-     * @param {p5.p5InstanceExtensions} sketch 
+     * @param {p5InstanceExtensions} sketch 
      * @param {number} time 
      */
     tick(sketch, time)
@@ -396,7 +396,7 @@ class GameModeEdit extends GameMode
                                 {
                                     const reader = new FileReader();
                                     reader.onload = () => {
-                                        const t = new p5.Table();
+                                        const t = new p5Table();
                                         const lines = reader.result.replace('\r', '').split('\n');
                                         for (let i = 0; i < lines.length; i++)
                                         {
@@ -410,7 +410,7 @@ class GameModeEdit extends GameMode
                                             }
                                             if (lines[i].length > 0)
                                             {
-                                                const row = new p5.TableRow(lines[i], ',');
+                                                const row = new TableRow(lines[i], ',');
                                                 t.addRow(row);
                                             }
                                         }
@@ -518,7 +518,7 @@ class GameModeEdit extends GameMode
 
     /**
      * 
-     * @param {p5.p5InstanceExtensions} sketch 
+     * @param {p5InstanceExtensions} sketch 
      * @param {number} scale
      * @param {number} width
      * @param {number} height

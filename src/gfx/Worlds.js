@@ -1,15 +1,15 @@
 // eslint-disable-next-line no-unused-vars
-import p5 from 'p5';
+import {p5InstanceExtensions, Table} from 'p5';
 
 
 /**
  * 
- * @param {p5.p5InstanceExtensions} sketch 
+ * @param {p5InstanceExtensions} sketch 
  */
 function load(sketch) {
     for(let i = 1; i <= 3; i++)
     {
-        Worlds[`world_${i}`] = sketch.loadTable(`/res/worlds/world_${i}.csv`);
+        Worlds[`world_${i}`] = sketch.loadTable(`res/worlds/world_${i}.csv`);
     }
     return Worlds;
 }
@@ -18,15 +18,15 @@ function load(sketch) {
 const Worlds = {
     load,
     /**
-     * @type p5.Table
+     * @type Table
      */
     world_1: null,
     /**
-     * @type p5.Table
+     * @type Table
      */
     world_2: null,
     /**
-     * @type p5.Table
+     * @type Table
      */
     world_3: null,
 };

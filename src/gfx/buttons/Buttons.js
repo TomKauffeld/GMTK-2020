@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import p5 from 'p5';
+import {p5InstanceExtensions} from 'p5';
 import ButtonNone from './ButtonNone';
 import ButtonPlay from './ButtonPlay';
 import ButtonSettings from './ButtonSettings';
@@ -7,11 +7,11 @@ import TileSet from '../TileSet';
 
 /**
  * 
- * @param {p5.p5InstanceExtensions} sketch 
+ * @param {p5InstanceExtensions} sketch 
  */
 function load(sketch)
 {
-    sketch.loadImage('/res/buttons.png', (image) => {
+    sketch.loadImage('res/buttons.png', (image) => {
         const main = new TileSet(image, 3, 3);
         main.calculate();
         Buttons.none.load(main.getTile(0, 0, 3, 1));

@@ -38,6 +38,7 @@ module.exports = {
     },
 
     plugins: [
+        new webpack.optimize.ModuleConcatenationPlugin(),
         new webpack.ProgressPlugin(),
         new workboxPlugin.GenerateSW({
             swDest: 'sw.js',
@@ -58,7 +59,13 @@ module.exports = {
     },
 
     optimization: {
-        minimizer: [new TerserPlugin()],
+        minimizer: [new TerserPlugin({
+            cache: true,
+            parallel: true,
+            sourceMap: false,
+
+        })],
+        chunkIds: 'size',
 
         splitChunks: {
             cacheGroups: {

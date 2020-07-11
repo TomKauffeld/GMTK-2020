@@ -574,6 +574,8 @@ class GameModeEdit extends GameMode
             }
         }
         sketch.pop();
+        sketch.fill(255, 0, 0);
+        sketch.square(width * scale - scale / 4, height * scale - scale / 4, scale);
     }
 }
 

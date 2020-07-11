@@ -15,7 +15,7 @@ class ForestMob extends Monster
      */
     constructor(world, posX, posY, dir)
     {
-        super(world, Ressources.sprites.mobs.forestMob.female_thief, 'mouse', posX, posY, dir, 1, 1);
+        super(world, Ressources.sprites.mobs.monster.forest_mob, 'mouse', posX, posY, dir, 1, 1);
     }
     /**
      * 

@@ -23,7 +23,7 @@ class World
         this.table = Ressources.words[`world_${id}`]; // use the number 1 by default to define the map
         this.last = false; //verify if the input is press during the last tick
         this.id = id;
-        /** @type VoidMob[] */
+        /** @type Mob[] */
         this.mobs = [];
 
         /** @type Item[] */
@@ -144,12 +144,12 @@ class World
             this.mobs[i].tick(sketch, time);
             if (this.mobs[i].dead > 1)
             {
-                this.addItem(new Item(this,this.mobs[i].getPointX(),this.mobs[i].getPointY()));
+                this.addItem(new Item(this, this.mobs[i].pos.x, this.mobs[i].pos.y));
                 this.mobs.splice(i, 1);
             }
         }
-        for(let v = this.items.length -1; v >= 0;v--){
-            this.items[v].tick(sketch,time);
+        for(let i = this.items.length -1; i >= 0; i--){
+            this.items[i].tick(sketch, time);
             /*if (this.items[v].takeRange()){
                 this.items.splice(v,1);
             }*/
@@ -251,15 +251,16 @@ class World
                 }
             }
         }
-        const mobs = this.mobs.sort((a, b) => a.pos.y - b.pos.y);
-        for(let i = 0; i < mobs.length; i++)
+
+        let sprites = [];
+        sprites.push(...this.mobs);
+        sprites.push(...this.items);
+
+        sprites = sprites.sort((a, b) => a.pos.y - b.pos.y);
+
+        for(let i = 0; i < sprites.length; i++)
         {
-            mobs[i].render(sketch, scale);
-        }
-        const items = this.items.sort((a,b) => a.pos.y - b.pos.y);
-        for(let v = 0; v < items.length; v++)
-        {
-            items[v].render(sketch, scale);
+            sprites[i].render(sketch, scale);
         }
         sketch.pop(); //apply the translation
     }

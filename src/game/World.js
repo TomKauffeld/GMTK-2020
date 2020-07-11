@@ -238,6 +238,8 @@ class World
         sketch.image(Ressources.ui.life_bar_back, 0, 0, size, size * res);
         const part = this.player.life / 100;
         sketch.image(Ressources.ui.life_bar_front, 0, 0, size * part, size * res, 0, 0, part * Ressources.ui.life_bar_front.width, Ressources.ui.life_bar_front.height);
+        sketch.text('Score : ' + this.player.score  , 50, 70);
+        sketch.textSize(30);
     }
 }
 

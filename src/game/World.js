@@ -172,6 +172,21 @@ class World
 
     /**
      * 
+     * @param {Mob} mob 
+     */
+    attack(mob)
+    {
+        for(let i = 0; i < this.mobs.length; i++)
+        {
+            if (this.mobs[i].entityId !== mob.entityId && this.inRange(mob, this.mobs[i]))
+            {
+                this.mobs[i].life -= mob.strength;
+            }
+        }
+    }
+
+    /**
+     * 
      * @param {number} x 
      * @param {number} y 
      * @returns {boolean}
@@ -233,6 +248,11 @@ class World
             sprites[i].render(sketch, scale);
         }
         sketch.pop(); //apply the translation
+        const size = 5 * scale;
+        const res = Ressources.ui.life_bar_back.height / Ressources.ui.life_bar_back.width;
+        sketch.image(Ressources.ui.life_bar_back, 0, 0, size, size * res);
+        const part = this.player.life / 100;
+        sketch.image(Ressources.ui.life_bar_front, 0, 0, size * part, size * res, 0, 0, part * Ressources.ui.life_bar_front.width, Ressources.ui.life_bar_front.height);
     }
 }
 

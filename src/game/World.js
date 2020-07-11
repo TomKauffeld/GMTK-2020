@@ -114,9 +114,9 @@ class World
             this.mobs[i].tick(sketch, time);
             if (this.mobs[i].dead > 1)
             {
+                this.player.score += 100;
                 this.addItem(new Item(this, this.mobs[i].pos.x, this.mobs[i].pos.y));
                 this.mobs.splice(i, 1);
-                this.world.player.score += 100;
             }
         }
         for(let i = this.items.length -1; i >= 0; i--){

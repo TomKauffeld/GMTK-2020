@@ -18,13 +18,13 @@ class Mob extends Entity
      * @param {number} height 
      * @param {number} life
      */
-    constructor(world, name, posX, posY, dir, maxSpeed = 1, width = 1, height = 1)
+    constructor(world, name, posX, posY, dir, maxSpeed = 1, width = 1, height = 1 , life = 100)
     {
         super(name, posX, posY, dir, width, height);
         this.world = world;
         this.speed = 0;
         this.maxSpeed = maxSpeed;
-        this.life = 100;
+        this.life = life;
     }
 
     /**

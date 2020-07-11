@@ -205,13 +205,17 @@ class World
         }
     }
 
-    //score displaying method:
+    /**
+     * score displaying method
+     * @param {p5.p5InstanceExtensions} sketch 
+     * @param {number} score 
+     */
     displayScore(sketch, score)
     {
-        sketch.text('Score : ' + score, 20, 70);
         sketch.textAlign('left');
         sketch.fill(0, 102, 153);
         sketch.textSize(30);
+        sketch.text('Score : ' + score, 20, 70);
     }
 
     /**

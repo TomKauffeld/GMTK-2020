@@ -1,7 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import p5 from 'p5';
 import Ressources from '../gfx/Ressources';
-import Settings from './Settings';
 
 const BORDER_NONE = 0x00;
 const BORDER_TOP = 0x01;

@@ -9,20 +9,23 @@ import Ressources from './gfx/Ressources';
  */
 function s(sketch)
 {
-    let game = new Game(new GameModeMenu());
+    const game = new Game(new GameModeMenu());
     const width = 10;
     const height = 10;
-    
+    const parent = document.getElementById('sketch');
     sketch.preload = () => {
         Ressources.load(sketch);
     };
 
     sketch.setup = () => {
-        const sk = document.getElementById('sketch');
-        sketch.createCanvas(sk.clientWidth, sk.clientHeight);
+        sketch.createCanvas(parent.clientWidth, parent.clientHeight);
     };
 
     sketch.draw = () => {
+        if (parent.clientHeight !== sketch.height || parent.clientWidth !== sketch.width)
+        {
+            sketch.resizeCanvas(parent.clientWidth, parent.clientHeight);
+        }
         game.tick(sketch, sketch.deltaTime / 1000);
         sketch.clear();
         sketch.background(0);

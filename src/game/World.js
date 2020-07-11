@@ -16,9 +16,9 @@ class World
         /**
          * @type {p5.Table}
          */
-        this.table = Ressources.words[`world_${id}`];
-        this.player = new Player(this, 1, 1, 2, new Settings());
-        this.last = false;
+        this.table = Ressources.words[`world_${id}`]; // use the number 1 by default to define the map
+        this.player = new Player(this, 1, 1, 2, new Settings()); //create player character and place it on the map
+        this.last = false; //verify if the input is press during the last tick
         this.id = id;
     }
 
@@ -48,7 +48,7 @@ class World
                 const old = this.id;
                 while (old === this.id)
                 {
-                    this.id = Math.floor(Math.random() * 2) + 1;
+                    this.id = Math.floor(Math.random() * 2) + 1; //output an id of a map different of the curent map
                 }
                 this.loadNewMap(sketch, this.id);
             }
@@ -66,7 +66,7 @@ class World
      * @param {number} y 
      * @returns {Tile|null}
      */
-    getTile(x, y)
+    getTile(x, y) //check the tile needed
     {
         x = Math.floor(x);
         y = Math.floor(y);
@@ -118,11 +118,11 @@ class World
     render(sketch, scale, width, height)
     {
         const offset = {
-            x: width / 2 - this.player.pos.x - this.player.width / 2,
-            y: height / 2 - this.player.pos.y - this.player.height / 2,
+            x: width / 2 - this.player.pos.x - this.player.width / 2, //center the player on the middle of the map
+            y: height / 2 - this.player.pos.y - this.player.height / 2, //center the player on the middle of the map
         };
-        sketch.push();
-        sketch.translate(offset.x * scale, offset.y * scale);
+        sketch.push(); //save the curent display of map / player / mob
+        sketch.translate(offset.x * scale, offset.y * scale); //translate all entity and map by offset
 
         const minX = Math.max(0, offset.x - width / 2);
         const minY = Math.max(0, offset.y - height / 2);
@@ -140,7 +140,7 @@ class World
             }
         }
         this.player.render(sketch, scale);
-        sketch.pop();
+        sketch.pop(); //apply the translation
     }
 }
 

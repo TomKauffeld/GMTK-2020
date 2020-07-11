@@ -11,11 +11,13 @@ class Item extends Entity
 {
     /**
      * @param {World} world
-     * @param {number} score
+     * @param {number} biome
+     * @param {number} posX
+     * @param {number} posY
      */
-    constructor(world, posX, posY)
+    constructor(world, biome, posX, posY)
     {
-        super(world, 'item', posX, posY, 2, 1, 1);
+        super(world, biome, 'item', posX, posY, 2, 1, 1);
         this.texture = Ressources.sprites.item.foredrop_item;
         this.removeReady=false;
         this.animation = {

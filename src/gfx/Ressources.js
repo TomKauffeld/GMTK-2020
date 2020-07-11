@@ -4,6 +4,7 @@ import Tiles from './Tiles';
 import Sprites from './Sprites';
 import Worlds from './Worlds';
 import Buttons from './buttons/Buttons';
+import UI from './ui/UI';
 
 /**
  * 
@@ -14,6 +15,7 @@ function load(sketch) {
     Ressources.sprites.load(sketch);
     Ressources.words.load(sketch);
     Ressources.buttons.load(sketch);
+    Ressources.ui.load(sketch);
     return Ressources;
 }
 
@@ -22,7 +24,8 @@ const Ressources = {
     tiles: Tiles,
     sprites: Sprites,
     words: Worlds,
-    buttons: Buttons
+    buttons: Buttons,
+    ui: UI
 };
 
 export default Ressources;

@@ -31,8 +31,9 @@ class Tile
      * @param {number} width 
      * @param {number} height 
      * @param {number} border;
+     * @param {number} border_size
      */
-    constructor(type, name, x, y, solid = false, width = 1, height = 1, border = BORDER_NONE)
+    constructor(type, name, x, y, solid = false, width = 1, height = 1, border = BORDER_NONE, border_size = 0.4)
     {
         this.name = name;
         this.type = type;
@@ -44,6 +45,7 @@ class Tile
         this.x = x;
         this.y = y;
         this.border = border;
+        this.border_size = border_size;
         Tile.tiles[`${type}:${name}`] = this;
         if (typeof Tile.collection[type] === 'undefined')
         {
@@ -59,20 +61,19 @@ class Tile
      */
     isSolid(x, y)
     {
-        const border = 0.4;
-        if (isFlagSet(this.border, BORDER_LEFT) && x < border)
+        if (isFlagSet(this.border, BORDER_LEFT) && x < this.border_size)
         {
             return !this.solid;
         }
-        else if (isFlagSet(this.border, BORDER_RIGHT) && x > this.width - border)
+        else if (isFlagSet(this.border, BORDER_RIGHT) && x > this.width - this.border_size)
         {
             return !this.solid;
         }
-        else if (isFlagSet(this.border, BORDER_TOP) && y < border)
+        else if (isFlagSet(this.border, BORDER_TOP) && y < this.border_size)
         {
             return !this.solid;
         }
-        else if (isFlagSet(this.border, BORDER_BOTTOM) && y > this.height - border)
+        else if (isFlagSet(this.border, BORDER_BOTTOM) && y > this.height - this.border_size)
         {
             return !this.solid;
         }
@@ -105,10 +106,11 @@ Tile.collection = {};
  * @param {boolean} solid 
  * @param {number} width 
  * @param {number} height 
+ * @param {number} border_size
  */
-Tile.Create = function(type, name, x, y, solid = false, width = 1, height = 1, border = BORDER_NONE)
+Tile.Create = function(type, name, x, y, solid = false, width = 1, height = 1, border = BORDER_NONE, border_size = 0.4)
 {
-    new Tile(type, name, x, y, solid, width, height, border);
+    new Tile(type, name, x, y, solid, width, height, border, border_size);
 };
 
 function load()
@@ -127,10 +129,12 @@ function load()
         Tile.Create(`grassland_${i}`, 'grass_b_m_dirt', 1, 3, false, 1, 1, BORDER_BOTTOM);
         Tile.Create(`grassland_${i}`, 'grass_m_m_dirt', 0, 0, true,  1, 1, BORDER_ALL);
         Tile.Create(`grassland_${i}`, 'dirt_m_m_grass', 2, 0, true,  1, 1, BORDER_ALL);
-        Tile.Create(`grassland_${i}`, 'dirt_b_r_grass', 0, 4, true, 1, 1, BORDER_TOP_LEFT);
-        Tile.Create(`grassland_${i}`, 'dirt_b_l_grass', 1, 4, true, 1, 1, BORDER_TOP_RIGHT);
-        Tile.Create(`grassland_${i}`, 'dirt_t_r_grass', 0, 5, true, 1, 1, BORDER_BOTTOM_LEFT);
-        Tile.Create(`grassland_${i}`, 'dirt_t_l_grass', 1, 5, true, 1, 1, BORDER_BOTTOM_RIGHT);
+        Tile.Create(`grassland_${i}`, 'dirt_b_r_grass', 0, 4, true, 1, 1, BORDER_TOP_LEFT, 0.6);
+        Tile.Create(`grassland_${i}`, 'dirt_b_l_grass', 1, 4, true, 1, 1, BORDER_TOP_RIGHT, 0.6);
+        Tile.Create(`grassland_${i}`, 'dirt_t_r_grass', 0, 5, true, 1, 1, BORDER_BOTTOM_LEFT, 0.6);
+        Tile.Create(`grassland_${i}`, 'dirt_t_l_grass', 1, 5, true, 1, 1, BORDER_BOTTOM_RIGHT, 0.6);
+        Tile.Create(`grassland_${i}`, 'grass_line_v', 0, 6, false, 1, 1, BORDER_LEFT | BORDER_RIGHT);
+        Tile.Create(`grassland_${i}`, 'grass_line_h', 1, 6, false, 1, 1, BORDER_TOP | BORDER_BOTTOM);
     }
 
     Tile.Create('grassland_3', 'light', 1, 2, false, 1, 1);
@@ -149,6 +153,8 @@ function load()
     Tile.Create('grassland_3', 'dark_b_l_light', 1, 4, false, 1, 1);
     Tile.Create('grassland_3', 'dark_t_r_light', 0, 5, false, 1, 1);
     Tile.Create('grassland_3', 'dark_t_l_light', 1, 5, false, 1, 1);
+    Tile.Create('grassland_3', 'grass_line_v', 0, 6, false, 1, 1);
+    Tile.Create('grassland_3', 'grass_line_h', 1, 6, false, 1, 1);
 
     Tile.Create('grassland_4', 'dirt', 1, 2, true, 1, 1);
     Tile.Create('grassland_4', 'grass', 1, 0, false, 1, 1);
@@ -166,6 +172,28 @@ function load()
     Tile.Create('grassland_4', 'grass_b_l_dirt', 1, 4, false, 1, 1, BORDER_TOP_RIGHT);
     Tile.Create('grassland_4', 'grass_t_r_dirt', 0, 5, false, 1, 1, BORDER_BOTTOM_LEFT);
     Tile.Create('grassland_4', 'grass_t_l_dirt', 1, 5, false, 1, 1, BORDER_BOTTOM_RIGHT);
+    Tile.Create('grassland_4', 'grass_line_v', 0, 6, true, 1, 1, BORDER_LEFT | BORDER_RIGHT);
+    Tile.Create('grassland_4', 'grass_line_h', 1, 6, true, 1, 1, BORDER_TOP | BORDER_BOTTOM);
+
+
+
+    Tile.Create('iceland', 'snow', 1, 2, false, 1, 1);
+    Tile.Create('iceland', 'ice', 1, 0, true, 1, 1);
+    Tile.Create('iceland', 'snow_t_l_ice', 0, 1, false, 1, 1, BORDER_TOP_LEFT);
+    Tile.Create('iceland', 'snow_m_l_ice', 0, 2, false, 1, 1, BORDER_LEFT);
+    Tile.Create('iceland', 'snow_b_l_ice', 0, 3, false, 1, 1, BORDER_BOTTOM_LEFT);
+    Tile.Create('iceland', 'snow_t_r_ice', 2, 1, false, 1, 1, BORDER_TOP_RIGHT);
+    Tile.Create('iceland', 'snow_m_r_ice', 2, 2, false, 1, 1, BORDER_RIGHT);
+    Tile.Create('iceland', 'snow_b_r_ice', 2, 3, false, 1, 1, BORDER_BOTTOM_RIGHT);
+    Tile.Create('iceland', 'snow_t_m_ice', 1, 1, false, 1, 1, BORDER_TOP);
+    Tile.Create('iceland', 'snow_b_m_ice', 1, 3, false, 1, 1, BORDER_BOTTOM);
+    Tile.Create('iceland', 'snow_m_m_ice', 0, 0, true,  1, 1, BORDER_ALL);
+    Tile.Create('iceland', 'ice_m_m_snow', 2, 0, true,  1, 1, BORDER_ALL);
+    Tile.Create('iceland', 'ice_b_r_snow', 0, 4, true, 1, 1, BORDER_TOP_LEFT, 0.6);
+    Tile.Create('iceland', 'ice_b_l_snow', 1, 4, true, 1, 1, BORDER_TOP_RIGHT, 0.6);
+    Tile.Create('iceland', 'ice_t_r_snow', 0, 5, true, 1, 1, BORDER_BOTTOM_LEFT, 0.6);
+    Tile.Create('iceland', 'ice_t_l_snow', 1, 5, true, 1, 1, BORDER_BOTTOM_RIGHT, 0.6);
+
 
     Tile.Create('town_2', 'stone', 1, 2, false, 1, 1);
     Tile.Create('town_2', 'grass', 1, 0, false, 1, 1);

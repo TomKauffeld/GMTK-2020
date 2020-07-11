@@ -28,7 +28,7 @@ class Mob extends Entity
         this.speed = 0;
         this.maxSpeed = maxSpeed;
         this.life = life;
-        this.dead = false;
+        this.dead = 0;
         this.attack = false;
         this.texture = texture;
         this.animation = {
@@ -38,13 +38,19 @@ class Mob extends Entity
         };
         this.oldImage = null;
     }
+    
+    isDead()
+    {
+        return this.dead > 0;
+    }
+
     /**
      * 
      * @param {number} x 
      */
     setPosX(x)
     {
-        if (this.dead || this.life <= 0)
+        if (this.isDead() || this.life <= 0)
         {
             return;
         }
@@ -57,7 +63,7 @@ class Mob extends Entity
      */
     setPosY(y)
     {
-        if (this.dead || this.life <= 0)
+        if (this.isDead() || this.life <= 0)
         {
             return;
         }
@@ -70,11 +76,55 @@ class Mob extends Entity
      */
     setPosD(d)
     {
-        if (this.dead || this.life <= 0)
+        if (this.isDead() || this.life <= 0)
         {
             return;
         }
         this.pos.d = d;
+    }
+
+    /**
+     * 
+     */
+    getPoint()
+    {
+        return {
+            x: this.getPointX(), 
+            y: this.getPointY()
+        };
+    }
+
+    /**
+     * 
+     * @param {Mob} mob 
+     */
+    inRange(mob)
+    {
+        return this.world.inRange(this, mob);
+    }
+
+    /**
+     * 
+     */
+    getRange()
+    {
+        return 1;
+    }
+
+    /**
+     * 
+     */
+    getPointX()
+    {
+        return this.pos.x + this.width / 2;
+    }
+
+    /**
+     * 
+     */
+    getPointY()
+    {
+        return this.pos.y + this.height - 0.2;
     }
 
     /**
@@ -84,8 +134,10 @@ class Mob extends Entity
      */
     tick(sketch, time)
     {
-        if (this.dead)
+        super.tick(sketch, time);
+        if (this.isDead())
         {
+            this.dead += time;
             return;
         }
         const oldX = this.pos.x;
@@ -98,7 +150,7 @@ class Mob extends Entity
             if (this.animation.frame >= this.texture.size.x && this.life <= 0)
             {
                 console.log(`${this.name} is dead`);
-                this.dead = true;
+                this.dead += time;
                 this.animation.frame = this.texture.size.x - 1;
             }
             this.animation.frame %= this.texture.size.x;
@@ -125,7 +177,6 @@ class Mob extends Entity
                 this.pos.y = oldY;
             }
         }
-        super.tick(sketch, time);
     }
 
     /**
@@ -135,6 +186,9 @@ class Mob extends Entity
     takeDamages(damages)
     {
         this.life-=damages;
+        if (this.life <= 0){
+            this.world.player.incrementScore(1);
+        }
     }
 
     /**

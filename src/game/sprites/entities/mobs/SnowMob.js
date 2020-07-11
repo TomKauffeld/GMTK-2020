@@ -24,12 +24,12 @@ class SnowMob extends Monster
      */
     tick(sketch, time)
     {
-        if (this.dead)
+        super.tick(sketch, time);
+        if (this.isDead())
         {
             return;
         }
         this.takeDamages(1);
-        super.tick(sketch, time);
     }
 
     /**

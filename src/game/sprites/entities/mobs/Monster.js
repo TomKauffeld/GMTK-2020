@@ -33,6 +33,8 @@ class Monster extends Mob
             timer: 0
         };
     }
+
+
     /**
      * 
      * @param {p5.p5InstanceExtensions} sketch 
@@ -40,7 +42,8 @@ class Monster extends Mob
      */
     tick(sketch, time)
     {
-        if (this.dead)
+        super.tick(sketch, time);
+        if (this.isDead())
         {
             return;
         }
@@ -80,7 +83,6 @@ class Monster extends Mob
             this.attack = this.keyIsDown(sketch, 'attack');
             this.speed = 0;
         }*/
-        super.tick(sketch, time);
     }
 
     /**

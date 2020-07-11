@@ -247,7 +247,6 @@ class GameModeEdit extends GameMode
                         {
                             if (sketch.mouseX - this.x < (sketch.width - this.x) / 2)
                             {
-                                this.lock = true;
                                 const data = this.table.export();
                                 var blob = new Blob([data], {type: 'text/csv'});
                                 if(window.navigator.msSaveOrOpenBlob) {
@@ -258,7 +257,6 @@ class GameModeEdit extends GameMode
                                     elem.href = window.URL.createObjectURL(blob);
                                     elem.download = 'world.csv';
                                     elem.click();
-                                    elem.onclick = () => this.lock.false;
                                 }
                             }
                             else

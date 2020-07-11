@@ -5,7 +5,7 @@ import World from '../../../World';
 import Ressources from '../../../../gfx/Ressources';
 import Monster from './Monster';
 
-class ForestMob extends Monster
+class VoidMob extends Monster
 {
     /**
      * @param {World} world
@@ -15,7 +15,7 @@ class ForestMob extends Monster
      */
     constructor(world, posX, posY, dir)
     {
-        super(world, Ressources.sprites.mobs.monster.forest_mob, 'Tree', posX, posY, dir, 1, 1);
+        super(world, Ressources.sprites.mobs.monster.void_mob, 'BigBrother', posX, posY, dir, 1, 1);
     }
     /**
      * 
@@ -43,4 +43,4 @@ class ForestMob extends Monster
     }
 }
 
-export default ForestMob;
+export default VoidMob;

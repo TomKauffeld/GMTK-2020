@@ -95,13 +95,13 @@ class Mob extends Entity
         {
             this.animation.timer -= this.animation.time;
             this.animation.frame++;
-            this.animation.frame %= this.texture.size.x;
             if (this.animation.frame >= this.texture.size.x && this.life <= 0)
             {
                 console.log(`${this.name} is dead`);
                 this.dead = true;
                 this.animation.frame = this.texture.size.x - 1;
             }
+            this.animation.frame %= this.texture.size.x;
         }
         if (this.life > 0)
         {
@@ -135,9 +135,6 @@ class Mob extends Entity
     takeDamages(damages)
     {
         this.life-=damages;
-        if (this.life <= 0){
-            return false;
-        }
     }
 
     /**

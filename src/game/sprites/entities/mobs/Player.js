@@ -16,11 +16,13 @@ class Player extends Mob
      * @param {number} posY 
      * @param {number} dir  
      * @param {Settings} settings
+     * @param {number} score
      */
     constructor(world, posX, posY, dir, settings)
     {
         super(world, Ressources.sprites.mobs.player[`${settings.player.sexe}_${settings.player.class}`], 'player', posX, posY, dir, 2, 1, 1, 100);
         this.settings = settings;
+        this.score = 0;
     }
 
     /**
@@ -76,6 +78,11 @@ class Player extends Mob
             this.speed = 0;
         }
         super.tick(sketch, time);
+    }
+
+    incrementScore(score)
+    {
+        this.score+=score;
     }
 
     /**

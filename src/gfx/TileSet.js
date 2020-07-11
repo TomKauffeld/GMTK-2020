@@ -86,7 +86,7 @@ class TileSet
         {
             return null;
         }
-        sketch.image(this.image, dx * scale, dy * scale, dw * scale, dh * scale, sx * this.scale.x, sy * this.scale.y, sw * this.scale.x, sh * this.scale.y);
+        sketch.image(this.image, dx * scale, dy * scale, Math.ceil(dw * scale), Math.ceil(dh * scale), sx * this.scale.x, sy * this.scale.y, Math.floor(sw * this.scale.x), sh * this.scale.y);
     }
 }
 

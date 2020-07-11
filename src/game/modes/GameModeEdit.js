@@ -51,6 +51,12 @@ class Table
         }
     }
 
+    /**
+     * 
+     * @param {number} x 
+     * @param {number} y 
+     * @param {string} tile 
+     */
     setName(x, y, tile)
     {
         if (x >= 0 && y >= 0)
@@ -241,6 +247,7 @@ class GameModeEdit extends GameMode
                         {
                             if (sketch.mouseX - this.x < (sketch.width - this.x) / 2)
                             {
+                                this.lock = true;
                                 const data = this.table.export();
                                 var blob = new Blob([data], {type: 'text/csv'});
                                 if(window.navigator.msSaveOrOpenBlob) {
@@ -249,10 +256,9 @@ class GameModeEdit extends GameMode
                                 else{
                                     var elem = window.document.createElement('a');
                                     elem.href = window.URL.createObjectURL(blob);
-                                    elem.download = 'world.csv';        
-                                    document.body.appendChild(elem);
-                                    elem.click();        
-                                    document.body.removeChild(elem);
+                                    elem.download = 'world.csv';
+                                    elem.click();
+                                    elem.onclick = () => this.lock.false;
                                 }
                             }
                             else
@@ -277,15 +283,19 @@ class GameModeEdit extends GameMode
                                                     t.addColumn(j + 1);
                                                 }
                                             }
-                                            const row = new p5.TableRow(lines[i], ',');
-                                            t.addRow(row);
+                                            if (lines[i].length > 0)
+                                            {
+                                                const row = new p5.TableRow(lines[i], ',');
+                                                t.addRow(row);
+                                            }
                                         }
                                         this.table = new Table();
                                         for(let y = 0; y < t.getRowCount(); y++)
                                         {
                                             for (let x = 0; x < t.getColumnCount(); x++)
                                             {
-                                                this.table.setName(x, y, t.get(y, x));
+                                                const l = t.get(y, x);
+                                                this.table.setName(x, y, l.trim());
                                             }
                                         }
                                         this.lock = false;
@@ -366,7 +376,7 @@ class GameModeEdit extends GameMode
         }
         else
         {
-            let r = this.table.get(y, x);
+            const r = this.table.get(y, x);
             if (typeof r === 'string' && typeof Tile.tiles[r] === 'object')
             {
                 return Tile.tiles[r];
@@ -399,13 +409,12 @@ class GameModeEdit extends GameMode
 
         const minX = Math.max(0, this.offset.x - width / 2);
         const minY = Math.max(0, this.offset.y - height / 2);
-        const maxX = Math.min(width - this.offset.x) - 4;
-        const maxY = Math.min(height - this.offset.y);
+        const maxX = width - this.offset.x - 4;
+        const maxY = height - this.offset.y;
         for (let y = minY; y < maxY; y++)
         {
             for (let x = minX; x < maxX; x++)
             {
-                const tile = this.getTile(x, y);
                 if (x < this.table.getColumnCount() && y < this.table.getRowCount())
                 {
                     sketch.stroke(0, 0, 255);
@@ -416,6 +425,7 @@ class GameModeEdit extends GameMode
                 }
                 sketch.noFill();
                 sketch.square(Math.floor(x) * scale, Math.floor(y) * scale, scale);
+                const tile = this.getTile(x, y);
                 if (tile !== null)
                 {
                     tile.render(sketch, scale, Math.floor(x), Math.floor(y));

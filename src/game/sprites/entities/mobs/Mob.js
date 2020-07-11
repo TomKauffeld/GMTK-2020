@@ -23,8 +23,7 @@ class Mob extends Entity
      */
     constructor(world, texture, name, posX, posY, dir, maxSpeed = 1, width = 1, height = 1 , life = 100)
     {
-        super(name, posX, posY, dir, width, height);
-        this.world = world;
+        super(world, name, posX, posY, dir, width, height);
         this.speed = 0;
         this.maxSpeed = maxSpeed;
         this.life = life;

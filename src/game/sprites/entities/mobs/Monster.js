@@ -56,7 +56,7 @@ class Monster extends Mob
         }
         this.attack = false;
         this.speed = 0;
-        if(this.inRange(this,Player)){
+        if(this.inRange(this.world.player)){
             this.attack = true;
         }
         else if (this.action.currentAction === 'up')

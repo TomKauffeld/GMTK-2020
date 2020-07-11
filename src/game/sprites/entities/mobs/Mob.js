@@ -23,8 +23,7 @@ class Mob extends Entity
      */
     constructor(world, texture, name, posX, posY, dir, maxSpeed = 1, width = 1, height = 1 , life = 100)
     {
-        super(name, posX, posY, dir, width, height);
-        this.world = world;
+        super(world, name, posX, posY, dir, width, height);
         this.speed = 0;
         this.maxSpeed = maxSpeed;
         this.life = life;
@@ -86,46 +85,21 @@ class Mob extends Entity
     /**
      * 
      */
-    getPoint()
-    {
-        return {
-            x: this.getPointX(), 
-            y: this.getPointY()
-        };
-    }
-
-    /**
-     * 
-     * @param {Mob} mob 
-     */
-    inRange(mob)
-    {
-        return this.world.inRange(this, mob);
-    }
-
-    /**
-     * 
-     */
     getRange()
     {
         return 1;
     }
 
-    /**
-     * 
-     */
-    getPointX()
-    {
-        return this.pos.x + this.width / 2;
-    }
 
     /**
      * 
+     * @param {Entity} entity 
      */
-    getPointY()
+    inRange(entity)
     {
-        return this.pos.y + this.height - 0.2;
+        return this.world.inRange(this, entity);
     }
+  
 
     /**
      * 

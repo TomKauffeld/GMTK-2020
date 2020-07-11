@@ -2,6 +2,8 @@
 import p5 from 'p5';
 // eslint-disable-next-line no-unused-vars
 import Mob from './sprites/entities/mobs/Mob';
+// eslint-disable-next-line no-unused-vars
+import Entity from './sprites/entities/Entity';
 import Tile from './Tile';
 import Player from './sprites/entities/mobs/Player';
 import Settings from './Settings';
@@ -23,7 +25,7 @@ class World
         this.table = Ressources.words[`world_${id}`]; // use the number 1 by default to define the map
         this.last = false; //verify if the input is press during the last tick
         this.id = id;
-        /** @type VoidMob[] */
+        /** @type Mob[] */
         this.mobs = [];
 
         /** @type Item[] */
@@ -36,19 +38,19 @@ class World
 
     /**
      * 
-     * @param {Mob} mobSource 
-     * @param {Mob} mobDestination 
+     * @param {Mob} from 
+     * @param {Entity} to 
      */
-    inRange(mobSource, mobDestination)
+    inRange(from, to)
     {
-        const R = Math.sqrt(Math.pow(mobDestination.getPointX() - mobSource.getPointX(), 2) + Math.pow(mobDestination.getPointY() - mobSource.getPointY(), 2));
-        if (R > mobSource.getRange())
+        const R = Math.sqrt(Math.pow(to.getPointX() - from.getPointX(), 2) + Math.pow(to.getPointY() - from.getPointY(), 2));
+        if (R > from.getRange())
         {
             return false;
         }
         const r = Math.PI * 0.25;
-        const A = Math.atan2(mobDestination.getPointY() - mobSource.getPointY(), mobDestination.getPointX() - mobSource.getPointX());
-        const D = [Math.PI * 0.5, 0, Math.PI * 1.5, Math.PI][mobSource.pos.d];
+        const A = Math.atan2(to.getPointY() - from.getPointY(), to.getPointX() - from.getPointX());
+        const D = [Math.PI * 0.5, 0, Math.PI * 1.5, Math.PI][from.pos.d];
         const S = D - r < 0 ? Math.PI * 2 - D - r : D - r;
         const E = D + r > Math.PI * 2 ? r + D - Math.PI * 2: D + r;
         if (S < E)
@@ -72,38 +74,6 @@ class World
         }
     }
 
-    takeRange(mobSource, mobDestination)
-    {
-        const R = Math.sqrt(Math.pow(mobDestination.getPointX() - mobSource.getPointX(), 2) + Math.pow(mobDestination.getPointY() - mobSource.getPointY(), 2));
-        if (R > mobSource.getRange())
-        {
-            return false;
-        }
-        const r = Math.PI * 0.25;
-        const A = Math.atan2(mobDestination.getPointY() - mobSource.getPointY(), mobDestination.getPointX() - mobSource.getPointX());
-        const D = [Math.PI * 0.5, 0, Math.PI * 1.5, Math.PI][mobSource.pos.d];
-        const S = D - r < 0 ? Math.PI * 2 - D - r : D - r;
-        const E = D + r > Math.PI * 2 ? r + D - Math.PI * 2: D + r;
-        if (S < E)
-        {
-            return S < A && A < E;
-        }
-        else
-        {
-            if (A > S)
-            {
-                return true;
-            }
-            else if (A < E)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-    }
 
     /**
      * 
@@ -144,15 +114,15 @@ class World
             this.mobs[i].tick(sketch, time);
             if (this.mobs[i].dead > 1)
             {
-                this.addItem(new Item(this,this.mobs[i].getPointX(),this.mobs[i].getPointY()));
+                this.addItem(new Item(this, this.mobs[i].pos.x, this.mobs[i].pos.y));
                 this.mobs.splice(i, 1);
             }
         }
-        for(let v = this.items.length -1; v >= 0;v--){
-            this.items[v].tick(sketch,time);
-            /*if (this.items[v].takeRange()){
-                this.items.splice(v,1);
-            }*/
+        for(let i = this.items.length -1; i >= 0; i--){
+            this.items[i].tick(sketch, time);
+            if (this.items[i].removeReady){
+                this.items.splice(i,1);
+            }
         }
         if (sketch.keyIsDown(sketch.BACKSPACE))
         {
@@ -251,15 +221,16 @@ class World
                 }
             }
         }
-        const mobs = this.mobs.sort((a, b) => a.pos.y - b.pos.y);
-        for(let i = 0; i < mobs.length; i++)
+
+        let sprites = [];
+        sprites.push(...this.mobs);
+        sprites.push(...this.items);
+
+        sprites = sprites.sort((a, b) => a.pos.y - b.pos.y);
+
+        for(let i = 0; i < sprites.length; i++)
         {
-            mobs[i].render(sketch, scale);
-        }
-        const items = this.items.sort((a,b) => a.pos.y - b.pos.y);
-        for(let v = 0; v < items.length; v++)
-        {
-            items[v].render(sketch, scale);
+            sprites[i].render(sketch, scale);
         }
         sketch.pop(); //apply the translation
     }

@@ -29,7 +29,44 @@ class World
         this.player = new Player(this, 1, 1, 2, new Settings()); //create player character and place it on the map
         this.addMob(this.player);
         this.addMob(new VoidMob(this,2,2,2));
+    }
 
+    /**
+     * 
+     * @param {Mob} mobSource 
+     * @param {Mob} mobDestination 
+     */
+    inRange(mobSource, mobDestination)
+    {
+        const R = Math.sqrt(Math.pow(mobDestination.getPointX() - mobSource.getPointX(), 2) + Math.pow(mobDestination.getPointY() - mobSource.getPointY(), 2));
+        if (R > mobSource.getRange())
+        {
+            return false;
+        }
+        const r = Math.PI * 0.25;
+        const A = Math.atan2(mobDestination.getPointY() - mobSource.getPointY(), mobDestination.getPointX() - mobSource.getPointX());
+        const D = [Math.PI * 0.5, 0, Math.PI * 1.5, Math.PI][mobSource.pos.d];
+        const S = D - r < 0 ? Math.PI * 2 - D - r : D - r;
+        const E = D + r > Math.PI * 2 ? r + D - Math.PI * 2: D + r;
+        if (S < E)
+        {
+            return S < A && A < E;
+        }
+        else
+        {
+            if (A > S)
+            {
+                return true;
+            }
+            else if (A < E)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 
     /**
@@ -43,10 +80,9 @@ class World
 
     /**
      * 
-     * @param {p5.p5InstanceExtensions} sketch 
      * @param {number} id
      */
-    loadNewMap(sketch, id)
+    loadNewMap(id)
     {
         this.id = id;
         this.table = Ressources.words[`world_${id}`];
@@ -76,7 +112,7 @@ class World
                 {
                     this.id = Math.floor(Math.random() * 3) + 1; //output an id of a map different of the curent map
                 }
-                this.loadNewMap(sketch, this.id);
+                this.loadNewMap(this.id);
             }
             this.last = true;
         }

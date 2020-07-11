@@ -172,6 +172,21 @@ class World
 
     /**
      * 
+     * @param {Mob} mob 
+     */
+    attack(mob)
+    {
+        for(let i = 0; i < this.mobs.length; i++)
+        {
+            if (this.mobs[i].entityId !== mob.entityId && this.inRange(mob, this.mobs[i]))
+            {
+                this.mobs[i].life -= mob.strength;
+            }
+        }
+    }
+
+    /**
+     * 
      * @param {number} x 
      * @param {number} y 
      * @returns {boolean}

@@ -23,6 +23,7 @@ class Player extends Mob
         super(world, Ressources.sprites.mobs.player[`${settings.player.sexe}_${settings.player.class}`], 'player', posX, posY, dir, 2, 1, 1, 100);
         this.settings = settings;
         this.score = 0;
+        this.strength = 100;
     }
 
     /**
@@ -83,7 +84,7 @@ class Player extends Mob
 
     incrementScore(score)
     {
-        this.score+=score;
+        this.score += score;
     }
 
 

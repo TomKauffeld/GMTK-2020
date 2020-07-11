@@ -15,7 +15,7 @@ class DesertMob extends Monster
      */
     constructor(world, posX, posY, dir)
     {
-        super(world, Ressources.sprites.mobs.monster.desert_mob, 'SandGolem', posX, posY, dir, 1, 1);
+        super(world, 1, Ressources.sprites.mobs.monster.desert_mob, 'SandGolem', posX, posY, dir, 1, 1);
     }
     /**
      * 

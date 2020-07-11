@@ -33,7 +33,7 @@ class World
 
         this.player = new Player(this, 1, 1, 2, new Settings()); //create player character and place it on the map
         this.addMob(this.player);
-        this.addMob(new VoidMob(this,2,2,2));
+        this.addMob(new VoidMob(this, 2, 2, 2));
     }
 
     /**
@@ -47,6 +47,10 @@ class World
         if (R > from.getRange())
         {
             return false;
+        }
+        if (R < from.getRange() / 2)
+        {
+            return true;
         }
         const r = Math.PI * 0.25;
         const A = Math.atan2(to.getPointY() - from.getPointY(), to.getPointX() - from.getPointX());
@@ -115,7 +119,8 @@ class World
             if (this.mobs[i].dead > 1)
             {
                 this.player.score += 100;
-                this.addItem(new Item(this, this.mobs[i].biome, this.mobs[i].pos.x, this.mobs[i].pos.y));
+                const item = new Item(this, this.mobs[i].biome, this.mobs[i].pos.x, this.mobs[i].pos.y);
+                this.addItem(item);
                 this.mobs.splice(i, 1);
             }
         }

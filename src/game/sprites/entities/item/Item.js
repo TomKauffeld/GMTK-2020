@@ -25,6 +25,7 @@ class Item extends Entity
             timer: 0,
             time: 0.5 / this.texture.size.x
         };
+        this.timer = 0;
     }
 
     /**
@@ -33,14 +34,22 @@ class Item extends Entity
      */
     inRange(mob)
     {
-        return Math.sqrt(Math.pow(this.getPointX() - mob.getPointX(), 2) + Math.pow(this.getPointY() - mob.getPointY(), 2)) < mob.getRange();
+        if (this.timer < 0.5)
+        {
+            return false;
+        }
+        return Math.sqrt(Math.pow(this.getPointX() - mob.getPointX(), 2) + Math.pow(this.getPointY() - mob.getPointY(), 2)) < mob.getRange() / 4;
     }
 
     /**
      * 
      */
     takeItem(){
-        if (Math.random() > 0){
+        if (this.timer < 0.5)
+        {
+            return;
+        }
+        if (Math.random() > .5){
             this.world.player.strength += Math.random(-3,3);
         }
         else
@@ -59,6 +68,7 @@ class Item extends Entity
     {
         super.tick(sketch, time);
         this.animation.timer += time;
+        this.timer += time;
         if (this.animation.timer > this.animation.time)
         {
             this.animation.timer -= this.animation.time;
@@ -80,7 +90,9 @@ class Item extends Entity
     {
         super.render(sketch, scale);
         const tx = this.animation.frame;
-        this.texture.draw(sketch, this.pos.x, this.pos.y, scale, tx, 0, this.width, this.height);
+        const ty = this.biome;
+        const s = 0.2;
+        this.texture.draw(sketch, this.getPointX() - s * this.width / 2 , this.getPointY() - s * this.height / 2, scale, tx, ty, s * this.width, s * this.height, 1, 1);
     }
 }
 

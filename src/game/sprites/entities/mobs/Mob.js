@@ -135,9 +135,6 @@ class Mob extends Entity
     takeDamages(damages)
     {
         this.life-=damages;
-        if (this.life <= 0){
-            return false;
-        }
     }
 
     /**

@@ -1,7 +1,5 @@
 // eslint-disable-next-line no-unused-vars
 import p5 from 'p5';
-// eslint-disable-next-line no-unused-vars
-import Game from '../Game';
 import GameModeButtons from './GameModeButtons';
 import GameModePlay from './GameModePlay';
 import GameModeSettings from './GameModeSettings';
@@ -11,7 +9,6 @@ class GameModeMenu extends GameModeButtons
     constructor()
     {
         super('Menu', ['Play', 'Settings']);
-        this.buttons = {};
     }
 
     /**
@@ -26,31 +23,18 @@ class GameModeMenu extends GameModeButtons
 
     /**
      * 
-     * @param {p5.p5InstanceExtensions} sketch 
-     * @param {Game} game
-     */
-    load(sketch, game)
-    {
-        super.load(sketch, game);
-        //this.loadButton(sketch, 'Play');
-        //this.loadButton(sketch, 'Settings');
-    }
-
-    /**
-     * 
-     * @param {p5.p5InstanceExtensions} sketch 
      * @param {string} button 
      */
-    onClick(sketch, button)
+    onClick(button)
     {
-        super.onClick(sketch, button);
+        super.onClick(button);
         switch(button)
         {
         case 'play':
-            this.setGameMode(sketch, new GameModePlay());
+            this.setGameMode(new GameModePlay());
             break;
         case 'settings':
-            this.setGameMode(sketch, new GameModeSettings(this));
+            this.setGameMode(new GameModeSettings(this));
             break;
         }
     }

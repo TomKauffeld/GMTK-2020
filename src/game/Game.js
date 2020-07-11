@@ -21,41 +21,19 @@ class Game
 
     /**
      * 
-     * @param {p5.p5InstanceExtensions} sketch 
-     */
-
-    load(sketch)
-    {
-        if (this.gamemode !== null)
-        {
-            this.gamemode.load(sketch, this);
-        }
-    }
-
-    /**
-     * 
-     * @param {p5.p5InstanceExtensions} sketch 
-     */
-    unload(sketch)
-    {
-        if (this.gamemode !== null)
-        {
-            this.gamemode.unload(sketch);
-        }
-    }
-
-    /**
-     * 
-     * @param {p5.p5InstanceExtensions} sketch 
      * @param {GameMode} gamemode 
      */
-    setGameMode(sketch, gamemode = null)
+    setGameMode(gamemode = null)
     {
         if (this.newGamemode !== undefined)
         {
             return;
         }
         this.newGamemode = gamemode;
+        if (typeof gamemode.render !== 'function')
+        {
+            throw new Error();
+        }
         this.newKey = true;
         this.newMouse = true;
     }
@@ -76,18 +54,10 @@ class Game
         {
             this.gamemode = this.newGamemode;
             this.newGamemode = undefined;
-            if (this.gamemode !== null)
-            {
-                console.log('gamemode : ' + this.gamemode.name);
-                this.gamemode.load(sketch, this);
-            }
-            else
-            {
-                console.log('gamemode : N/A');
-            }
         }
         else if (this.gamemode !== null)
         {
+            this.gamemode.game = this;
             this.gamemode.tick(sketch, time);
         }
     }
@@ -103,7 +73,11 @@ class Game
     {
         if (this.gamemode !== null)
         {
-            this.gamemode.render(sketch, scale, width, height);
+            this.gamemode.game = this;
+            if (typeof this.gamemode.render === 'function')
+            {
+                this.gamemode.render(sketch, scale, width, height);
+            }
         }
     }
 }

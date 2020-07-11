@@ -1,7 +1,7 @@
 import p5 from 'p5';
 import Game from './game/Game';
 import GameModeMenu from './game/modes/GameModeMenu';
-import Tile from './game/Tile';
+import Ressources from './gfx/Ressources';
 
 /**
  * 
@@ -14,8 +14,7 @@ function s(sketch)
     const height = 10;
     
     sketch.preload = () => {
-        game.load(sketch);
-        Tile.Load(sketch);
+        Ressources.load(sketch);
     };
 
     sketch.setup = () => {

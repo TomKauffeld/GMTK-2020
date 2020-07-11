@@ -29,34 +29,23 @@ class GameModeSettings extends GameModeButtons
         super.tick(sketch, time);
         if (sketch.keyIsDown(sketch.ESCAPE))
         {
-            this.setGameMode(sketch, this.previous);
+            this.setGameMode(this.previous);
         }
     }
 
     /**
      * 
-     * @param {p5.p5InstanceExtensions} sketch 
      * @param {string} button 
      */
-    onClick(sketch, button)
+    onClick(button)
     {
-        super.onClick(sketch, button);
+        super.onClick(button);
         switch(button)
         {
         case 'return to menu':
-            this.setGameMode(sketch, new GameModeMenu());
+            this.setGameMode(new GameModeMenu());
             break;
         }
-    }
-
-    /**
-     * 
-     * @param {p5.p5InstanceExtensions} sketch 
-     * @param {Game} game
-     */
-    load(sketch, game)
-    {
-        super.load(sketch, game);
     }
 
     /**

@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import p5 from 'p5';
+import Ressources from '../gfx/Ressources';
 
 const BORDER_NONE = 0x00;
 const BORDER_TOP = 0x01;
@@ -82,21 +83,7 @@ class Tile
      */
     render(sketch, scale, posX, posY)
     {
-        const image = Tile.types[this.type];
-        const scaleX = image.width / 3;
-        const scaleY = image.height / 4;
-        const dx = posX * scale;
-        const dy = posY * scale;
-        const dw = this.width * scale;
-        const dh = this.height * scale;
-        const sx = this.x * scaleX;
-        const sy = this.y * scaleY;
-        const sw = this.width * scaleX;
-        const sh = this.height * scaleY;
-        sketch.noFill();
-        sketch.stroke(255);
-        sketch.rect(dx, dy, dw, dh);
-        sketch.image(Tile.types[this.type], dx, dy, dw, dh, sx, sy, sw, sh);
+        Ressources.tiles[this.type].draw(sketch, posX, posY, scale, this.x, this.y, this.width, this.height);
     }
 }
 Tile.tiles = {};
@@ -115,18 +102,8 @@ Tile.Create = function(type, name, x, y, solid = false, width = 1, height = 1, b
     new Tile(type, name, x, y, solid, width, height, border);
 };
 
-/**
- * 
- * @param {p5.p5InstanceExtensions} sketch 
- */
-Tile.Load = function(sketch)
+function load()
 {
-    Tile.types = {
-        grassland_1: sketch.loadImage('/res/tiles/grasslands1.png'),
-        grassland_2: sketch.loadImage('/res/tiles/grasslands2.png'),
-        grassland_3: sketch.loadImage('/res/tiles/grasslands3.png'),
-        grassland_4: sketch.loadImage('/res/tiles/grasslands4.png'),
-    };
     for (let i = 1; i <= 2; i++)
     {
         Tile.Create(`grassland_${i}`, 'grass', 1, 2, false, 1, 1);
@@ -161,7 +138,7 @@ Tile.Load = function(sketch)
     Tile.Create('grassland_4', 'dirt_b_r_grass', 2, 3, true, 1, 1, BORDER_BOTTOM_RIGHT);
     Tile.Create('grassland_4', 'dirt_t_m_grass', 1, 1, true, 1, 1, BORDER_TOP);
     Tile.Create('grassland_4', 'dirt_b_m_grass', 1, 3, true, 1, 1, BORDER_BOTTOM);
-};
-
+}
+load();
 
 export default Tile;

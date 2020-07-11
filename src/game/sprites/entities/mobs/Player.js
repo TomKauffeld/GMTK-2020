@@ -5,31 +5,25 @@ import Settings from '../../../Settings';
 // eslint-disable-next-line no-unused-vars
 import World from '../../../World';
 import Mob from './Mob';
+import Ressources from '../../../../gfx/Ressources';
 
 class Player extends Mob
 {
     /**
      * 
      * @param {World} world
-     * @param {p5.p5InstanceExtensions} sketch 
-     * @param {string} name 
      * @param {number} posX 
      * @param {number} posY 
      * @param {number} dir  
      * @param {Settings} settings
      */
-    constructor(world, sketch, posX, posY, dir, settings)
+    constructor(world, posX, posY, dir, settings)
     {
         super(world, 'player', posX, posY, dir, 1, 1);
         this.settings = settings;
-        this.image = sketch.loadImage(`/res/sprites/mobs/player/${settings.player.sexe}_${settings.player.class}.png`);
         this.animation = {
             frame: 0,
             counter: 0
-        };
-        this.scale = {
-            x: this.image.width / 4,
-            y: this.image.height / 16
         };
         this.oldImage = null;
         this.attack = false;
@@ -93,10 +87,6 @@ class Player extends Mob
      */
     render(sketch, scale)
     {
-        this.scale = {
-            x: this.image.width / 4,
-            y: this.image.height / 16
-        };
         const dir = [4, 12, 0, 8][this.pos.d];
         const ty = this.speed > 0 ? dir + 1 : (this.attack ? dir + 2 : dir);
         if (this.oldImage !== ty)
@@ -106,9 +96,7 @@ class Player extends Mob
             this.animation.frame = 0;
         }
         const tx = this.animation.frame;
-        const ix = tx * this.scale.x;
-        const iy = ty * this.scale.y;
-        sketch.image(this.image, this.pos.x * scale, this.pos.y * scale, this.width * scale, this.height * scale, ix, iy, this.scale.x, this.scale.y);
+        Ressources.sprites.mobs.player[`${this.settings.player.sexe}_${this.settings.player.class}`].draw(sketch, this.pos.x, this.pos.y, scale, tx, ty, this.width, this.height);
         this.animation.counter++;
         if (this.animation.counter > 10)
         {

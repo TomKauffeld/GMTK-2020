@@ -3,21 +3,21 @@ import p5 from 'p5';
 import Tile from './Tile';
 import Player from './sprites/entities/mobs/Player';
 import Settings from './Settings';
+import Ressources from '../gfx/Ressources';
 
 class World
 {
     /**
      * 
-     * @param {p5.p5InstanceExtensions} sketch 
      * @param {number} id
      */
-    constructor(sketch, id)
+    constructor(id)
     {
         /**
          * @type {p5.Table}
          */
-        this.table = sketch.loadTable(`/res/worlds/world_${id}.csv`, 'csv');
-        this.player = new Player(this, sketch, 1, 1, 2, new Settings());
+        this.table = Ressources.words[`world_${id}`];
+        this.player = new Player(this, 1, 1, 2, new Settings());
         this.last = false;
         this.id = id;
     }
@@ -30,7 +30,7 @@ class World
     loadNewMap(sketch, id)
     {
         this.id = id;
-        sketch.loadTable(`/res/worlds/world_${id}.csv`, 'csv', (table) => this.table = table);
+        this.table = Ressources.words[`world_${id}`];
     }
 
     /**

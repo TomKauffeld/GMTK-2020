@@ -1,8 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import p5 from 'p5';
-// eslint-disable-next-line no-unused-vars
-import Game from '../Game';
 import GameMode from './GameMode';
+import Ressources from '../../gfx/Ressources';
 
 class GameModeButtons extends GameMode
 {
@@ -14,8 +13,7 @@ class GameModeButtons extends GameMode
     constructor(name, buttons = [])
     {
         super(name);
-        this.buttons = {};
-        this.buttonNames = buttons;
+        this.buttons = buttons;
     }
 
     /**
@@ -30,24 +28,10 @@ class GameModeButtons extends GameMode
 
     /**
      * 
-     * @param {p5.p5InstanceExtensions} sketch 
      * @param {string} button 
      */
-    loadButton(sketch, button)
-    {
-        this.buttons[button.toLowerCase()] = {
-            normal: sketch.loadImage(`/res/buttons/Button_${button}.png`, () => {}, () => this.buttons[button.toLowerCase()] = undefined),
-            highlight:  sketch.loadImage(`/res/buttons/Button_${button}_Highlighted.png`, () => {}, () => this.buttons[button.toLowerCase()] = undefined),
-            selected:  sketch.loadImage(`/res/buttons/Button_${button}_Selected.png`, () => {}, () => this.buttons[button.toLowerCase()] = undefined),
-        };
-    }
-
-    /**
-     * 
-     * @param {p5.p5InstanceExtensions} sketch 
-     * @param {string} button 
-     */
-    onClick(sketch, button)
+    // eslint-disable-next-line no-unused-vars
+    onClick(button)
     {
     }
     
@@ -69,22 +53,23 @@ class GameModeButtons extends GameMode
         const h = w / 2.6;
         const x = posX * scale + width / 2 - w / 2;
         const y = posY * scale / 2.6 + height / 2 - h / 2;
+        const b = typeof Ressources.buttons[button] === 'object' ? Ressources.buttons[button] : null;
         let image = null;
         if (sketch.mouseX >= x && sketch.mouseX <= x + w && sketch.mouseY >= y && sketch.mouseY <= y + h)
         {
             if (sketch.mouseIsPressed)
             {
-                image = typeof this.buttons[button] === 'object' ? this.buttons[button].selected : null;
-                this.onClick(sketch, button);
+                image = b === null ? null : b.selected;
+                this.onClick(button);
             }
             else
             {
-                image = typeof this.buttons[button] === 'object' ? this.buttons[button].highlight : null;
+                image = b === null ? null : b.highlighted;
             }
         }
         else
         {
-            image = typeof this.buttons[button] === 'object' ? this.buttons[button].normal : null;
+            image = b === null ? null : b.normal;
         }
         if (image !== null)
         {
@@ -110,21 +95,6 @@ class GameModeButtons extends GameMode
     /**
      * 
      * @param {p5.p5InstanceExtensions} sketch 
-     * @param {Game} game
-     */
-    load(sketch, game)
-    {
-        super.load(sketch, game);
-        this.loadButton(sketch, 'None');
-        for (let i = 0; i < this.buttonNames.length; i++)
-        {
-            this.loadButton(sketch, this.buttonNames[i]);
-        }
-    }
-
-    /**
-     * 
-     * @param {p5.p5InstanceExtensions} sketch 
      * @param {number} scale
      * @param {number} width
      * @param {number} height
@@ -132,15 +102,15 @@ class GameModeButtons extends GameMode
     render(sketch, scale, width, height)
     {
         super.render(sketch, scale, width, height);
-        const h = (this.buttonNames.length) * 0.75;
+        const h = (this.buttons.length) * 0.75;
         let y = - h / 2;
-        if (this.buttonNames.length === 1)
+        if (this.buttons.length === 1)
         {
             y = 0;
         }
-        for (let i = 0; i < this.buttonNames.length; i++)
+        for (let i = 0; i < this.buttons.length; i++)
         {
-            this.drawButton(sketch, width * scale, height * scale, this.buttonNames[i], 0, y);
+            this.drawButton(sketch, width * scale, height * scale, this.buttons[i], 0, y);
             y += 1.5;
         }
     }

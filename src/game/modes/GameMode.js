@@ -12,6 +12,9 @@ class GameMode
     constructor(name)
     {
         this.name = name;
+        /**
+         * @type Game
+         */
         this.game = null;
     }
 
@@ -28,24 +31,13 @@ class GameMode
 
     /**
      * 
-     * @param {p5.p5InstanceExtensions} sketch 
-     * @param {Game}
-     */
-    load(sketch, game)
-    {
-        this.game = game;
-    }
-
-    /**
-     * 
-     * @param {p5.p5InstanceExtensions} sketch
      * @param {GameMode} gameMode 
      */
-    setGameMode(sketch, gameMode)
+    setGameMode(gameMode)
     {
         if (this.game !== null)
         {
-            this.game.setGameMode(sketch, gameMode);
+            this.game.setGameMode(gameMode);
         }
     }
 

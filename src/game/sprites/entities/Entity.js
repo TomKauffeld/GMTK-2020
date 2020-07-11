@@ -25,6 +25,7 @@ class Entity
      * @param {p5.p5InstanceExtensions} sketch 
      * @param {number} time 
      */
+    // eslint-disable-next-line no-unused-vars
     tick(sketch, time){}
 
     /**
@@ -32,6 +33,7 @@ class Entity
      * @param {p5.p5InstanceExtensions} sketch 
      * @param {number} scale
      */
+    // eslint-disable-next-line no-unused-vars
     render(sketch, scale){}
 }
 

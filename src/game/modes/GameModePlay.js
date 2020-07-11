@@ -11,7 +11,7 @@ class GameModePlay extends GameMode
     constructor()
     {
         super('Game');
-        this.world = null;
+        this.world = new World(1);
     }
 
     /**
@@ -24,25 +24,11 @@ class GameModePlay extends GameMode
         super.tick(sketch, time);
         if (sketch.keyIsDown(sketch.ESCAPE))
         {
-            this.setGameMode(sketch, new GameModeSettings(this));
+            this.setGameMode(new GameModeSettings(this));
         }
-        else if (this.world !== null)
+        else
         {
             this.world.tick(sketch, time);
-        }
-    }
-
-    /**
-     * 
-     * @param {p5.p5InstanceExtensions} sketch 
-     * @param {Game} game
-     */
-    load(sketch, game)
-    {
-        super.load(sketch, game);
-        if (this.world === null)
-        {
-            this.world = new World(sketch, 1);
         }
     }
 
@@ -56,10 +42,7 @@ class GameModePlay extends GameMode
     render(sketch, scale, width, height)
     {
         super.render(sketch, scale, width, height);
-        if (this.world !== null)
-        {
-            this.world.render(sketch, scale, width, height);
-        }
+        this.world.render(sketch, scale, width, height);
     }
 }
 

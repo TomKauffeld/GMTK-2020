@@ -15,18 +15,13 @@ class ForestMob extends Mob
      */
     constructor(world, posX, posY, dir)
     {
-        super(world, 'mouse', posX, posY, dir, 1, 1);
-        this.animation = {
-            frame: 0,
-            counter: 0
-        };
-        this.oldImage = null;
-        this.attack = false;
+        super(world, Ressources.sprites.mobs.forestMob.female_thief, 'mouse', posX, posY, dir, 1, 1);
         this.actions = [
             'up',
             'down',
             'left',
-            'right'
+            'right',
+            'none'
         ]; //list des déplacement du mob
         this.action = {
             currentAction: 'none',
@@ -82,23 +77,6 @@ class ForestMob extends Mob
      */
     render(sketch, scale)
     {
-        const dir = [4, 12, 0, 8][this.pos.d];
-        const ty = this.speed > 0 ? dir + 1 : (this.attack ? dir + 2 : dir);
-        if (this.oldImage !== ty)
-        {
-            this.oldImage = ty;
-            this.animation.counter = 0;
-            this.animation.frame = 0;
-        }
-        const tx = this.animation.frame;
-        Ressources.sprites.mobs.forestMob.female_thief.draw(sketch, this.pos.x, this.pos.y, scale, tx, ty, this.width, this.height);
-        this.animation.counter++;
-        if (this.animation.counter > 5)
-        {
-            this.animation.counter = 0;
-            this.animation.frame++;
-            this.animation.frame %= 4;
-        }
         super.render(sketch, scale);
     }
 }

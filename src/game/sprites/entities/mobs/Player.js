@@ -19,14 +19,8 @@ class Player extends Mob
      */
     constructor(world, posX, posY, dir, settings)
     {
-        super(world, 'player', posX, posY, dir, 2, 1);
+        super(world, Ressources.sprites.mobs.player[`${settings.player.sexe}_${settings.player.class}`], 'player', posX, posY, dir, 2, 1, 1, 100);
         this.settings = settings;
-        this.animation = {
-            frame: 0,
-            counter: 0
-        };
-        this.oldImage = null;
-        this.attack = false;
     }
 
     /**
@@ -87,23 +81,6 @@ class Player extends Mob
      */
     render(sketch, scale)
     {
-        const dir = [4, 12, 0, 8][this.pos.d];
-        const ty = this.speed > 0 ? dir + 1 : (this.attack ? dir + 2 : dir);
-        if (this.oldImage !== ty)
-        {
-            this.oldImage = ty;
-            this.animation.counter = 0;
-            this.animation.frame = 0;
-        }
-        const tx = this.animation.frame;
-        Ressources.sprites.mobs.player[`${this.settings.player.sexe}_${this.settings.player.class}`].draw(sketch, this.pos.x, this.pos.y, scale, tx, ty, this.width, this.height);
-        this.animation.counter++;
-        if (this.animation.counter > 5)
-        {
-            this.animation.counter = 0;
-            this.animation.frame++;
-            this.animation.frame %= 4;
-        }
         super.render(sketch, scale);
     }
 }

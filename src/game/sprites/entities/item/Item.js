@@ -50,11 +50,11 @@ class Item extends Entity
             return;
         }
         if (Math.random() > .5){
-            this.world.player.strength += Math.random(-3,3);
+            this.world.player.strength += 2*this.timer;
         }
         else
         {
-            this.world.player.score *= this.world.player.strength;
+            this.world.player.score *= this.world.player.strength/2;
         }
         this.removeReady = true;
     }

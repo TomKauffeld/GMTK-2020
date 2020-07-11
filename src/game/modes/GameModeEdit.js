@@ -219,12 +219,17 @@ class GameModeEdit extends GameMode
                             }
                             else
                             {
-                                const file = prompt('file');
-                                const reader = new FileReader();
-                                reader.onload = () => {
-                                    console.log(reader.result);
+                                const input = document.createElement('input');
+                                input.type = 'file';
+                                input.click();
+                                input.onchange = (e) =>
+                                {
+                                    const reader = new FileReader();
+                                    reader.onload = () => {
+                                        console.log(reader.result);
+                                    };
+                                    reader.readAsText(e.target.files[0]);
                                 };
-                                reader.readAsText(file);
                             }
                         }
                         else

@@ -36,7 +36,7 @@ class ForestMob extends Mob
      */
     tick(sketch, time)
     {
-        var randomAction = Math.floor(Math.random()*this.action.length); //select a random move from the arrray action
+        var randomAction = this.action[Math.floor(Math.random()*this.action.length)]; //select a random move from the arrray action
         this.attack = false;
         if (randomAction === 'up')
         {
@@ -82,9 +82,9 @@ class ForestMob extends Mob
             this.animation.frame = 0;
         }
         const tx = this.animation.frame;
-        Ressources.sprites.mobs.forestMob['female_thief'].draw(sketch, this.pos.x, this.pos.y, scale, tx, ty, this.width, this.height);
+        Ressources.sprites.mobs.forestMob.female_thief.draw(sketch, this.pos.x, this.pos.y, scale, tx, ty, this.width, this.height);
         this.animation.counter++;
-        if (this.animation.counter > 10)
+        if (this.animation.counter > 5)
         {
             this.animation.counter = 0;
             this.animation.frame++;

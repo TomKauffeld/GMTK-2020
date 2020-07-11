@@ -4,7 +4,6 @@ import Tile from './Tile';
 import Player from './sprites/entities/mobs/Player';
 import Settings from './Settings';
 import Ressources from '../gfx/Ressources';
-//import Mobs from '../gfx/mobs/Mobs';
 import ForestMob from './sprites/entities/mobs/ForestMob';
 
 class World
@@ -44,6 +43,7 @@ class World
     tick(sketch, time)
     {
         this.player.tick(sketch, time);
+        this.mob.tick(sketch, time);
         if (sketch.keyIsDown(sketch.BACKSPACE))
         {
             if (!this.last)
@@ -143,6 +143,7 @@ class World
             }
         }
         this.player.render(sketch, scale);
+        this.mob.render(sketch, scale);
         sketch.pop(); //apply the translation
     }
 }

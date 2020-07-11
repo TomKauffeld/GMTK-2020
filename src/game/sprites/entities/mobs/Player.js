@@ -19,7 +19,7 @@ class Player extends Mob
      */
     constructor(world, posX, posY, dir, settings)
     {
-        super(world, 'player', posX, posY, dir, 1, 1);
+        super(world, 'player', posX, posY, dir, 2, 1);
         this.settings = settings;
         this.animation = {
             frame: 0,
@@ -98,7 +98,7 @@ class Player extends Mob
         const tx = this.animation.frame;
         Ressources.sprites.mobs.player[`${this.settings.player.sexe}_${this.settings.player.class}`].draw(sketch, this.pos.x, this.pos.y, scale, tx, ty, this.width, this.height);
         this.animation.counter++;
-        if (this.animation.counter > 10)
+        if (this.animation.counter > 5)
         {
             this.animation.counter = 0;
             this.animation.frame++;

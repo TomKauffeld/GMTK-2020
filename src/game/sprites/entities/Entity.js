@@ -17,6 +17,7 @@ class Entity
      */
     constructor(world, name, posX, posY, dir, width = 1, height = 1)
     {
+        this.entityId = Entity.newId++;
         this.world = world;
         this.name = name;
         this.width = width;
@@ -40,5 +41,7 @@ class Entity
     // eslint-disable-next-line no-unused-vars
     render(sketch, scale){}
 }
+
+Entity.newId = 1;
 
 export default Entity;

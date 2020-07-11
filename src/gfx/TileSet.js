@@ -55,7 +55,7 @@ class TileSet
         {
             return null;
         }
-        return this.image.get(x * this.scale.x, y * this.scale.y, w * this.scale.x, h * this.scale.y);
+        return this.image.get(Math.ceil(x * this.scale.x), Math.ceil(y * this.scale.y), Math.floor(w * this.scale.x), Math.floor(h * this.scale.y));
     }
 
     /**
@@ -87,7 +87,7 @@ class TileSet
         {
             return null;
         }
-        sketch.image(this.image, dx * scale, dy * scale, Math.ceil(dw * scale), Math.ceil(dh * scale), sx * this.scale.x, sy * this.scale.y, Math.floor(sw * this.scale.x), sh * this.scale.y);
+        sketch.image(this.image, Math.floor(dx * scale), Math.floor(dy * scale), Math.ceil(dw * scale), Math.ceil(dh * scale), Math.ceil(sx * this.scale.x), Math.ceil(sy * this.scale.y), Math.floor(sw * this.scale.x), Math.floor(sh * this.scale.y));
     }
 }
 

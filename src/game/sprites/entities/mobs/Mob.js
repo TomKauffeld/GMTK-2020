@@ -84,19 +84,20 @@ class Mob extends Entity
 
     /**
      * 
-     * @param {Mob} mob 
-     */
-    inRange(mob)
-    {
-        return this.world.inRange(this, mob);
-    }
-
-    /**
-     * 
      */
     getRange()
     {
         return 1;
+    }
+
+
+    /**
+     * 
+     * @param {Entity} entity 
+     */
+    inRange(entity)
+    {
+        return this.world.inRange(this, entity);
     }
   
 

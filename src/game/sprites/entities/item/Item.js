@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import p5 from 'p5';
 // eslint-disable-next-line no-unused-vars
-import Settings from '../../../Settings';
+import Mob from '../mobs/Mob';
 // eslint-disable-next-line no-unused-vars
 import World from '../../../World';
 import Ressources from '../../../../gfx/Ressources';
@@ -25,18 +25,20 @@ class Item extends Entity
         };
     }
 
-    getRange()
-    {
-        return 1;
-    }
-
+    /**
+     * 
+     * @param {Mob} mob 
+     */
     inRange(mob)
     {
-        return this.world.inRange(this, mob);
+        return Math.sqrt(Math.pow(this.getPointX() - mob.getPointX(), 2) + Math.pow(this.getPointY() - mob.getPointY(), 2)) < mob.getRange();
     }
 
+    /**
+     * 
+     */
     takeItem(){
-        if (Math.random()>0){
+        if (Math.random() > 0){
             this.world.player.strength += Math.random(-2,2);
         }
         else
@@ -45,6 +47,12 @@ class Item extends Entity
         }
         this.removeReady = true;
     }
+
+    /**
+     * 
+     * @param {p5.p5InstanceExtensions} sketch 
+     * @param {number} time 
+     */
     tick(sketch, time)
     {
         super.tick(sketch, time);
@@ -61,6 +69,11 @@ class Item extends Entity
         }
     }
 
+    /**
+     * 
+     * @param {p5.p5InstanceExtensions} sketch 
+     * @param {number} scale 
+     */
     render(sketch, scale)
     {
         super.render(sketch, scale);

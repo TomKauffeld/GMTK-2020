@@ -49,6 +49,7 @@ class Entity
     {
         return this.pos.y + this.height - 0.2;
     }
+
     /**
      * 
      * @param {p5.p5InstanceExtensions} sketch 

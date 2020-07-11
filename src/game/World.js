@@ -2,6 +2,8 @@
 import p5 from 'p5';
 // eslint-disable-next-line no-unused-vars
 import Mob from './sprites/entities/mobs/Mob';
+// eslint-disable-next-line no-unused-vars
+import Entity from './sprites/entities/Entity';
 import Tile from './Tile';
 import Player from './sprites/entities/mobs/Player';
 import Settings from './Settings';
@@ -36,19 +38,19 @@ class World
 
     /**
      * 
-     * @param {Mob} mobSource 
-     * @param {Mob} mobDestination 
+     * @param {Mob} from 
+     * @param {Entity} to 
      */
-    inRange(mobSource, mobDestination)
+    inRange(from, to)
     {
-        const R = Math.sqrt(Math.pow(mobDestination.getPointX() - mobSource.getPointX(), 2) + Math.pow(mobDestination.getPointY() - mobSource.getPointY(), 2));
-        if (R > mobSource.getRange())
+        const R = Math.sqrt(Math.pow(to.getPointX() - from.getPointX(), 2) + Math.pow(to.getPointY() - from.getPointY(), 2));
+        if (R > from.getRange())
         {
             return false;
         }
         const r = Math.PI * 0.25;
-        const A = Math.atan2(mobDestination.getPointY() - mobSource.getPointY(), mobDestination.getPointX() - mobSource.getPointX());
-        const D = [Math.PI * 0.5, 0, Math.PI * 1.5, Math.PI][mobSource.pos.d];
+        const A = Math.atan2(to.getPointY() - from.getPointY(), to.getPointX() - from.getPointX());
+        const D = [Math.PI * 0.5, 0, Math.PI * 1.5, Math.PI][from.pos.d];
         const S = D - r < 0 ? Math.PI * 2 - D - r : D - r;
         const E = D + r > Math.PI * 2 ? r + D - Math.PI * 2: D + r;
         if (S < E)

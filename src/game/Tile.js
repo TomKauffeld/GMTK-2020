@@ -137,10 +137,10 @@ function load()
         Tile.Create(`grassland_${i}`, 'grass_b_m_dirt', 1, 3, false, 1, 1, BORDER_BOTTOM);
         Tile.Create(`grassland_${i}`, 'grass_m_m_dirt', 0, 0, true,  1, 1, BORDER_ALL);
         Tile.Create(`grassland_${i}`, 'dirt_m_m_grass', 2, 0, true,  1, 1, BORDER_ALL);
-        Tile.Create(`grassland_${i}`, 'dirt_b_r_grass', 0, 4, true, 1, 1, BORDER_TOP_LEFT, 0.6);
-        Tile.Create(`grassland_${i}`, 'dirt_b_l_grass', 1, 4, true, 1, 1, BORDER_TOP_RIGHT, 0.6);
-        Tile.Create(`grassland_${i}`, 'dirt_t_r_grass', 0, 5, true, 1, 1, BORDER_BOTTOM_LEFT, 0.6);
-        Tile.Create(`grassland_${i}`, 'dirt_t_l_grass', 1, 5, true, 1, 1, BORDER_BOTTOM_RIGHT, 0.6);
+        Tile.Create(`grassland_${i}`, 'dirt_b_r_grass', 0, 4, true,  1, 1, BORDER_TOP_LEFT, 0.6);
+        Tile.Create(`grassland_${i}`, 'dirt_b_l_grass', 1, 4, true,  1, 1, BORDER_TOP_RIGHT, 0.6);
+        Tile.Create(`grassland_${i}`, 'dirt_t_r_grass', 0, 5, true,  1, 1, BORDER_BOTTOM_LEFT, 0.6);
+        Tile.Create(`grassland_${i}`, 'dirt_t_l_grass', 1, 5, true,  1, 1, BORDER_BOTTOM_RIGHT, 0.6);
         Tile.Create(`grassland_${i}`, 'grass_line_v', 2, 4, false, 1, 1, BORDER_LEFT | BORDER_RIGHT);
         Tile.Create(`grassland_${i}`, 'grass_line_h', 2, 5, false, 1, 1, BORDER_TOP | BORDER_BOTTOM);
     }
@@ -155,8 +155,8 @@ function load()
     Tile.Create('grassland_3', 'light_b_r_dark', 2, 3, false, 1, 1);
     Tile.Create('grassland_3', 'light_t_m_dark', 1, 1, false, 1, 1);
     Tile.Create('grassland_3', 'light_b_m_dark', 1, 3, false, 1, 1);
-    Tile.Create('grassland_3', 'light_m_m_dark', 0, 0, false,  1, 1);
-    Tile.Create('grassland_3', 'dark_m_m_light', 2, 0, false,  1, 1);
+    Tile.Create('grassland_3', 'light_m_m_dark', 0, 0, false, 1, 1);
+    Tile.Create('grassland_3', 'dark_m_m_light', 2, 0, false, 1, 1);
     Tile.Create('grassland_3', 'dark_b_r_light', 0, 4, false, 1, 1);
     Tile.Create('grassland_3', 'dark_b_l_light', 1, 4, false, 1, 1);
     Tile.Create('grassland_3', 'dark_t_r_light', 0, 5, false, 1, 1);
@@ -174,8 +174,8 @@ function load()
     Tile.Create('grassland_4', 'dirt_b_r_grass', 2, 3, true, 1, 1, BORDER_BOTTOM_RIGHT);
     Tile.Create('grassland_4', 'dirt_t_m_grass', 1, 1, true, 1, 1, BORDER_TOP);
     Tile.Create('grassland_4', 'dirt_b_m_grass', 1, 3, true, 1, 1, BORDER_BOTTOM);
-    Tile.Create('grassland_4', 'dirt_m_m_grass', 0, 0, true,  1, 1, BORDER_ALL);
-    Tile.Create('grassland_4', 'grass_m_m_dirt', 2, 0, false,  1, 1, BORDER_ALL);
+    Tile.Create('grassland_4', 'dirt_m_m_grass', 0, 0, true, 1, 1, BORDER_ALL);
+    Tile.Create('grassland_4', 'grass_m_m_dirt', 2, 0, false, 1, 1, BORDER_ALL);
     Tile.Create('grassland_4', 'grass_b_r_dirt', 0, 4, false, 1, 1, BORDER_TOP_LEFT);
     Tile.Create('grassland_4', 'grass_b_l_dirt', 1, 4, false, 1, 1, BORDER_TOP_RIGHT);
     Tile.Create('grassland_4', 'grass_t_r_dirt', 0, 5, false, 1, 1, BORDER_BOTTOM_LEFT);

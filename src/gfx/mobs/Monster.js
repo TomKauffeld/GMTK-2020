@@ -9,6 +9,8 @@ import TileSet from '../TileSet';
 function load(sketch)
 {
     Monster.forest_mob = TileSet.Create(sketch, '/res/sprites/mobs/monster/02.png', 4);
+    Monster.desert_mob = TileSet.Create(sketch, '/res/sprites/mobs/monster/07.png', 4);
+    Monster.snow_mob = TileSet.Create(sketch, '/res/sprites/mobs/monster/17.png', 4);
     return Monster;
 }
 

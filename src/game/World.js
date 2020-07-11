@@ -107,6 +107,20 @@ class World
     {
         this.id = id;
         this.table = Ressources.words[`world_${id}`];
+        for (let i = 0; i < this.mobs.length; i++)
+        {
+            if (this.mobs[i].biome === this.id)
+            {
+                this.mobs[i].life = -1;
+            }
+        }
+        for (let i = 0; i < this.items.length; i++)
+        {
+            if (this.items[i].biome === this.id)
+            {
+                this.items[i].removeReady = true;
+            }
+        }
     }
 
     spawnMonster()
@@ -172,7 +186,7 @@ class World
             this.mobs[i].tick(sketch, time);
             if (this.mobs[i].dead > 1)
             {
-                if (this.mobs[i].entityId !== this.player.entityId)
+                if (this.mobs[i].entityId !== this.player.entityId && this.mobs[i].biome !== this.id)
                 {
                     this.player.score += 100;
                     const item = new Item(this, this.mobs[i].biome, this.mobs[i].pos.x, this.mobs[i].pos.y);

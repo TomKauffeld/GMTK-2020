@@ -234,6 +234,7 @@ function load()
         Tile.Create(`town_${i}`, 'floor_t_m_wall', 1, 0, false, 1, 1, BORDER_TOP);
         Tile.Create(`town_${i}`, 'floor_b_m_wall', 1, 2, false, 1, 1, BORDER_BOTTOM);
         Tile.Create(`town_${i}`, 'floor_m_m_wall', 3, 2, true,  1, 1, BORDER_ALL);
+        Tile.Create(`town_${i}`, 'wall_m_m_floor', 3, 2, true,  1, 1, BORDER_ALL);
         Tile.Create(`town_${i}`, 'corner_1_t_l',   3, 4, true,  1, 1, BORDER_TOP_LEFT, 0.6);
         Tile.Create(`town_${i}`, 'corner_1_t_r',   2, 4, true,  1, 1, BORDER_TOP_RIGHT, 0.6);
         Tile.Create(`town_${i}`, 'corner_1_b_l',   3, 3, true,  1, 1, BORDER_BOTTOM_LEFT, 0.6);

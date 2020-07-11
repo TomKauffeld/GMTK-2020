@@ -68,6 +68,11 @@ class Mob extends Entity
         this.life+=number;
     }
 
+    attack(mob)
+    {
+        mob.takeDamages(40);
+    }
+
     /**
      * 
      * @param {p5.p5InstanceExtensions} sketch 

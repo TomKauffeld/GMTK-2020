@@ -3,27 +3,16 @@ import p5 from 'p5';
 
 class TileSet
 {
+
     /**
      * 
-     * @param {p5.p5InstanceExtensions} sketch 
-     * @param {string} path
+     * @param {p5.Image} image 
      * @param {number} cols 
      * @param {number} rows
      */
-    constructor(sketch, path, cols, rows = null)
+    constructor(image, cols, rows = null)
     {
-        this.image = sketch.loadImage(path, (image) => {
-            this.scale.x = image.width / this.size.x;
-            if (this.size.y === null)
-            {
-                this.scale.y = this.scale.x;
-                this.size.y = image.height / this.scale.y;
-            }
-            else
-            {
-                this.scale.y = image.height / this.size.y;
-            }
-        });
+        this.image = image;
         this.size = {
             x: cols,
             y: rows
@@ -32,6 +21,20 @@ class TileSet
             x: 0,
             y: 0
         };
+    }
+
+    calculate()
+    {
+        this.scale.x = this.image.width / this.size.x;
+        if (this.size.y === null)
+        {
+            this.scale.y = this.scale.x;
+            this.size.y = this.image.height / this.scale.y;
+        }
+        else
+        {
+            this.scale.y = this.image.height / this.size.y;
+        }
     }
 
     /**
@@ -86,6 +89,23 @@ class TileSet
         sketch.image(this.image, dx * scale, dy * scale, dw * scale, dh * scale, sx * this.scale.x, sy * this.scale.y, sw * this.scale.x, sh * this.scale.y);
     }
 }
+
+/**
+ * 
+ * @param {p5.p5InstanceExtensions} sketch 
+ * @param {string} path
+ * @param {number} cols 
+ * @param {number} rows
+ */
+TileSet.Create = function(sketch, path, cols, rows = null)
+{
+
+    const image = sketch.loadImage(path, () => {
+        tileSet.calculate();
+    });
+    const tileSet = new TileSet(image, cols, rows);
+    return tileSet;
+};
 
 
 export default TileSet;

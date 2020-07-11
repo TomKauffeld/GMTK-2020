@@ -10,6 +10,9 @@ import Settings from './Settings';
 import Ressources from '../gfx/Ressources';
 import VoidMob from './sprites/entities/mobs/VoidMob';
 import Item from './sprites/entities/item/Item';
+import DesertMob from './sprites/entities/mobs/DesertMob';
+import ForestMob from './sprites/entities/mobs/ForestMob';
+import SnowMob from './sprites/entities/mobs/SnowMob';
 
 class World
 {
@@ -106,6 +109,43 @@ class World
         this.table = Ressources.words[`world_${id}`];
     }
 
+    spawnMonster()
+    {
+        let mob = null;
+        const x = 5;
+        const y = 5;
+        let l = 0;
+        while (mob === null && l < 10)
+        {
+            l++;
+            const r = Math.floor(Math.random() * 4);
+            switch(r)
+            {
+            case 0:
+                mob = new DesertMob(this, x, y, 2);
+                break;
+            case 1:
+                mob = new ForestMob(this, x, y, 2);
+                break;
+            case 2:
+                mob = new SnowMob(this, x, y, 2);
+                break;
+            case 3:
+                mob = new VoidMob(this, x, y, 2);
+                break;
+            }
+            if (mob.biome === this.id)
+            {
+                mob = null;
+            }
+        }
+        if (mob !== null)
+        {
+
+            this.addMob(mob);
+        }
+    }
+
     /**
      * 
      * @param {p5.p5InstanceExtensions} sketch 
@@ -113,6 +153,10 @@ class World
      */
     tick(sketch, time)
     {
+        if (Math.random() < 0.01 && this.mobs.length < 20)
+        {
+            this.spawnMonster();
+        }
         for(let i = this.mobs.length - 1; i >= 0; i--)
         {
             this.mobs[i].tick(sketch, time);

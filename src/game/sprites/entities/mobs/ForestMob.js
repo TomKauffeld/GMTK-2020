@@ -15,7 +15,7 @@ class ForestMob extends Monster
      */
     constructor(world, posX, posY, dir)
     {
-        super(world, Ressources.sprites.mobs.monster.forest_mob, 'Tree', posX, posY, dir, 1, 1);
+        super(world, 2, Ressources.sprites.mobs.monster.forest_mob, 'Tree', posX, posY, dir, 1, 1);
     }
     /**
      * 

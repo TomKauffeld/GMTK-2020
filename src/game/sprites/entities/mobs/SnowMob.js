@@ -15,7 +15,7 @@ class SnowMob extends Monster
      */
     constructor(world, posX, posY, dir)
     {
-        super(world, Ressources.sprites.mobs.monster.snow_mob, 'WarYetee', posX, posY, dir, 1, 1);
+        super(world, 3, Ressources.sprites.mobs.monster.snow_mob, 'WarYetee', posX, posY, dir, 1, 1);
     }
     /**
      * 

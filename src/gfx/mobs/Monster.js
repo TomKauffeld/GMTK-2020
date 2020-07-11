@@ -21,6 +21,18 @@ const Monster = {
      * @type TileSet
      */
     forest_mob: null,
+    /**
+     * @type TileSet
+     */
+    desert_mob: null,
+    /**
+     * @type TileSet
+     */
+    snow_mob: null,
+    /**
+     * @type TileSet
+     */
+    void_mob: null,
 };
 
 export default Monster;

@@ -22,12 +22,16 @@ class ForestMob extends Mob
         };
         this.oldImage = null;
         this.attack = false;
-        this.action = [
+        this.actions = [
             'up',
             'down',
             'left',
             'right'
         ]; //list des déplacement du mob
+        this.action = {
+            currentAction: 'none',
+            timer: 0
+        };
     }
     /**
      * 
@@ -36,24 +40,29 @@ class ForestMob extends Mob
      */
     tick(sketch, time)
     {
-        var randomAction = this.action[Math.floor(Math.random()*this.action.length)]; //select a random move from the arrray action
+        this.action.timer += time;
+        if (this.action.timer > 0.5)
+        {
+            this.action.currentAction = this.actions[Math.floor(Math.random()*this.actions.length)]; //select a random move from the array action
+            this.action.timer = 0;
+        }
         this.attack = false;
-        if (randomAction === 'up')
+        if (this.action.currentAction === 'up')
         {
             this.pos.d = 0;
             this.speed = this.maxSpeed;
         }
-        else if (randomAction === 'right')
+        else if (this.action.currentAction === 'right')
         {
             this.pos.d = 1;
             this.speed = this.maxSpeed;
         }
-        else if (randomAction === 'down')
+        else if (this.action.currentAction === 'down')
         {
             this.pos.d = 2;
             this.speed = this.maxSpeed;
         }
-        else if (randomAction === 'left')
+        else if (this.action.currentAction === 'left')
         {
             this.pos.d = 3;
             this.speed = this.maxSpeed;

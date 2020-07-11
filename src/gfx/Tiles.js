@@ -12,7 +12,7 @@ function load(sketch) {
     {
         Tiles[`grassland_${i}`] = new TileSet(sketch, `/res/tiles/grasslands${i}.png`, 3);
     }
-    for(let i = 1; i <= 18; i++)
+    for(let i = 2; i <= 18; i++)
     {
         Tiles[`town_${i}`] = new TileSet(sketch, `/res/tiles/town${i}.png`, 3);
     }
@@ -30,8 +30,6 @@ const Tiles = {
     grassland_3: null,
     /** @type TileSet */
     grassland_4: null,
-    /** @type TileSet */
-    town_1: null,
     /** @type TileSet */
     town_2: null,
     /** @type TileSet */

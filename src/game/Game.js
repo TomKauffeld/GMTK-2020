@@ -14,6 +14,9 @@ class Game
     constructor(gamemode = null)
     {
         this.gamemode = gamemode;
+        this.newKey = true;
+        this.newMouse = true;
+        this.newGamemode = undefined;
     }
 
     /**
@@ -48,20 +51,13 @@ class Game
      */
     setGameMode(sketch, gamemode = null)
     {
-        if (this.gamemode !== null)
+        if (this.newGamemode !== undefined)
         {
-            this.gamemode.unload(sketch);
+            return;
         }
-        this.gamemode = gamemode;
-        if (this.gamemode !== null)
-        {
-            console.log('gamemode : ' + gamemode.name);
-            this.gamemode.load(sketch, this);
-        }
-        else
-        {
-            console.log('gamemode : N/A');
-        }
+        this.newGamemode = gamemode;
+        this.newKey = true;
+        this.newMouse = true;
     }
 
     /**
@@ -71,7 +67,26 @@ class Game
      */
     tick(sketch, time)
     {
-        if (this.gamemode !== null)
+        if (this.newKey || this.newMouse)
+        {
+            this.newKey =  sketch.keyIsPressed;
+            this.newMouse =  sketch.mouseIsPressed;
+        }
+        else if (this.newGamemode !== undefined)
+        {
+            this.gamemode = this.newGamemode;
+            this.newGamemode = undefined;
+            if (this.gamemode !== null)
+            {
+                console.log('gamemode : ' + this.gamemode.name);
+                this.gamemode.load(sketch, this);
+            }
+            else
+            {
+                console.log('gamemode : N/A');
+            }
+        }
+        else if (this.gamemode !== null)
         {
             this.gamemode.tick(sketch, time);
         }

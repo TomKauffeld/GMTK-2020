@@ -38,16 +38,6 @@ class GameMode
 
     /**
      * 
-     * @param {p5.p5InstanceExtensions} sketch 
-     */
-    // eslint-disable-next-line no-unused-vars
-    unload(sketch)
-    {
-
-    }
-
-    /**
-     * 
      * @param {p5.p5InstanceExtensions} sketch
      * @param {GameMode} gameMode 
      */

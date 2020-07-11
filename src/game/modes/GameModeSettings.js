@@ -2,14 +2,21 @@
 import p5 from 'p5';
 // eslint-disable-next-line no-unused-vars
 import Game from '../Game';
+// eslint-disable-next-line no-unused-vars
 import GameMode from './GameMode';
+import GameModeButtons from './GameModeButtons';
+import GameModeMenu from './GameModeMenu';
 
-class GameModeSettings extends GameMode
+class GameModeSettings extends GameModeButtons
 {
-    constructor()
+    /**
+     * 
+     * @param {GameMode} previous 
+     */
+    constructor(previous = null)
     {
-        super('Settings');
-        this.buttons = {};
+        super('Settings', ['Return to menu']);
+        this.previous = previous;
     }
 
     /**
@@ -20,6 +27,26 @@ class GameModeSettings extends GameMode
     tick(sketch, time)
     {
         super.tick(sketch, time);
+        if (sketch.keyIsDown(sketch.ESCAPE))
+        {
+            this.setGameMode(sketch, this.previous);
+        }
+    }
+
+    /**
+     * 
+     * @param {p5.p5InstanceExtensions} sketch 
+     * @param {string} button 
+     */
+    onClick(sketch, button)
+    {
+        super.onClick(sketch, button);
+        switch(button)
+        {
+        case 'return to menu':
+            this.setGameMode(sketch, new GameModeMenu());
+            break;
+        }
     }
 
     /**
@@ -30,16 +57,6 @@ class GameModeSettings extends GameMode
     load(sketch, game)
     {
         super.load(sketch, game);
-    }
-
-
-    /**
-     * 
-     * @param {p5.p5InstanceExtensions} sketch 
-     */
-    unload(sketch)
-    {
-        super.unload(sketch);
     }
 
     /**

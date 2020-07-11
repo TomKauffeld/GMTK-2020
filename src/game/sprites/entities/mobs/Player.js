@@ -2,12 +2,15 @@
 import p5 from 'p5';
 // eslint-disable-next-line no-unused-vars
 import Settings from '../../../Settings';
+// eslint-disable-next-line no-unused-vars
+import World from '../../../World';
 import Mob from './Mob';
 
 class Player extends Mob
 {
     /**
      * 
+     * @param {World} world
      * @param {p5.p5InstanceExtensions} sketch 
      * @param {string} name 
      * @param {number} posX 
@@ -15,9 +18,9 @@ class Player extends Mob
      * @param {number} dir  
      * @param {Settings} settings
      */
-    constructor(sketch, posX, posY, dir, settings)
+    constructor(world, sketch, posX, posY, dir, settings)
     {
-        super('player', posX, posY, dir, 1, 1);
+        super(world, 'player', posX, posY, dir, 1, 1);
         this.settings = settings;
         this.image = sketch.loadImage(`/res/sprites/mobs/player/${settings.player.sexe}_${settings.player.class}.png`);
         this.animation = {

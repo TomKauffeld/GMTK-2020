@@ -3,15 +3,15 @@ import p5 from 'p5';
 // eslint-disable-next-line no-unused-vars
 import Game from '../Game';
 import GameMode from './GameMode';
-import Player from '../sprites/entities/mobs/Player';
-import Settings from '../Settings';
+import World from '../World';
+import GameModeSettings from './GameModeSettings';
 
-class GameModeSettings extends GameMode
+class GameModePlay extends GameMode
 {
     constructor()
     {
         super('Game');
-        this.player = null;
+        this.world = null;
     }
 
     /**
@@ -22,9 +22,13 @@ class GameModeSettings extends GameMode
     tick(sketch, time)
     {
         super.tick(sketch, time);
-        if (this.player !== null)
+        if (sketch.keyIsDown(sketch.ESCAPE))
         {
-            this.player.tick(sketch, time);
+            this.setGameMode(sketch, new GameModeSettings(this));
+        }
+        else if (this.world !== null)
+        {
+            this.world.tick(sketch, time);
         }
     }
 
@@ -36,17 +40,10 @@ class GameModeSettings extends GameMode
     load(sketch, game)
     {
         super.load(sketch, game);
-        this.player = new Player(sketch, 1, 1, 2, new Settings());
-    }
-
-
-    /**
-     * 
-     * @param {p5.p5InstanceExtensions} sketch 
-     */
-    unload(sketch)
-    {
-        super.unload(sketch);
+        if (this.world === null)
+        {
+            this.world = new World(sketch, 1);
+        }
     }
 
     /**
@@ -59,12 +56,12 @@ class GameModeSettings extends GameMode
     render(sketch, scale, width, height)
     {
         super.render(sketch, scale, width, height);
-        if (this.player !== null)
+        if (this.world !== null)
         {
-            this.player.render(sketch, scale);
+            this.world.render(sketch, scale, width, height);
         }
     }
 }
 
 
-export default GameModeSettings;
+export default GameModePlay;

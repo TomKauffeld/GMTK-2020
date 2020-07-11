@@ -1,6 +1,7 @@
 import p5 from 'p5';
 import Game from './game/Game';
 import GameModeMenu from './game/modes/GameModeMenu';
+import Tile from './game/Tile';
 
 /**
  * 
@@ -14,11 +15,12 @@ function s(sketch)
     
     sketch.preload = () => {
         game.load(sketch);
+        Tile.Load(sketch);
     };
 
     sketch.setup = () => {
         const sk = document.getElementById('sketch');
-        sketch.createCanvas(sk.clientWidth / 2, sk.clientHeight / 2);
+        sketch.createCanvas(sk.clientWidth, sk.clientHeight);
     };
 
     sketch.draw = () => {

@@ -1,11 +1,14 @@
 // eslint-disable-next-line no-unused-vars
 import p5 from 'p5';
+// eslint-disable-next-line no-unused-vars
+import World from '../../../World';
 import Entity from '../Entity';
 
 class Mob extends Entity
 {
     /**
      * 
+     * @param {World} world 
      * @param {string} name 
      * @param {number} posX 
      * @param {number} posY 
@@ -14,9 +17,10 @@ class Mob extends Entity
      * @param {number} width 
      * @param {number} height 
      */
-    constructor(name, posX, posY, dir, maxSpeed = 1, width = 1, height = 1)
+    constructor(world, name, posX, posY, dir, maxSpeed = 1, width = 1, height = 1)
     {
         super(name, posX, posY, dir, width, height);
+        this.world = world;
         this.speed = 0;
         this.maxSpeed = maxSpeed;
     }
@@ -28,6 +32,8 @@ class Mob extends Entity
      */
     tick(sketch, time)
     {
+        const oldX = this.pos.x;
+        const oldY = this.pos.y;
         switch(this.pos.d)
         {
         case 0:
@@ -41,6 +47,11 @@ class Mob extends Entity
             break;
         case 3:
             this.pos.x -= this.speed * time;
+        }
+        if (this.world.isSolid(this.pos.x + this.width / 2, this.pos.y + this.height - 0.2))
+        {
+            this.pos.x = oldX;
+            this.pos.y = oldY;
         }
         super.tick(sketch, time);
     }

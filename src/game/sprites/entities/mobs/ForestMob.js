@@ -24,6 +24,11 @@ class ForestMob extends Monster
      */
     tick(sketch, time)
     {
+        if (this.dead)
+        {
+            return;
+        }
+        this.takeDamages(1);
         super.tick(sketch, time);
     }
 

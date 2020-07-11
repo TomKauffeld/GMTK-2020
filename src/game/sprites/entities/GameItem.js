@@ -8,7 +8,11 @@ import Entity from './Entity';
 
 class GameItem extends Entity
 {
-    
+    constructor(world, name, posX, posY, dir, width = 1, height = 1)
+    {
+        super(name, posX, posY, dir, width, height);
+        this.world = world;
+    }
 
 }
 

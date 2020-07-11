@@ -12,25 +12,52 @@ function load(sketch) {
     {
         sketch.loadImage(`/res/tiles/grasslands${i}.png`, (image1) => {
             sketch.loadImage(`/res/tiles/grasslands${i}_corner.png`, (image2) => {
-                const image3 = sketch.createImage(Math.max(image1.width, image2.width), image1.height + image2.height);
-                image3.copy(image1, 0, 0, image1.width, image1.height, 0, 0, image1.width, image1.height);
-                image3.copy(image2, 0, 0, image2.width, image2.height, 0, image1.height, image2.width, image2.height);
-                const tile = new TileSet(image3, 3);
-                tile.calculate();
-                Tiles[`grassland_${i}`] = tile;
+                sketch.loadImage(`/res/tiles/grasslands${i}_line_v.png`, (image3) => {
+                    sketch.loadImage(`/res/tiles/grasslands${i}_line_h.png`, (image4) => {
+                        const image = sketch.createImage(Math.max(image1.width, image2.width), image1.height + image2.height + image3.height);
+                        image.copy(image1, 0, 0, image1.width, image1.height, 0, 0, image1.width, image1.height);
+                        image.copy(image2, 0, 0, image2.width, image2.height, 0, image1.height, image2.width, image2.height);
+                        image.copy(image3, 0, 0, image3.width, image3.height, 0, image1.height + image2.height, image3.width, image3.height);
+                        image.copy(image4, 0, 0, image4.width, image4.height, image4.width, image1.height + image2.height, image4.width, image4.height);
+                        const tile = new TileSet(image, 3);
+                        tile.calculate();
+                        Tiles[`grassland_${i}`] = tile;
+                    });
+                });
             });
         });
     }
     for(let i = 2; i <= 18; i++)
     {
-        Tiles[`town_${i}`] = TileSet.Create(sketch, `/res/tiles/town${i}.png`, 3);
+        sketch.loadImage(`/res/tiles/town${i}.png`, (image1) => {
+            sketch.loadImage(`/res/tiles/town${i}_corner1.png`, (image2) => {
+                const image = sketch.createImage(image1.width, image1.height + image2.height);
+                image.copy(image1, 0, 0, image1.width, image1.height, 0, 0, image1.width, image1.height);
+                image.copy(image2, 0, 0, image2.width, image2.height, 0, image1.height, image2.width, image2.height);
+                const tile = new TileSet(image, 3);
+                tile.calculate();
+                Tiles[`town_${i}`] = tile;
+            });
+        });
     }
+    sketch.loadImage('/res/tiles/iceland.png', (image1) => {
+        sketch.loadImage('/res/tiles/iceland_corner1.png', (image2) => {
+            const image = sketch.createImage(image1.width, image1.height + image2.height);
+            image.copy(image1, 0, 0, image1.width, image1.height, 0, 0, image1.width, image1.height);
+            image.copy(image2, 0, 0, image2.width, image2.height, 0, image1.height, image2.width, image2.height);
+            const tile = new TileSet(image, 3);
+            tile.calculate();
+            Tiles.iceland = tile;
+        });
+    });
     return Tiles;
 }
 
 
 const Tiles = {
     load,
+    /** @type TileSet */
+    iceland: null,
     /** @type TileSet */
     grassland_1: null,
     /** @type TileSet */

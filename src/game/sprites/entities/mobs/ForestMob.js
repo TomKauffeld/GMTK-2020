@@ -2,10 +2,10 @@
 import p5 from 'p5';
 // eslint-disable-next-line no-unused-vars
 import World from '../../../World';
-import Mob from './Mob';
 import Ressources from '../../../../gfx/Ressources';
+import Monster from './Monster';
 
-class ForestMob extends Mob
+class ForestMob extends Monster
 {
     /**
      * @param {World} world
@@ -16,17 +16,6 @@ class ForestMob extends Mob
     constructor(world, posX, posY, dir)
     {
         super(world, Ressources.sprites.mobs.forestMob.female_thief, 'mouse', posX, posY, dir, 1, 1);
-        this.actions = [
-            'up',
-            'down',
-            'left',
-            'right',
-            'none'
-        ]; //list des déplacement du mob
-        this.action = {
-            currentAction: 'none',
-            timer: 0
-        };
     }
     /**
      * 
@@ -35,38 +24,6 @@ class ForestMob extends Mob
      */
     tick(sketch, time)
     {
-        this.action.timer += time;
-        if (this.action.timer > 0.5)
-        {
-            this.action.currentAction = this.actions[Math.floor(Math.random()*this.actions.length)]; //select a random move from the array action
-            this.action.timer = 0;
-        }
-        this.attack = false;
-        if (this.action.currentAction === 'up')
-        {
-            this.pos.d = 0;
-            this.speed = this.maxSpeed;
-        }
-        else if (this.action.currentAction === 'right')
-        {
-            this.pos.d = 1;
-            this.speed = this.maxSpeed;
-        }
-        else if (this.action.currentAction === 'down')
-        {
-            this.pos.d = 2;
-            this.speed = this.maxSpeed;
-        }
-        else if (this.action.currentAction === 'left')
-        {
-            this.pos.d = 3;
-            this.speed = this.maxSpeed;
-        }
-        /*else
-        {
-            this.attack = this.keyIsDown(sketch, 'attack');
-            this.speed = 0;
-        }*/
         super.tick(sketch, time);
     }
 

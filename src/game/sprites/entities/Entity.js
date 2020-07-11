@@ -24,7 +24,31 @@ class Entity
         this.height = height;
         this.pos = {x: posX, y: posY, d: dir};
     }
+    /**
+     * 
+     */
+    getPoint()
+    {
+        return {
+            x: this.getPointX(), 
+            y: this.getPointY()
+        };
+    }
+    /**
+     * 
+     */
+    getPointX()
+    {
+        return this.pos.x + this.width / 2;
+    }
 
+    /**
+     * 
+     */
+    getPointY()
+    {
+        return this.pos.y + this.height - 0.2;
+    }
     /**
      * 
      * @param {p5.p5InstanceExtensions} sketch 

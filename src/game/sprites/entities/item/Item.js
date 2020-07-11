@@ -24,13 +24,15 @@ class Item extends Entity
             time: 0.5 / this.texture.size.x
         };
     }
+
     getRange()
     {
         return 1;
     }
-    takeRange(mob)
+
+    inRange(mob)
     {
-        return this.world.takeRange(this, mob);
+        return this.world.inRange(this, mob);
     }
 
     takeItem(){
@@ -53,7 +55,7 @@ class Item extends Entity
             this.animation.frame++;
             this.animation.frame %= this.texture.size.x;
         }
-        if(this.takeRange(this.world.player))
+        if(this.inRange(this.world.player))
         {
             this.takeItem();
         }

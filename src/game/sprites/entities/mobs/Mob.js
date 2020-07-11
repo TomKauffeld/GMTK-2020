@@ -84,17 +84,6 @@ class Mob extends Entity
 
     /**
      * 
-     */
-    getPoint()
-    {
-        return {
-            x: this.getPointX(), 
-            y: this.getPointY()
-        };
-    }
-
-    /**
-     * 
      * @param {Mob} mob 
      */
     inRange(mob)
@@ -109,22 +98,7 @@ class Mob extends Entity
     {
         return 1;
     }
-
-    /**
-     * 
-     */
-    getPointX()
-    {
-        return this.pos.x + this.width / 2;
-    }
-
-    /**
-     * 
-     */
-    getPointY()
-    {
-        return this.pos.y + this.height - 0.2;
-    }
+  
 
     /**
      * 

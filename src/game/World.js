@@ -72,38 +72,6 @@ class World
         }
     }
 
-    takeRange(mobSource, mobDestination)
-    {
-        const R = Math.sqrt(Math.pow(mobDestination.posX - mobSource.posX, 2) + Math.pow(mobDestination.posY - mobSource.posY, 2));
-        if (R > mobSource.getRange())
-        {
-            return false;
-        }
-        const r = Math.PI * 0.25;
-        const A = Math.atan2(mobDestination.posY - mobSource.posY, mobDestination.posX - mobSource.posX);
-        const D = [Math.PI * 0.5, 0, Math.PI * 1.5, Math.PI][mobSource.pos.d];
-        const S = D - r < 0 ? Math.PI * 2 - D - r : D - r;
-        const E = D + r > Math.PI * 2 ? r + D - Math.PI * 2: D + r;
-        if (S < E)
-        {
-            return S < A && A < E;
-        }
-        else
-        {
-            if (A > S)
-            {
-                return true;
-            }
-            else if (A < E)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-    }
 
     /**
      * 

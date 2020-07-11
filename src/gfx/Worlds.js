@@ -7,7 +7,7 @@ import p5 from 'p5';
  * @param {p5.p5InstanceExtensions} sketch 
  */
 function load(sketch) {
-    for(let i = 1; i <= 2; i++)
+    for(let i = 1; i <= 3; i++)
     {
         Worlds[`world_${i}`] = sketch.loadTable(`/res/worlds/world_${i}.csv`);
     }
@@ -25,6 +25,10 @@ const Worlds = {
      * @type p5.Table
      */
     world_2: null,
+    /**
+     * @type p5.Table
+     */
+    world_3: null,
 };
 
 export default Worlds;

@@ -51,7 +51,7 @@ class World
                 const old = this.id;
                 while (old === this.id)
                 {
-                    this.id = Math.floor(Math.random() * 2) + 1; //output an id of a map different of the curent map
+                    this.id = Math.floor(Math.random() * 3) + 1; //output an id of a map different of the curent map
                 }
                 this.loadNewMap(sketch, this.id);
             }

@@ -50,6 +50,39 @@ class Table
             }
         }
     }
+
+    setName(x, y, tile)
+    {
+        if (x >= 0 && y >= 0)
+        {
+            if (tile !== null)
+            {
+                if (typeof this.tiles[x] === 'undefined')
+                {
+                    this.tiles[x] = {};
+                }
+                this.tiles[x][y] = tile;
+            }
+            else
+            {
+                if (typeof this.tiles[x] !== 'undefined')
+                {
+                    if (typeof this.tiles[x][y] !== 'undefined')
+                    {
+                        this.tiles[x][y] = undefined;
+                        delete this.tiles[x][y];
+                    }
+                    const keys = Object.keys(this.tiles[x]);
+                    if (keys.length < 1)
+                    {
+                        this.tiles[x] = undefined;
+                        delete this.tiles[x];
+                    }
+                }
+            }
+        }
+    }
+
     /**
      * 
      * @param {number} y
@@ -144,6 +177,7 @@ class GameModeEdit extends GameMode
         this.lastClick = false;
         this.selectedBlock = 0;
         this.offset = {x: 0, y: 0};
+        this.lock = false;
     }
 
     /**
@@ -177,6 +211,10 @@ class GameModeEdit extends GameMode
      */
     tick(sketch, time)
     {
+        if (this.lock)
+        {
+            return;
+        }
         super.tick(sketch, time);
         if (sketch.keyIsDown(sketch.ESCAPE))
         {
@@ -219,6 +257,7 @@ class GameModeEdit extends GameMode
                             }
                             else
                             {
+                                this.lock = true;
                                 const input = document.createElement('input');
                                 input.type = 'file';
                                 input.click();
@@ -226,7 +265,31 @@ class GameModeEdit extends GameMode
                                 {
                                     const reader = new FileReader();
                                     reader.onload = () => {
-                                        console.log(reader.result);
+                                        const t = new p5.Table();
+                                        const lines = reader.result.replace('\r', '').split('\n');
+                                        for (let i = 0; i < lines.length; i++)
+                                        {
+                                            if (t.getColumnCount() < 1)
+                                            {
+                                                const c = lines[i].replace('","', '').split(',');
+                                                for (let j = 0; j < c.length; j++)
+                                                {
+                                                    t.addColumn(j + 1);
+                                                }
+                                            }
+                                            const row = new p5.TableRow(lines[i], ',');
+                                            t.addRow(row);
+                                        }
+                                        this.table = new Table();
+                                        for(let y = 0; y < t.getRowCount(); y++)
+                                        {
+                                            for (let x = 0; x < t.getColumnCount(); x++)
+                                            {
+                                                this.table.setName(x, y, t.get(y, x));
+                                            }
+                                        }
+                                        this.lock = false;
+                                        sketch.mouseIsPressed = false;
                                     };
                                     reader.readAsText(e.target.files[0]);
                                 };

@@ -1,49 +1,34 @@
 // eslint-disable-next-line no-unused-vars
 import p5 from 'p5';
 // eslint-disable-next-line no-unused-vars
-import Settings from '../../../Settings';
-// eslint-disable-next-line no-unused-vars
 import World from '../../../World';
 import Mob from './Mob';
 import Ressources from '../../../../gfx/Ressources';
 
-class Player extends Mob
+class ForestMob extends Mob
 {
     /**
-     * 
      * @param {World} world
      * @param {number} posX 
      * @param {number} posY 
-     * @param {number} dir  
-     * @param {Settings} settings
+     * @param {number} dir
      */
-    constructor(world, posX, posY, dir, settings)
+    constructor(world, posX, posY, dir)
     {
-        super(world, 'player', posX, posY, dir, 1, 1);
-        this.settings = settings;
+        super(world, 'mouse', posX, posY, dir, 1, 1);
         this.animation = {
             frame: 0,
             counter: 0
         };
         this.oldImage = null;
         this.attack = false;
+        this.action = [
+            'up',
+            'down',
+            'left',
+            'right'
+        ]; //list des déplacement du mob
     }
-
-    /**
-     * 
-     * @param {p5.p5InstanceExtensions} sketch 
-     * @param {string} action 
-     * @returns {boolean}
-     */
-    keyIsDown(sketch, action)
-    {
-        if (typeof this.settings.keys[action] === 'number')
-        {
-            return sketch.keyIsDown(this.settings.keys[action]);
-        }
-        return false;
-    }
-
     /**
      * 
      * @param {p5.p5InstanceExtensions} sketch 
@@ -51,32 +36,33 @@ class Player extends Mob
      */
     tick(sketch, time)
     {
+        var randomAction = Math.floor(Math.random()*this.action.length); //select a random move from the arrray action
         this.attack = false;
-        if (this.keyIsDown(sketch, 'up'))
+        if (randomAction === 'up')
         {
             this.pos.d = 0;
             this.speed = this.maxSpeed;
         }
-        else if (this.keyIsDown(sketch, 'right'))
+        else if (randomAction === 'right')
         {
             this.pos.d = 1;
             this.speed = this.maxSpeed;
         }
-        else if (this.keyIsDown(sketch, 'down'))
+        else if (randomAction === 'down')
         {
             this.pos.d = 2;
             this.speed = this.maxSpeed;
         }
-        else if (this.keyIsDown(sketch, 'left'))
+        else if (randomAction === 'left')
         {
             this.pos.d = 3;
             this.speed = this.maxSpeed;
         }
-        else
+        /*else
         {
             this.attack = this.keyIsDown(sketch, 'attack');
             this.speed = 0;
-        }
+        }*/
         super.tick(sketch, time);
     }
 
@@ -96,7 +82,7 @@ class Player extends Mob
             this.animation.frame = 0;
         }
         const tx = this.animation.frame;
-        Ressources.sprites.mobs.player[`${this.settings.player.sexe}_${this.settings.player.class}`].draw(sketch, this.pos.x, this.pos.y, scale, tx, ty, this.width, this.height);
+        Ressources.sprites.mobs.forestMob['female_thief'].draw(sketch, this.pos.x, this.pos.y, scale, tx, ty, this.width, this.height);
         this.animation.counter++;
         if (this.animation.counter > 10)
         {
@@ -108,4 +94,4 @@ class Player extends Mob
     }
 }
 
-export default Player;
+export default ForestMob;

@@ -4,6 +4,8 @@ import Tile from './Tile';
 import Player from './sprites/entities/mobs/Player';
 import Settings from './Settings';
 import Ressources from '../gfx/Ressources';
+//import Mobs from '../gfx/mobs/Mobs';
+import ForestMob from './sprites/entities/mobs/ForestMob';
 
 class World
 {
@@ -18,6 +20,7 @@ class World
          */
         this.table = Ressources.words[`world_${id}`]; // use the number 1 by default to define the map
         this.player = new Player(this, 1, 1, 2, new Settings()); //create player character and place it on the map
+        this.mob = new ForestMob(this,2,2,2);
         this.last = false; //verify if the input is press during the last tick
         this.id = id;
     }

@@ -116,6 +116,7 @@ class World
             {
                 this.addItem(new Item(this, this.mobs[i].pos.x, this.mobs[i].pos.y));
                 this.mobs.splice(i, 1);
+                this.world.player.score += 100;
             }
         }
         for(let i = this.items.length -1; i >= 0; i--){

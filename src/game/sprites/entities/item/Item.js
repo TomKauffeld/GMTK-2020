@@ -39,11 +39,11 @@ class Item extends Entity
      */
     takeItem(){
         if (Math.random() > 0){
-            this.world.player.strength += Math.random(-2,2);
+            this.world.player.strength += Math.random(-3,3);
         }
         else
         {
-            this.world.player.score += 100;
+            this.world.player.score *= this.world.player.strength^2;
         }
         this.removeReady = true;
     }

@@ -8,7 +8,7 @@ import TileSet from '../TileSet';
  */
 function load(sketch)
 {
-    Item.item = TileSet.Create(sketch,'/res/sprites/item/18.png', 4);
+    Item.item = TileSet.Create(sketch,'/res/sprites/item/18.png', 1);
     return Item;
 }
 

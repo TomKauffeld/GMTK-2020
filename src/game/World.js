@@ -148,6 +148,12 @@ class World
                 this.mobs.splice(i, 1);
             }
         }
+        for(let v = this.items.length -1; v >= 0;v--){
+            this.items[v].tick(sketch,time);
+            /*if (this.items[v].takeRange()){
+                this.items.splice(v,1);
+            }*/
+        }
         if (sketch.keyIsDown(sketch.BACKSPACE))
         {
             if (!this.last)
@@ -249,6 +255,11 @@ class World
         for(let i = 0; i < mobs.length; i++)
         {
             mobs[i].render(sketch, scale);
+        }
+        const items = this.items.sort((a,b) => a.pos.y - b.pos.y);
+        for(let v = 0; v < items.length; v++)
+        {
+            items[v].render(sketch, scale);
         }
         sketch.pop(); //apply the translation
     }

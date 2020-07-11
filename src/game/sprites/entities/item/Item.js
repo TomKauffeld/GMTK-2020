@@ -43,7 +43,7 @@ class Item extends Entity
         }
         else
         {
-            this.world.player.score *= this.world.player.strength^2;
+            this.world.player.score *= this.world.player.strength;
         }
         this.removeReady = true;
     }

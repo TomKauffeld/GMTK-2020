@@ -1,10 +1,12 @@
 // eslint-disable-next-line no-unused-vars
 import p5 from 'p5';
+// eslint-disable-next-line no-unused-vars
+import Mob from './sprites/entities/mobs/Mob';
 import Tile from './Tile';
 import Player from './sprites/entities/mobs/Player';
 import Settings from './Settings';
 import Ressources from '../gfx/Ressources';
-import ForestMob from './sprites/entities/mobs/ForestMob';
+import VoidMob from './sprites/entities/mobs/VoidMob';
 
 class World
 {
@@ -18,18 +20,69 @@ class World
          * @type {p5.Table}
          */
         this.table = Ressources.words[`world_${id}`]; // use the number 1 by default to define the map
-        this.player = new Player(this, 1, 1, 2, new Settings()); //create player character and place it on the map
-        this.mob = new ForestMob(this,2,2,2);
         this.last = false; //verify if the input is press during the last tick
         this.id = id;
+        /** @type VoidMob[] */
+        this.mobs = [];
+
+
+        this.player = new Player(this, 1, 1, 2, new Settings()); //create player character and place it on the map
+        this.addMob(this.player);
+        this.addMob(new VoidMob(this,2,2,2));
     }
 
     /**
      * 
-     * @param {p5.p5InstanceExtensions} sketch 
+     * @param {Mob} mobSource 
+     * @param {Mob} mobDestination 
+     */
+    inRange(mobSource, mobDestination)
+    {
+        const R = Math.sqrt(Math.pow(mobDestination.getPointX() - mobSource.getPointX(), 2) + Math.pow(mobDestination.getPointY() - mobSource.getPointY(), 2));
+        if (R > mobSource.getRange())
+        {
+            return false;
+        }
+        const r = Math.PI * 0.25;
+        const A = Math.atan2(mobDestination.getPointY() - mobSource.getPointY(), mobDestination.getPointX() - mobSource.getPointX());
+        const D = [Math.PI * 0.5, 0, Math.PI * 1.5, Math.PI][mobSource.pos.d];
+        const S = D - r < 0 ? Math.PI * 2 - D - r : D - r;
+        const E = D + r > Math.PI * 2 ? r + D - Math.PI * 2: D + r;
+        if (S < E)
+        {
+            return S < A && A < E;
+        }
+        else
+        {
+            if (A > S)
+            {
+                return true;
+            }
+            else if (A < E)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
+    /**
+     * 
+     * @param {Mob} mob 
+     */
+    addMob(mob)
+    {
+        this.mobs.push(mob);
+    }
+
+    /**
+     * 
      * @param {number} id
      */
-    loadNewMap(sketch, id)
+    loadNewMap(id)
     {
         this.id = id;
         this.table = Ressources.words[`world_${id}`];
@@ -42,8 +95,14 @@ class World
      */
     tick(sketch, time)
     {
-        this.player.tick(sketch, time);
-        this.mob.tick(sketch, time);
+        for(let i = this.mobs.length - 1; i >= 0; i--)
+        {
+            this.mobs[i].tick(sketch, time);
+            if (this.mobs[i].dead > 1)
+            {
+                this.mobs.splice(i, 1);
+            }
+        }
         if (sketch.keyIsDown(sketch.BACKSPACE))
         {
             if (!this.last)
@@ -51,9 +110,9 @@ class World
                 const old = this.id;
                 while (old === this.id)
                 {
-                    this.id = Math.floor(Math.random() * 2) + 1; //output an id of a map different of the curent map
+                    this.id = Math.floor(Math.random() * 3) + 1; //output an id of a map different of the curent map
                 }
-                this.loadNewMap(sketch, this.id);
+                this.loadNewMap(this.id);
             }
             this.last = true;
         }
@@ -142,8 +201,11 @@ class World
                 }
             }
         }
-        this.player.render(sketch, scale);
-        this.mob.render(sketch, scale);
+        const mobs = this.mobs.sort((a, b) => a.pos.y - b.pos.y);
+        for(let i = 0; i < mobs.length; i++)
+        {
+            mobs[i].render(sketch, scale);
+        }
         sketch.pop(); //apply the translation
     }
 }

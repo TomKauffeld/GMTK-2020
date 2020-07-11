@@ -50,6 +50,45 @@ class Table
             }
         }
     }
+
+    /**
+     * 
+     * @param {number} x 
+     * @param {number} y 
+     * @param {string} tile 
+     */
+    setName(x, y, tile)
+    {
+        if (x >= 0 && y >= 0)
+        {
+            if (tile !== null)
+            {
+                if (typeof this.tiles[x] === 'undefined')
+                {
+                    this.tiles[x] = {};
+                }
+                this.tiles[x][y] = tile;
+            }
+            else
+            {
+                if (typeof this.tiles[x] !== 'undefined')
+                {
+                    if (typeof this.tiles[x][y] !== 'undefined')
+                    {
+                        this.tiles[x][y] = undefined;
+                        delete this.tiles[x][y];
+                    }
+                    const keys = Object.keys(this.tiles[x]);
+                    if (keys.length < 1)
+                    {
+                        this.tiles[x] = undefined;
+                        delete this.tiles[x];
+                    }
+                }
+            }
+        }
+    }
+
     /**
      * 
      * @param {number} y
@@ -144,6 +183,7 @@ class GameModeEdit extends GameMode
         this.lastClick = false;
         this.selectedBlock = 0;
         this.offset = {x: 0, y: 0};
+        this.lock = false;
     }
 
     /**
@@ -177,6 +217,10 @@ class GameModeEdit extends GameMode
      */
     tick(sketch, time)
     {
+        if (this.lock)
+        {
+            return;
+        }
         super.tick(sketch, time);
         if (sketch.keyIsDown(sketch.ESCAPE))
         {
@@ -201,18 +245,62 @@ class GameModeEdit extends GameMode
                         }
                         else if (sketch.mouseY < 10)
                         {
-                            const data = this.table.export();
-                            var blob = new Blob([data], {type: 'text/csv'});
-                            if(window.navigator.msSaveOrOpenBlob) {
-                                window.navigator.msSaveBlob(blob, 'world.csv');
+                            if (sketch.mouseX - this.x < (sketch.width - this.x) / 2)
+                            {
+                                const data = this.table.export();
+                                var blob = new Blob([data], {type: 'text/csv'});
+                                if(window.navigator.msSaveOrOpenBlob) {
+                                    window.navigator.msSaveBlob(blob, 'world.csv');
+                                }
+                                else{
+                                    var elem = window.document.createElement('a');
+                                    elem.href = window.URL.createObjectURL(blob);
+                                    elem.download = 'world.csv';
+                                    elem.click();
+                                }
                             }
-                            else{
-                                var elem = window.document.createElement('a');
-                                elem.href = window.URL.createObjectURL(blob);
-                                elem.download = 'world.csv';        
-                                document.body.appendChild(elem);
-                                elem.click();        
-                                document.body.removeChild(elem);
+                            else
+                            {
+                                this.lock = true;
+                                const input = document.createElement('input');
+                                input.type = 'file';
+                                input.click();
+                                input.onchange = (e) =>
+                                {
+                                    const reader = new FileReader();
+                                    reader.onload = () => {
+                                        const t = new p5.Table();
+                                        const lines = reader.result.replace('\r', '').split('\n');
+                                        for (let i = 0; i < lines.length; i++)
+                                        {
+                                            if (t.getColumnCount() < 1)
+                                            {
+                                                const c = lines[i].replace('","', '').split(',');
+                                                for (let j = 0; j < c.length; j++)
+                                                {
+                                                    t.addColumn(j + 1);
+                                                }
+                                            }
+                                            if (lines[i].length > 0)
+                                            {
+                                                const row = new p5.TableRow(lines[i], ',');
+                                                t.addRow(row);
+                                            }
+                                        }
+                                        this.table = new Table();
+                                        for(let y = 0; y < t.getRowCount(); y++)
+                                        {
+                                            for (let x = 0; x < t.getColumnCount(); x++)
+                                            {
+                                                const l = t.get(y, x);
+                                                this.table.setName(x, y, l.trim());
+                                            }
+                                        }
+                                        this.lock = false;
+                                        sketch.mouseIsPressed = false;
+                                    };
+                                    reader.readAsText(e.target.files[0]);
+                                };
                             }
                         }
                         else
@@ -286,7 +374,7 @@ class GameModeEdit extends GameMode
         }
         else
         {
-            let r = this.table.get(y, x);
+            const r = this.table.get(y, x);
             if (typeof r === 'string' && typeof Tile.tiles[r] === 'object')
             {
                 return Tile.tiles[r];
@@ -319,13 +407,12 @@ class GameModeEdit extends GameMode
 
         const minX = Math.max(0, this.offset.x - width / 2);
         const minY = Math.max(0, this.offset.y - height / 2);
-        const maxX = Math.min(width - this.offset.x) - 4;
-        const maxY = Math.min(height - this.offset.y);
+        const maxX = width - this.offset.x - 4;
+        const maxY = height - this.offset.y;
         for (let y = minY; y < maxY; y++)
         {
             for (let x = minX; x < maxX; x++)
             {
-                const tile = this.getTile(x, y);
                 if (x < this.table.getColumnCount() && y < this.table.getRowCount())
                 {
                     sketch.stroke(0, 0, 255);
@@ -336,6 +423,7 @@ class GameModeEdit extends GameMode
                 }
                 sketch.noFill();
                 sketch.square(Math.floor(x) * scale, Math.floor(y) * scale, scale);
+                const tile = this.getTile(x, y);
                 if (tile !== null)
                 {
                     tile.render(sketch, scale, Math.floor(x), Math.floor(y));
@@ -347,30 +435,33 @@ class GameModeEdit extends GameMode
         sketch.translate(this.x, 0);
         sketch.fill(0);
         sketch.rect(0, 0, 4 * scale, height * scale);
-        sketch.textAlign(sketch.LEFT, sketch.BOTTOM);
         sketch.fill(255);
         sketch.textSize(10);
+        sketch.textAlign(sketch.RIGHT, sketch.BOTTOM);
+        sketch.text('Import', 4 * scale, 10);
+        sketch.textAlign(sketch.LEFT, sketch.BOTTOM);
         sketch.text('Export', 10, 10);
         sketch.text(`selected type : ${this.types[this.selectedType]}`, 10, 30);
         const keys = Object.keys(Tile.collection[this.types[this.selectedType]]);
-        for (let i = 0; i < keys.length; i++)
+        for (let i = 0; i <= keys.length; i++)
         {
             const tile = Tile.collection[this.types[this.selectedType]][keys[i]];
+            
+            const x = Math.floor(i  / (height - 2)) + 1;
+            const y = i % (height - 2) + 1;
+            if (this.selectedBlock === i)
+            {
+                sketch.stroke(0, 0, 255);
+            }
+            else
+            {
+                sketch.stroke(255);
+            }
+            sketch.strokeWeight(4);
+            sketch.noFill();
+            sketch.square(x * scale, y * scale, scale);
             if (typeof tile === 'object')
             {
-                const x = Math.floor(i  / (height - 2)) + 1;
-                const y = i % (height - 2) + 1;
-                if (this.selectedBlock === i)
-                {
-                    sketch.stroke(0, 0, 255);
-                }
-                else
-                {
-                    sketch.stroke(255);
-                }
-                sketch.strokeWeight(4);
-                sketch.noFill();
-                sketch.square(x * scale, y * scale, scale);
                 tile.render(sketch, scale, x, y);
             }
         }

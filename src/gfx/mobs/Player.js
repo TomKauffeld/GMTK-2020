@@ -8,8 +8,8 @@ import TileSet from '../TileSet';
  */
 function load(sketch)
 {
-    Player.female_thief = new TileSet(sketch, '/res/sprites/mobs/player/female_thief.png', 4);
-    Player.male_thief = new TileSet(sketch, '/res/sprites/mobs/player/male_thief.png', 4);
+    Player.female_thief = TileSet.Create(sketch, '/res/sprites/mobs/player/female_thief.png', 4);
+    Player.male_thief = TileSet.Create(sketch, '/res/sprites/mobs/player/male_thief.png', 4);
     return Player;
 }
 

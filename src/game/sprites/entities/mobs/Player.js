@@ -16,17 +16,13 @@ class Player extends Mob
      * @param {number} posY 
      * @param {number} dir  
      * @param {Settings} settings
+     * @param {number} score
      */
     constructor(world, posX, posY, dir, settings)
     {
-        super(world, 'player', posX, posY, dir, 2, 1);
+        super(world, Ressources.sprites.mobs.player[`${settings.player.sexe}_${settings.player.class}`], 'player', posX, posY, dir, 2, 1, 1, 100);
         this.settings = settings;
-        this.animation = {
-            frame: 0,
-            counter: 0
-        };
-        this.oldImage = null;
-        this.attack = false;
+        this.score = 0;
     }
 
     /**
@@ -51,25 +47,30 @@ class Player extends Mob
      */
     tick(sketch, time)
     {
+        super.tick(sketch, time);
+        if (this.isDead())
+        {
+            return;
+        }
         this.attack = false;
         if (this.keyIsDown(sketch, 'up'))
         {
-            this.pos.d = 0;
+            this.setPosD(0);
             this.speed = this.maxSpeed;
         }
         else if (this.keyIsDown(sketch, 'right'))
         {
-            this.pos.d = 1;
+            this.setPosD(1);
             this.speed = this.maxSpeed;
         }
         else if (this.keyIsDown(sketch, 'down'))
         {
-            this.pos.d = 2;
+            this.setPosD(2);
             this.speed = this.maxSpeed;
         }
         else if (this.keyIsDown(sketch, 'left'))
         {
-            this.pos.d = 3;
+            this.setPosD(3);
             this.speed = this.maxSpeed;
         }
         else
@@ -77,7 +78,11 @@ class Player extends Mob
             this.attack = this.keyIsDown(sketch, 'attack');
             this.speed = 0;
         }
-        super.tick(sketch, time);
+    }
+
+    incrementScore(score)
+    {
+        this.score+=score;
     }
 
     /**
@@ -87,23 +92,6 @@ class Player extends Mob
      */
     render(sketch, scale)
     {
-        const dir = [4, 12, 0, 8][this.pos.d];
-        const ty = this.speed > 0 ? dir + 1 : (this.attack ? dir + 2 : dir);
-        if (this.oldImage !== ty)
-        {
-            this.oldImage = ty;
-            this.animation.counter = 0;
-            this.animation.frame = 0;
-        }
-        const tx = this.animation.frame;
-        Ressources.sprites.mobs.player[`${this.settings.player.sexe}_${this.settings.player.class}`].draw(sketch, this.pos.x, this.pos.y, scale, tx, ty, this.width, this.height);
-        this.animation.counter++;
-        if (this.animation.counter > 5)
-        {
-            this.animation.counter = 0;
-            this.animation.frame++;
-            this.animation.frame %= 4;
-        }
         super.render(sketch, scale);
     }
 }

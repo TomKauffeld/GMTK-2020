@@ -3,27 +3,16 @@ import p5 from 'p5';
 
 class TileSet
 {
+
     /**
      * 
-     * @param {p5.p5InstanceExtensions} sketch 
-     * @param {string} path
+     * @param {p5.Image} image 
      * @param {number} cols 
      * @param {number} rows
      */
-    constructor(sketch, path, cols, rows = null)
+    constructor(image, cols, rows = null)
     {
-        this.image = sketch.loadImage(path, (image) => {
-            this.scale.x = image.width / this.size.x;
-            if (this.size.y === null)
-            {
-                this.scale.y = this.scale.x;
-                this.size.y = image.height / this.scale.y;
-            }
-            else
-            {
-                this.scale.y = image.height / this.size.y;
-            }
-        });
+        this.image = image;
         this.size = {
             x: cols,
             y: rows
@@ -32,6 +21,20 @@ class TileSet
             x: 0,
             y: 0
         };
+    }
+
+    calculate()
+    {
+        this.scale.x = this.image.width / this.size.x;
+        if (this.size.y === null)
+        {
+            this.scale.y = this.scale.x;
+            this.size.y = this.image.height / this.scale.y;
+        }
+        else
+        {
+            this.scale.y = this.image.height / this.size.y;
+        }
     }
 
     /**
@@ -65,19 +68,44 @@ class TileSet
      * @param {number} w 
      * @param {number} h 
      */
-    draw(sketch, dx, dy, scale, sx, sy, w = 1, h = 1)
+    draw(sketch, dx, dy, scale, sx, sy, dw = 1, dh = 1, sw = null, sh = null)
     {
+        if (sw === null)
+        {
+            sw = dw;
+        }
+        if (sh === null)
+        {
+            sh = dh;
+        }
         if (this.scale.x === 0 || this.scale.y === 0)
         {
             return null;
         }
-        if (sx < 0 || sy < 0 || sx + w >= this.rows || sy + h >= this.rows || w <= 0 || h <= 0)
+        if (sx < 0 || sy < 0 || sx + sw >= this.rows || sy + sh >= this.rows || sw <= 0 || sh <= 0)
         {
             return null;
         }
-        sketch.image(this.image, dx * scale, dy * scale, w * scale, h * scale, sx * this.scale.x, sy * this.scale.y, w * this.scale.x, h * this.scale.y);
+        sketch.image(this.image, dx * scale, dy * scale, Math.ceil(dw * scale), Math.ceil(dh * scale), sx * this.scale.x, sy * this.scale.y, Math.floor(sw * this.scale.x), sh * this.scale.y);
     }
 }
+
+/**
+ * 
+ * @param {p5.p5InstanceExtensions} sketch 
+ * @param {string} path
+ * @param {number} cols 
+ * @param {number} rows
+ */
+TileSet.Create = function(sketch, path, cols, rows = null)
+{
+
+    const image = sketch.loadImage(path, () => {
+        tileSet.calculate();
+    });
+    const tileSet = new TileSet(image, cols, rows);
+    return tileSet;
+};
 
 
 export default TileSet;

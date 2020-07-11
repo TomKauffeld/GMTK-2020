@@ -41,54 +41,11 @@ class Mob extends Entity
 
     /**
      * 
-     * @param {number} x 
-     */
-    setPosX(x)
-    {
-        if (this.dead || this.life <= 0)
-        {
-            return;
-        }
-        this.pos.x = x;
-    }
-
-    /**
-     * 
-     * @param {number} y
-     */
-    setPosY(y)
-    {
-        if (this.dead || this.life <= 0)
-        {
-            return;
-        }
-        this.pos.y = y;
-    }
-
-    /**
-     * 
-     * @param {number} d
-     */
-    setPosD(d)
-    {
-        if (this.dead || this.life <= 0)
-        {
-            return;
-        }
-        this.pos.d = d;
-    }
-
-    /**
-     * 
      * @param {p5.p5InstanceExtensions} sketch 
      * @param {number} time 
      */
     tick(sketch, time)
     {
-        if (this.dead)
-        {
-            return;
-        }
         const oldX = this.pos.x;
         const oldY = this.pos.y;
         this.animation.timer += time;
@@ -96,47 +53,51 @@ class Mob extends Entity
         {
             this.animation.timer -= this.animation.time;
             this.animation.frame++;
-            if (this.animation.frame >= this.texture.size.x && this.life <= 0)
-            {
-                console.log(`${this.name} is dead`);
-                this.dead = true;
-                this.animation.frame = this.texture.size.x - 1;
-            }
             this.animation.frame %= this.texture.size.x;
         }
-        if (this.life > 0)
+        switch(this.pos.d)
         {
-            switch(this.pos.d)
-            {
-            case 0:
-                this.pos.y -= this.speed * time;
-                break;
-            case 1:
-                this.pos.x += this.speed * time;
-                break;
-            case 2:
-                this.pos.y += this.speed * time;
-                break;
-            case 3:
-                this.pos.x -= this.speed * time;
-            }
-            if (this.world.isSolid(this.pos.x + this.width / 2, this.pos.y + this.height - 0.2))
-            {
-                this.pos.x = oldX;
-                this.pos.y = oldY;
-            }
+        case 0:
+            this.pos.y -= this.speed * time;
+            break;
+        case 1:
+            this.pos.x += this.speed * time;
+            break;
+        case 2:
+            this.pos.y += this.speed * time;
+            break;
+        case 3:
+            this.pos.x -= this.speed * time;
+        }
+        if (this.world.isSolid(this.pos.x + this.width / 2, this.pos.y + this.height - 0.2))
+        {
+            this.pos.x = oldX;
+            this.pos.y = oldY;
         }
         super.tick(sketch, time);
     }
 
     takeDamages(damages)
     {
-        this.life -= damages;
+        this.life-=damages;
+        if (this.life <= 0){
+            return false;
+        }
     }
 
     addLife(number)
     {
-        this.life += number;
+        this.life+=number;
+        if (this.life > 100){
+            this.life = 100;
+        }
+    }
+
+    attack()
+    {
+        if(this.world.player.posX == this.posX){
+            this.world.player.takeDamages(2);
+        }
     }
 
     /**
@@ -148,7 +109,7 @@ class Mob extends Entity
     {
         super.render(sketch, scale);
         const dir = [4, 12, 0, 8][this.pos.d];
-        const ty = this.life > 0 ? (this.speed > 0 ? dir + 1 : (this.attack ? dir + 2 : dir)) : dir + 3;
+        const ty = this.speed > 0 ? dir + 1 : (this.attack ? dir + 2 : dir);
         if (this.oldImage !== ty)
         {
             this.oldImage = ty;

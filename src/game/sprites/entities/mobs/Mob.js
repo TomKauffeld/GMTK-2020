@@ -28,7 +28,7 @@ class Mob extends Entity
         this.speed = 0;
         this.maxSpeed = maxSpeed;
         this.life = life;
-        this.dead = false;
+        this.dead = 0;
         this.attack = false;
         this.texture = texture;
         this.animation = {
@@ -38,13 +38,19 @@ class Mob extends Entity
         };
         this.oldImage = null;
     }
+    
+    isDead()
+    {
+        return this.dead > 0;
+    }
+
     /**
      * 
      * @param {number} x 
      */
     setPosX(x)
     {
-        if (this.dead || this.life <= 0)
+        if (this.isDead() || this.life <= 0)
         {
             return;
         }
@@ -57,7 +63,7 @@ class Mob extends Entity
      */
     setPosY(y)
     {
-        if (this.dead || this.life <= 0)
+        if (this.isDead() || this.life <= 0)
         {
             return;
         }
@@ -70,7 +76,7 @@ class Mob extends Entity
      */
     setPosD(d)
     {
-        if (this.dead || this.life <= 0)
+        if (this.isDead() || this.life <= 0)
         {
             return;
         }
@@ -84,8 +90,10 @@ class Mob extends Entity
      */
     tick(sketch, time)
     {
-        if (this.dead)
+        super.tick(sketch, time);
+        if (this.isDead())
         {
+            this.dead += time;
             return;
         }
         const oldX = this.pos.x;
@@ -98,7 +106,7 @@ class Mob extends Entity
             if (this.animation.frame >= this.texture.size.x && this.life <= 0)
             {
                 console.log(`${this.name} is dead`);
-                this.dead = true;
+                this.dead += time;
                 this.animation.frame = this.texture.size.x - 1;
             }
             this.animation.frame %= this.texture.size.x;
@@ -125,7 +133,6 @@ class Mob extends Entity
                 this.pos.y = oldY;
             }
         }
-        super.tick(sketch, time);
     }
 
     /**

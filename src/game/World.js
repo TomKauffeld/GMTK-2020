@@ -1,5 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import p5 from 'p5';
+// eslint-disable-next-line no-unused-vars
+import Mob from './sprites/entities/mobs/Mob';
 import Tile from './Tile';
 import Player from './sprites/entities/mobs/Player';
 import Settings from './Settings';
@@ -18,10 +20,25 @@ class World
          * @type {p5.Table}
          */
         this.table = Ressources.words[`world_${id}`]; // use the number 1 by default to define the map
-        this.player = new Player(this, 1, 1, 2, new Settings()); //create player character and place it on the map
-        this.mob = new VoidMob(this,2,2,2);
         this.last = false; //verify if the input is press during the last tick
         this.id = id;
+        /** @type VoidMob[] */
+        this.mobs = [];
+
+
+        this.player = new Player(this, 1, 1, 2, new Settings()); //create player character and place it on the map
+        this.addMob(this.player);
+        this.addMob(new VoidMob(this,2,2,2));
+
+    }
+
+    /**
+     * 
+     * @param {Mob} mob 
+     */
+    addMob(mob)
+    {
+        this.mobs.push(mob);
     }
 
     /**
@@ -42,8 +59,14 @@ class World
      */
     tick(sketch, time)
     {
-        this.player.tick(sketch, time);
-        this.mob.tick(sketch, time);
+        for(let i = this.mobs.length - 1; i >= 0; i--)
+        {
+            this.mobs[i].tick(sketch, time);
+            if (this.mobs[i].dead > 1)
+            {
+                this.mobs.splice(i, 1);
+            }
+        }
         if (sketch.keyIsDown(sketch.BACKSPACE))
         {
             if (!this.last)
@@ -142,8 +165,11 @@ class World
                 }
             }
         }
-        this.player.render(sketch, scale);
-        this.mob.render(sketch, scale);
+        const mobs = this.mobs.sort((a, b) => a.pos.y - b.pos.y);
+        for(let i = 0; i < mobs.length; i++)
+        {
+            mobs[i].render(sketch, scale);
+        }
         sketch.pop(); //apply the translation
     }
 }

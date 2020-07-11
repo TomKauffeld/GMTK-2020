@@ -47,7 +47,8 @@ class Player extends Mob
      */
     tick(sketch, time)
     {
-        if (this.dead)
+        super.tick(sketch, time);
+        if (this.isDead())
         {
             return;
         }
@@ -77,7 +78,6 @@ class Player extends Mob
             this.attack = this.keyIsDown(sketch, 'attack');
             this.speed = 0;
         }
-        super.tick(sketch, time);
     }
 
     incrementScore(score)

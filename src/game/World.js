@@ -118,9 +118,12 @@ class World
             this.mobs[i].tick(sketch, time);
             if (this.mobs[i].dead > 1)
             {
-                this.player.score += 100;
-                const item = new Item(this, this.mobs[i].biome, this.mobs[i].pos.x, this.mobs[i].pos.y);
-                this.addItem(item);
+                if (this.mobs[i].entityId !== this.player.entityId)
+                {
+                    this.player.score += 100;
+                    const item = new Item(this, this.mobs[i].biome, this.mobs[i].pos.x, this.mobs[i].pos.y);
+                    this.addItem(item);
+                }
                 this.mobs.splice(i, 1);
             }
         }

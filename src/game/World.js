@@ -205,6 +205,14 @@ class World
         }
     }
 
+    //score displaying method:
+    displayScore(sketch, score)
+    {
+        sketch.text('Score : ' + score, 20, 70);
+        sketch.textAlign('left');
+        sketch.fill(0, 102, 153);
+        sketch.textSize(30);
+    }
 
     /**
      * 
@@ -255,10 +263,7 @@ class World
         const part = this.player.life / 100;
         sketch.image(Ressources.ui.life_bar_front, 0, 0, size * part, size * res, 0, 0, part * Ressources.ui.life_bar_front.width, Ressources.ui.life_bar_front.height);
         //score displaying :
-        sketch.text('Score : ' + this.player.score, 20, 70);
-        sketch.textAlign('left');
-        sketch.fill(0, 102, 153);
-        sketch.textSize(30);
+        this.displayScore(sketch, this.player.score);
     }
 }
 

@@ -71,6 +71,10 @@ class Monster extends Mob
             this.setPosD(3);
             this.speed = this.maxSpeed;
         }
+        else
+        {
+            this.speed = 0;
+        }
         /*else
         {
             this.attack = this.keyIsDown(sketch, 'attack');

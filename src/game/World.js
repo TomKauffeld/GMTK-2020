@@ -265,8 +265,8 @@ class World
         const x = (sketch.textWidth('Strength : '), sketch.textWidth('Score : '));
         sketch.text('Strength : ', 20, 100);
         sketch.text('Score : ', 20, 70);
-        sketch.text(this.player.strength, 60 + x, 100);
-        sketch.text(this.player.score, 60 + x, 70);
+        sketch.text(Math.round(this.player.strength * 100) / 100, 60 + x, 100);
+        sketch.text(Math.round(this.player.score * 100) / 100, 60 + x, 70);
     }
 }
 

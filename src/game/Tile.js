@@ -207,6 +207,14 @@ function load()
     Tile.Create('town_2', 'stone_b_m_grass', 1, 3, false, 1, 1);
     Tile.Create('town_2', 'stone_m_m_grass', 0, 0, false,  1, 1);
     Tile.Create('town_2', 'grass_m_m_stone', 2, 0, false,  1, 1);
+    Tile.Create('town_2', 'corner_1_t_l', 0, 4, false,  1, 1, BORDER_TOP_LEFT);
+    Tile.Create('town_2', 'corner_1_t_r', 1, 4, false,  1, 1, BORDER_TOP_RIGHT);
+    Tile.Create('town_2', 'corner_1_b_l', 0, 5, false,  1, 1, BORDER_BOTTOM_LEFT);
+    Tile.Create('town_2', 'corner_1_b_r', 1, 5, false,  1, 1, BORDER_BOTTOM_RIGHT);
+    Tile.Create('town_2', 'corner_2_b_r', 0, 6, true,  1, 1, BORDER_BOTTOM_RIGHT, 0.6);
+    Tile.Create('town_2', 'corner_2_b_l', 1, 6, true,  1, 1, BORDER_BOTTOM_LEFT, 0.6);
+    Tile.Create('town_2', 'corner_2_t_r', 0, 7, true,  1, 1, BORDER_TOP_RIGHT, 0.6);
+    Tile.Create('town_2', 'corner_2_t_l', 1, 7, true,  1, 1, BORDER_TOP_LEFT, 0.6);
 
     for (let i = 3; i <= 18; i++)
     {
@@ -220,7 +228,14 @@ function load()
         Tile.Create(`town_${i}`, 'floor_t_m_wall', 1, 1, false, 1, 1, BORDER_TOP);
         Tile.Create(`town_${i}`, 'floor_b_m_wall', 1, 3, false, 1, 1, BORDER_BOTTOM);
         Tile.Create(`town_${i}`, 'floor_m_m_wall', 0, 0, true,  1, 1, BORDER_ALL);
-        Tile.Create(`town_${i}`, 'wall_m_m_floor', 2, 0, true,  1, 1, BORDER_ALL);
+        Tile.Create(`town_${i}`, 'corner_1_t_l', 0, 4, false,  1, 1, BORDER_TOP_LEFT);
+        Tile.Create(`town_${i}`, 'corner_1_t_r', 1, 4, false,  1, 1, BORDER_TOP_RIGHT);
+        Tile.Create(`town_${i}`, 'corner_1_b_l', 0, 5, false,  1, 1, BORDER_BOTTOM_LEFT);
+        Tile.Create(`town_${i}`, 'corner_1_b_r', 1, 5, false,  1, 1, BORDER_BOTTOM_RIGHT);
+        Tile.Create(`town_${i}`, 'corner_2_b_r', 0, 6, true,  1, 1, BORDER_BOTTOM_RIGHT, 0.6);
+        Tile.Create(`town_${i}`, 'corner_2_b_l', 1, 6, true,  1, 1, BORDER_BOTTOM_LEFT, 0.6);
+        Tile.Create(`town_${i}`, 'corner_2_t_r', 0, 7, true,  1, 1, BORDER_TOP_RIGHT, 0.6);
+        Tile.Create(`town_${i}`, 'corner_2_t_l', 1, 7, true,  1, 1, BORDER_TOP_LEFT, 0.6);
     }
 }
 load();

@@ -61,11 +61,17 @@ class Mob extends Entity
     takeDamages(damages)
     {
         this.life-=damages;
+        if (this.life <= 0){
+            return false;
+        }
     }
 
     addLife(number)
     {
         this.life+=number;
+        if (this.life > 100){
+            this.life = 100;
+        }
     }
 
     attack(mob)

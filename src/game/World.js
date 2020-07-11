@@ -74,13 +74,13 @@ class World
 
     takeRange(mobSource, mobDestination)
     {
-        const R = Math.sqrt(Math.pow(mobDestination.getPointX() - mobSource.getPointX(), 2) + Math.pow(mobDestination.getPointY() - mobSource.getPointY(), 2));
+        const R = Math.sqrt(Math.pow(mobDestination.posX - mobSource.posX, 2) + Math.pow(mobDestination.posY - mobSource.posY, 2));
         if (R > mobSource.getRange())
         {
             return false;
         }
         const r = Math.PI * 0.25;
-        const A = Math.atan2(mobDestination.getPointY() - mobSource.getPointY(), mobDestination.getPointX() - mobSource.getPointX());
+        const A = Math.atan2(mobDestination.posY - mobSource.posY, mobDestination.posX - mobSource.posX);
         const D = [Math.PI * 0.5, 0, Math.PI * 1.5, Math.PI][mobSource.pos.d];
         const S = D - r < 0 ? Math.PI * 2 - D - r : D - r;
         const E = D + r > Math.PI * 2 ? r + D - Math.PI * 2: D + r;
@@ -150,9 +150,9 @@ class World
         }
         for(let i = this.items.length -1; i >= 0; i--){
             this.items[i].tick(sketch, time);
-            /*if (this.items[v].takeRange()){
-                this.items.splice(v,1);
-            }*/
+            if (this.items[i].removeReady){
+                this.items.splice(i,1);
+            }
         }
         if (sketch.keyIsDown(sketch.BACKSPACE))
         {

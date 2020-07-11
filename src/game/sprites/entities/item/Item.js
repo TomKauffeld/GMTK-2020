@@ -17,13 +17,32 @@ class Item extends Entity
     {
         super(world, 'item', posX, posY, 2, 1, 1);
         this.texture = Ressources.sprites.item.foredrop_item;
+        this.removeReady=false;
         this.animation = {
             frame: 0,
             timer: 0,
             time: 0.5 / this.texture.size.x
         };
     }
+    getRange()
+    {
+        return 1;
+    }
+    takeRange(mob)
+    {
+        return this.world.takeRange(this, mob);
+    }
 
+    takeItem(){
+        if (Math.random()>0){
+            this.world.player.strength += Math.random(-2,2);
+        }
+        else
+        {
+            this.world.player.score += 100;
+        }
+        this.removeReady = true;
+    }
     tick(sketch, time)
     {
         super.tick(sketch, time);
@@ -33,6 +52,10 @@ class Item extends Entity
             this.animation.timer -= this.animation.time;
             this.animation.frame++;
             this.animation.frame %= this.texture.size.x;
+        }
+        if(this.takeRange(this.world.player))
+        {
+            this.takeItem();
         }
     }
 

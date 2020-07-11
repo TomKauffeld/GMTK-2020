@@ -15,7 +15,7 @@ class VoidMob extends Monster
      */
     constructor(world, posX, posY, dir)
     {
-        super(world, Ressources.sprites.mobs.monster.void_mob, 'BigBrother', posX, posY, dir, 1, 1);
+        super(world, 4, Ressources.sprites.mobs.monster.void_mob, 'BigBrother', posX, posY, dir, 1, 1);
     }
     /**
      * 

@@ -11,6 +11,7 @@ class Mob extends Entity
     /**
      * 
      * @param {World} world 
+     * @param {number} biome 
      * @param {TileSet} texture
      * @param {string} name 
      * @param {number} posX 
@@ -21,7 +22,7 @@ class Mob extends Entity
      * @param {number} height 
      * @param {number} life
      */
-    constructor(world, texture, name, posX, posY, dir, maxSpeed = 1, width = 1, height = 1 , life = 100)
+    constructor(world, biome, texture, name, posX, posY, dir, maxSpeed = 1, width = 1, height = 1 , life = 100)
     {
         super(world, name, posX, posY, dir, width, height);
         this.speed = 0;

@@ -115,7 +115,7 @@ class World
             if (this.mobs[i].dead > 1)
             {
                 this.player.score += 100;
-                this.addItem(new Item(this, this.mobs[i].pos.x, this.mobs[i].pos.y));
+                this.addItem(new Item(this, this.mobs[i].biome, this.mobs[i].pos.x, this.mobs[i].pos.y));
                 this.mobs.splice(i, 1);
             }
         }
@@ -205,7 +205,11 @@ class World
         }
     }
 
-    //score displaying method:
+    /**
+     * score displaying method
+     * @param {p5.p5InstanceExtensions} sketch 
+     * @param {number} score 
+     */
     displayScore(sketch, score)
     {
         sketch.textAlign('left');

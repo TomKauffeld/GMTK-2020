@@ -8,6 +8,7 @@ class Monster extends Mob
 {
     /**
      * @param {World} world 
+     * @param {number} biome 
      * @param {TileSet} texture
      * @param {string} name 
      * @param {number} posX 
@@ -18,9 +19,9 @@ class Monster extends Mob
      * @param {number} height 
      * @param {number} life
      */
-    constructor(world, texture, name, posX, posY, dir, maxSpeed = 1, width = 1, height = 1 , life = 100)
+    constructor(world, biome, texture, name, posX, posY, dir, maxSpeed = 1, width = 1, height = 1 , life = 100)
     {
-        super(world, texture, name, posX, posY, dir, maxSpeed, width, height, life);
+        super(world, biome, texture, name, posX, posY, dir, maxSpeed, width, height, life);
         this.actions = [
             'up',
             'down',

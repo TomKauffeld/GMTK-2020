@@ -20,7 +20,7 @@ class Player extends Mob
      */
     constructor(world, posX, posY, dir, settings)
     {
-        super(world, Ressources.sprites.mobs.player[`${settings.player.sexe}_${settings.player.class}`], 'player', posX, posY, dir, 2, 1, 1, 100);
+        super(world, 0, Ressources.sprites.mobs.player[`${settings.player.sexe}_${settings.player.class}`], 'player', posX, posY, dir, 2, 1, 1, 100);
         this.settings = settings;
         this.score = 0;
         this.strength = 100;

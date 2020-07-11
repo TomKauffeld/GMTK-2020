@@ -8,6 +8,7 @@ class Entity
     /**
      *
      * @param {World} world
+     * @param {number} biome 
      * @param {string} name
      * @param {number} posX 
      * @param {number} posY 
@@ -15,9 +16,10 @@ class Entity
      * @param {number} width 
      * @param {number} height 
      */
-    constructor(world, name, posX, posY, dir, width = 1, height = 1)
+    constructor(world, biome, name, posX, posY, dir, width = 1, height = 1)
     {
         this.entityId = Entity.newId++;
+        this.biome = biome;
         this.world = world;
         this.name = name;
         this.width = width;

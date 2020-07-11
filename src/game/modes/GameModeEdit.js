@@ -51,6 +51,11 @@ class Table
         }
     }
 
+    store()
+    {
+        localStorage.setItem('gameModeEdit', JSON.stringify(this.tiles));
+    }
+
     /**
      * 
      * @param {number} x 
@@ -167,13 +172,29 @@ class Table
     }
 }
 
+Table.load = () => {
+    const res = localStorage.getItem('gameModeEdit');
+    if (typeof res !== 'string')
+    {
+        return null;
+    }
+    const tiles = JSON.parse(res);
+    const table = new Table();
+    table.tiles = tiles;
+    return table;
+};
+
 class GameModeEdit extends GameMode
 {
     constructor()
     {
         super('Game');
         this.settings = new Settings();
-        this.table = new Table();
+        this.table = Table.load();
+        if (this.table === null)
+        {
+            this.table = new Table();
+        }
         this.pos = {x: 5, y: 5};
         this.types = Object.keys(Tile.collection);
         this.selectedType = 0;
@@ -184,6 +205,7 @@ class GameModeEdit extends GameMode
         this.selectedBlock = 0;
         this.offset = {x: 0, y: 0};
         this.lock = false;
+        this.lastKey = false;
     }
 
     /**
@@ -222,9 +244,78 @@ class GameModeEdit extends GameMode
             return;
         }
         super.tick(sketch, time);
-        if (sketch.keyIsDown(sketch.ESCAPE))
+        if (sketch.keyIsPressed && !this.lastKey && sketch.keyIsDown(sketch.ESCAPE))
         {
             this.setGameMode(new GameModeMenu());
+        }
+        if (sketch.keyIsPressed && !this.lastKey && sketch.keyIsDown(33)) //Pageup
+        {
+            this.selectedType++;
+            this.selectedType %= this.types.length;
+            if (this.selectedBlock > Object.keys(Tile.collection[this.types[this.selectedType]]).length)
+            {
+                this.selectedBlock = 0;
+            }
+        }
+        else if (sketch.keyIsPressed && !this.lastKey && sketch.keyIsDown(34)) // PageDown
+        {
+            this.selectedType--;
+            if (this.selectedType < 0)
+            {
+                this.selectedType += this.types.length;
+            }
+            if (this.selectedBlock > Object.keys(Tile.collection[this.types[this.selectedType]]).length)
+            {
+                this.selectedBlock = 0;
+            }
+        }
+        else if (sketch.keyIsPressed && !this.lastKey && sketch.keyIsDown(sketch.RIGHT_ARROW))
+        {
+            const maxY = Math.floor(sketch.height / this.scale) - 2;
+            let x = Math.floor(this.selectedBlock / maxY);
+            let y = this.selectedBlock % maxY;
+            x++;
+            const i = y + x * maxY;
+            if (i <= Object.keys(Tile.collection[this.types[this.selectedType]]).length)
+            {
+                this.selectedBlock = Math.max(i, 0);
+            }
+        }
+        else if (sketch.keyIsPressed && !this.lastKey && sketch.keyIsDown(sketch.LEFT_ARROW))
+        {
+            const maxY = Math.floor(sketch.height / this.scale) - 2;
+            let x = Math.floor(this.selectedBlock / maxY);
+            let y = this.selectedBlock % maxY;
+            x--;
+            const i = y + x * maxY;
+            if (i <= Object.keys(Tile.collection[this.types[this.selectedType]]).length)
+            {
+                this.selectedBlock = Math.max(i, 0);
+            }
+        }
+        else if (sketch.keyIsPressed && !this.lastKey && sketch.keyIsDown(sketch.UP_ARROW))
+        {
+            const maxY = Math.floor(sketch.height / this.scale) - 2;
+            let x = Math.floor(this.selectedBlock / maxY);
+            let y = this.selectedBlock % maxY;
+            y--;
+            const i = y + x * maxY;
+            if (i <= Object.keys(Tile.collection[this.types[this.selectedType]]).length)
+            {
+                this.selectedBlock = Math.max(i, 0);
+            }
+        }
+        else if (sketch.keyIsPressed && !this.lastKey && sketch.keyIsDown(sketch.DOWN_ARROW))
+        {
+            const maxY = Math.floor(sketch.height / this.scale) - 2;
+            let x = Math.floor(this.selectedBlock / maxY);
+            let y = this.selectedBlock % maxY;
+            y++;
+            const i = y + x * maxY;
+            if (i <= Object.keys(Tile.collection[this.types[this.selectedType]]).length)
+            {
+                this.selectedBlock = Math.max(i, 0);
+            }
         }
         else
         {
@@ -236,11 +327,22 @@ class GameModeEdit extends GameMode
                     {
                         if (sketch.mouseY > 20 && sketch.mouseY < 30)
                         {
-                            this.selectedType++;
-                            this.selectedType %= this.types.length;
-                            if (this.selectedBlock > Object.keys(Tile.collection[this.types[this.selectedType]]).length)
+                            if (sketch.mouseX - this.x < (sketch.width - this.x) / 2)
                             {
-                                this.selectedBlock = 0;
+                                this.selectedType++;
+                                this.selectedType %= this.types.length;
+                                if (this.selectedBlock > Object.keys(Tile.collection[this.types[this.selectedType]]).length)
+                                {
+                                    this.selectedBlock = 0;
+                                }
+                            }
+                            else
+                            {
+                                if (confirm('are you sure to delete everything ?'))
+                                {
+                                    this.table = new Table();
+                                    this.table.store();
+                                }
                             }
                         }
                         else if (sketch.mouseY < 10)
@@ -249,10 +351,12 @@ class GameModeEdit extends GameMode
                             {
                                 const data = this.table.export();
                                 var blob = new Blob([data], {type: 'text/csv'});
-                                if(window.navigator.msSaveOrOpenBlob) {
+                                if(window.navigator.msSaveOrOpenBlob)
+                                {
                                     window.navigator.msSaveBlob(blob, 'world.csv');
                                 }
-                                else{
+                                else
+                                {
                                     var elem = window.document.createElement('a');
                                     elem.href = window.URL.createObjectURL(blob);
                                     elem.download = 'world.csv';
@@ -317,6 +421,7 @@ class GameModeEdit extends GameMode
                                 }
                             }
                         }
+                        sketch.mouseIsPressed = false;
                     }
                 }
                 else
@@ -332,6 +437,7 @@ class GameModeEdit extends GameMode
                     {
                         this.table.set(x, y, null);
                     }
+                    this.table.store();
                 }
                 this.lastClick = true;
             }
@@ -356,6 +462,7 @@ class GameModeEdit extends GameMode
                 this.pos.x -= this.speed * time;
             }
         }
+        this.lastKey = sketch.keyIsPressed;
     }
 
     /**
@@ -439,6 +546,7 @@ class GameModeEdit extends GameMode
         sketch.textSize(10);
         sketch.textAlign(sketch.RIGHT, sketch.BOTTOM);
         sketch.text('Import', 4 * scale, 10);
+        sketch.text('Delete', 4 * scale, 30);
         sketch.textAlign(sketch.LEFT, sketch.BOTTOM);
         sketch.text('Export', 10, 10);
         sketch.text(`selected type : ${this.types[this.selectedType]}`, 10, 30);

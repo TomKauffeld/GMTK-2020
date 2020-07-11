@@ -1,11 +1,7 @@
 // eslint-disable-next-line no-unused-vars
-import p5 from 'p5';
-// eslint-disable-next-line no-unused-vars
-import Settings from '../../../Settings';
-// eslint-disable-next-line no-unused-vars
-import World from '../../../World';
+import World from '../../World';
 import Entity from './Entity';
-import Ressources from '../../../../gfx/Ressources';
+// import takeRange from './takeRange';
 
 class GameItem extends Entity
 {
@@ -13,24 +9,26 @@ class GameItem extends Entity
      * @param {World} world
      * @param {number} score
      */
-    constructor(world, name, posX, posY, dir, score, width = 1, height = 1)
+    constructor(world, texture, name, posX, posY, score, width = 1, height = 1)
     {
-        super(name, posX, posY, dir, width, height);
+        super(name, posX, posY, width, height);
         this.world = world;
         this.score = score;
-        this.texture = Ressources.sprites.item;
+        this.texture = texture;
     }
 
-    take(){
-        this.world.player.incrementScore(1);
-    }
-
+   
+/*
     tick(sketch, time)
     {
-
+        take(){
+            if(takeRange(this.world.player)){
+                this.world.player.effect(item.effect());
+            }
+        }
         super.tick(sketch, time);
     }
-
+*/
 }
 
 export default GameItem;

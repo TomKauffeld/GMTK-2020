@@ -7,6 +7,7 @@ import Player from './sprites/entities/mobs/Player';
 import Settings from './Settings';
 import Ressources from '../gfx/Ressources';
 import VoidMob from './sprites/entities/mobs/VoidMob';
+import Item from './sprites/entities/item/Item';
 
 class World
 {
@@ -25,6 +26,8 @@ class World
         /** @type VoidMob[] */
         this.mobs = [];
 
+        /** @type Item[] */
+        this.items = [];
 
         this.player = new Player(this, 1, 1, 2, new Settings()); //create player character and place it on the map
         this.addMob(this.player);
@@ -69,6 +72,39 @@ class World
         }
     }
 
+    takeRange(mobSource, mobDestination)
+    {
+        const R = Math.sqrt(Math.pow(mobDestination.getPointX() - mobSource.getPointX(), 2) + Math.pow(mobDestination.getPointY() - mobSource.getPointY(), 2));
+        if (R > mobSource.getRange())
+        {
+            return false;
+        }
+        const r = Math.PI * 0.25;
+        const A = Math.atan2(mobDestination.getPointY() - mobSource.getPointY(), mobDestination.getPointX() - mobSource.getPointX());
+        const D = [Math.PI * 0.5, 0, Math.PI * 1.5, Math.PI][mobSource.pos.d];
+        const S = D - r < 0 ? Math.PI * 2 - D - r : D - r;
+        const E = D + r > Math.PI * 2 ? r + D - Math.PI * 2: D + r;
+        if (S < E)
+        {
+            return S < A && A < E;
+        }
+        else
+        {
+            if (A > S)
+            {
+                return true;
+            }
+            else if (A < E)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
     /**
      * 
      * @param {Mob} mob 
@@ -76,6 +112,14 @@ class World
     addMob(mob)
     {
         this.mobs.push(mob);
+    }
+
+    /** 
+     * @param {Item} item
+    */
+    addItem(item)
+    {
+        this.items.push(item);
     }
 
     /**
@@ -100,8 +144,15 @@ class World
             this.mobs[i].tick(sketch, time);
             if (this.mobs[i].dead > 1)
             {
+                this.addItem(new Item(this,this.mobs[i].getPointX(),this.mobs[i].getPointY()));
                 this.mobs.splice(i, 1);
             }
+        }
+        for(let v = this.items.length -1; v >= 0;v--){
+            this.items[v].tick(sketch,time);
+            /*if (this.items[v].takeRange()){
+                this.items.splice(v,1);
+            }*/
         }
         if (sketch.keyIsDown(sketch.BACKSPACE))
         {
@@ -123,7 +174,6 @@ class World
     }
 
     /**
-     * 
      * @param {number} x 
      * @param {number} y 
      * @returns {Tile|null}
@@ -205,6 +255,11 @@ class World
         for(let i = 0; i < mobs.length; i++)
         {
             mobs[i].render(sketch, scale);
+        }
+        const items = this.items.sort((a,b) => a.pos.y - b.pos.y);
+        for(let v = 0; v < items.length; v++)
+        {
+            items[v].render(sketch, scale);
         }
         sketch.pop(); //apply the translation
     }

@@ -31,12 +31,15 @@ function load(sketch) {
     {
         sketch.loadImage(`/res/tiles/town${i}.png`, (image1) => {
             sketch.loadImage(`/res/tiles/town${i}_corner1.png`, (image2) => {
-                const image = sketch.createImage(image1.width, image1.height + image2.height);
-                image.copy(image1, 0, 0, image1.width, image1.height, 0, 0, image1.width, image1.height);
-                image.copy(image2, 0, 0, image2.width, image2.height, 0, image1.height, image2.width, image2.height);
-                const tile = new TileSet(image, 3);
-                tile.calculate();
-                Tiles[`town_${i}`] = tile;
+                sketch.loadImage(`/res/tiles/town${i}_corner2.png`, (image3) => {
+                    const image = sketch.createImage(image1.width, image1.height + image2.height + image3.height);
+                    image.copy(image1, 0, 0, image1.width, image1.height, 0, 0, image1.width, image1.height);
+                    image.copy(image2, 0, 0, image2.width, image2.height, 0, image1.height, image2.width, image2.height);
+                    image.copy(image3, 0, 0, image3.width, image3.height, 0, image1.height + image2.height, image3.width, image3.height);
+                    const tile = new TileSet(image, 3);
+                    tile.calculate();
+                    Tiles[`town_${i}`] = tile;
+                });
             });
         });
     }

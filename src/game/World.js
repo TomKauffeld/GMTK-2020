@@ -112,37 +112,47 @@ class World
     spawnMonster()
     {
         let mob = null;
-        const x = 5;
-        const y = 5;
         let l = 0;
-        while (mob === null && l < 10)
+        let x = Math.random() * (this.table.getColumnCount() - 1);
+        let y = Math.random() * (this.table.getRowCount() - 1);
+        while (this.isSolid(x, y) && l < 100 && Math.sqrt(Math.pow(this.player.getPointX() - x, 2) + Math.pow(this.player.getPointY() - y, 2)) > 3)
         {
+            x = Math.random() * (this.table.getColumnCount() - 1);
+            y = Math.random() * (this.table.getRowCount() - 1);
             l++;
-            const r = Math.floor(Math.random() * 4);
-            switch(r)
-            {
-            case 0:
-                mob = new DesertMob(this, x, y, 2);
-                break;
-            case 1:
-                mob = new ForestMob(this, x, y, 2);
-                break;
-            case 2:
-                mob = new SnowMob(this, x, y, 2);
-                break;
-            case 3:
-                mob = new VoidMob(this, x, y, 2);
-                break;
-            }
-            if (mob.biome === this.id)
-            {
-                mob = null;
-            }
         }
-        if (mob !== null)
+        if (l < 100)
         {
-
-            this.addMob(mob);
+            l = 0;
+            while (mob === null && l < 100)
+            {
+                l++;
+                const r = Math.floor(Math.random() * 4);
+                switch(r)
+                {
+                case 0:
+                    mob = new DesertMob(this, x, y, 2);
+                    break;
+                case 1:
+                    mob = new ForestMob(this, x, y, 2);
+                    break;
+                case 2:
+                    mob = new SnowMob(this, x, y, 2);
+                    break;
+                case 3:
+                    mob = new VoidMob(this, x, y, 2);
+                    break;
+                }
+                if (mob.biome === this.id)
+                {
+                    mob = null;
+                }
+            }
+            if (mob !== null)
+            {
+    
+                this.addMob(mob);
+            }
         }
     }
 

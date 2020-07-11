@@ -58,7 +58,7 @@ class GameModeButtons extends GameMode
     drawButton(sketch, width, height, button, posX, posY, size = 1)
     {
         button = button.toLowerCase();
-        const scale = width / 3;
+        const scale = width;
         const w = scale * size;
         const h = w / 2.6;
         const x = posX * scale + width / 2 - w / 2;
@@ -125,9 +125,10 @@ class GameModeButtons extends GameMode
         {
             y = 0;
         }
+        const dh = height / h;
         for (let i = 0; i < this.buttons.length; i++)
         {
-            this.drawButton(sketch, width * scale, height * scale, this.buttons[i], 0, y);
+            this.drawButton(sketch, width * scale, height * scale, this.buttons[i], 0, y * 1/dh, 1/ dh);
             y += 1.5;
         }
         this.pressed = this.isPressed(sketch);

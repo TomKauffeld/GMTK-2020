@@ -7,7 +7,7 @@ import p5 from 'p5';
 function load(sketch)
 {
     ButtonNone.normal = sketch.loadImage('/res/buttons/Button_None.png');
-    ButtonNone.highlighted = sketch.loadImage('/res/buttons/Button_None_HighLighted.png');
+    ButtonNone.highlighted = sketch.loadImage('/res/buttons/Button_None_Highlighted.png');
     ButtonNone.selected = sketch.loadImage('/res/buttons/Button_None_Selected.png');
     return ButtonNone;
 }

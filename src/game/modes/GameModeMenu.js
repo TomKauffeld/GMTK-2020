@@ -3,12 +3,13 @@ import p5 from 'p5';
 import GameModeButtons from './GameModeButtons';
 import GameModePlay from './GameModePlay';
 import GameModeSettings from './GameModeSettings';
+import GameModeEdit from './GameModeEdit';
 
 class GameModeMenu extends GameModeButtons
 {
     constructor()
     {
-        super('Menu', ['Play', 'Settings']);
+        super('Menu', ['Play', 'Settings', 'Edit']);
     }
 
     /**
@@ -35,6 +36,9 @@ class GameModeMenu extends GameModeButtons
             break;
         case 'settings':
             this.setGameMode(new GameModeSettings(this));
+            break;
+        case 'edit':
+            this.setGameMode(new GameModeEdit());
             break;
         }
     }

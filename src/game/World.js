@@ -200,7 +200,7 @@ class World
      */
     tick(sketch, time)
     {
-        if (Math.random() < 0.01 && this.mobs.length < 20)
+        if (Math.random() < 0.01 && this.mobs.length < Math.min(100, this.corruption * 2 + 20))
         {
             this.spawnMonster();
         }

@@ -64,13 +64,12 @@ class GameModeButtons extends GameMode
         const x = posX * scale + width / 2 - w / 2;
         const y = posY * scale / 2.6 + height / 2 - h / 2;
         let s = 0;
-        const b = typeof Ressources.buttons[button] === 'object' ? Ressources.buttons[button] : null;
         let image = null;
         if (sketch.mouseX >= x && sketch.mouseX <= x + w && sketch.mouseY >= y && sketch.mouseY <= y + h)
         {
             if (this.isPressed(sketch))
             {
-                image = b === null ? null : b.selected;
+                image = Ressources.buttons.selected;
                 s = 2;
             }
             else
@@ -78,44 +77,40 @@ class GameModeButtons extends GameMode
                 if (this.pressed)
                 {
                     this.onClick(button);
-                    image = b === null ? null : b.selected;
+                    image = Ressources.buttons.selected;
                     s = 2;
                 }
                 else
                 {
-                    image = b === null ? null : b.highlighted;
+                    image = Ressources.buttons.highlighted;
                     s = 1;
                 }
             }
         }
         else
         {
-            image = b === null ? null : b.normal;
+            image = Ressources.buttons.normal;
         }
         if (image !== null)
         {
             sketch.image(image, x, y, w, h);
         }
-        else
+        sketch.fill(255);
+        sketch.stroke(0);
+        sketch.strokeWeight(4);
+        sketch.textAlign(sketch.CENTER, sketch.CENTER);
+        sketch.textSize(h * 0.4);
+        let tw = sketch.textWidth(button);
+        if (tw > w * 0.7)
         {
-            this.drawButton(sketch, width, height, 'none', posX, posY, size);
-            sketch.fill(255);
-            sketch.stroke(0);
-            sketch.strokeWeight(4);
-            sketch.textAlign(sketch.CENTER, sketch.CENTER);
-            sketch.textSize(h * 0.4);
-            let tw = sketch.textWidth(button);
-            if (tw > w * 0.7)
-            {
-                sketch.textSize(h * 0.4 * w * 0.7 / tw);
-            }
-            let by = y + h / 2;
-            if (s > 1)
-            {
-                by += h / 40;
-            }
-            sketch.text(button, x + w / 2, by);
+            sketch.textSize(h * 0.4 * w * 0.7 / tw);
         }
+        let by = y + h / 2;
+        if (s > 1)
+        {
+            by += h / 40;
+        }
+        sketch.text(button, x + w / 2, by);
     }
 
     /**

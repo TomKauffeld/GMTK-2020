@@ -7,7 +7,7 @@ function inverseControls()
     Settings.keys.left = Settings.keys.right;
     Settings.keys.down = tmpUp;
     Settings.keys.right = tmpLeft;
-    Settings.keys.inverse = !Settings.keys.inverse;
+    Settings.keys.inversed = !Settings.keys.inversed;
     return Settings;
 }
 

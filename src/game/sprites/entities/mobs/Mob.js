@@ -34,7 +34,7 @@ class Mob extends Entity
         this.animation = {
             frame: 0,
             timer: 0,
-            time: 0.5 / this.texture.size.x
+            time: 0.4 / this.texture.size.x
         };
         this.oldImage = null;
         this.strength = 20;

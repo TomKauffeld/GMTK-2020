@@ -428,6 +428,7 @@ class World
         sketch.text(Math.round(this.player.strength * 100) / 100, scale * 0.5 + x, scale);
         sketch.text(Math.round(this.corruption), scale * 0.5 + x, scale * 1.3);
         sketch.text(this.mobs.length - 1, scale * 0.5 + x, scale * 1.6);
+        console.log(Settings);
         if (Settings.keys.inversed)
         {
             sketch.fill(255, 0, 0);

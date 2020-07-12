@@ -201,6 +201,32 @@ function load()
     Tile.Create('iceland', 'ice_t_l_snow', 1, 5, true, 1, 1, BORDER_BOTTOM_RIGHT, 0.6);
 
 
+    for (let i = 1; i <= 4; i++)
+    {
+        const solid = [true, false, false, true][i-1];
+
+        Tile.Create(`desert_${i}`, 'dark_m_m_light', 1, 1, solid, 1, 1);
+        Tile.Create(`desert_${i}`, 'dark_t_l_light', 0, 0, solid, 1, 1, BORDER_TOP_LEFT);
+        Tile.Create(`desert_${i}`, 'dark_m_l_light', 0, 1, solid, 1, 1, BORDER_LEFT);
+        Tile.Create(`desert_${i}`, 'dark_b_l_light', 0, 2, solid, 1, 1, BORDER_BOTTOM_LEFT);
+        Tile.Create(`desert_${i}`, 'dark_t_r_light', 2, 0, solid, 1, 1, BORDER_TOP_RIGHT);
+        Tile.Create(`desert_${i}`, 'dark_m_r_light', 2, 1, solid, 1, 1, BORDER_RIGHT);
+        Tile.Create(`desert_${i}`, 'dark_b_r_light', 2, 2, solid, 1, 1, BORDER_BOTTOM_RIGHT);
+        Tile.Create(`desert_${i}`, 'dark_t_m_light', 1, 0, solid, 1, 1, BORDER_TOP);
+        Tile.Create(`desert_${i}`, 'dark_b_m_light', 1, 2, solid, 1, 1, BORDER_BOTTOM);
+
+        Tile.Create(`desert_${i}`, 'dark_v_s_light', 3, 0, solid, 1, 1, BORDER_TOP | BORDER_LEFT | BORDER_RIGHT);
+        Tile.Create(`desert_${i}`, 'dark_v_m_light', 3, 1, solid, 1, 1, BORDER_LEFT | BORDER_RIGHT);
+        Tile.Create(`desert_${i}`, 'dark_v_e_light', 3, 2, solid, 1, 1, BORDER_BOTTOM | BORDER_LEFT | BORDER_RIGHT);
+
+        Tile.Create(`desert_${i}`, 'dark_h_s_light', 0, 3, solid, 1, 1, BORDER_TOP | BORDER_BOTTOM | BORDER_LEFT);
+        Tile.Create(`desert_${i}`, 'dark_h_m_light', 1, 3, solid, 1, 1, BORDER_TOP | BORDER_BOTTOM);
+        Tile.Create(`desert_${i}`, 'dark_h_e_light', 2, 3, solid, 1, 1, BORDER_TOP | BORDER_BOTTOM | BORDER_RIGHT);
+
+        Tile.Create(`desert_${i}`, 'dark_dot', 3, 3, solid, 1, 1, BORDER_ALL);
+    }
+
+
     Tile.Create('town_2', 'stone',           1, 1, false, 1, 1);
     Tile.Create('town_2', 'grass',           3, 1, false, 1, 1);
     Tile.Create('town_2', 'stone_t_l_grass', 0, 0, false, 1, 1);

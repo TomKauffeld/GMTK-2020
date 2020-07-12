@@ -24,6 +24,14 @@ function load(sketch) {
             const y = Math.floor(i / w);
             Tiles[`town_${i+2}`] = new TileSet(main.getTile(x * w, y * h + 6, w, h), w).calculate();
         }
+        for (let i = 0; i < 4; i++)
+        {
+            const y = i * 5 + 26;
+            const x = 6;
+            const w = 10;
+            const h = 5;
+            Tiles[`desert_${i+1}`] = new TileSet(main.getTile(x, y, w, h), w).calculate();
+        }
     });
     return Tiles;
 }
@@ -41,6 +49,14 @@ const Tiles = {
     grassland_3: null,
     /** @type TileSet */
     grassland_4: null,
+    /** @type TileSet */
+    desert_1: null,
+    /** @type TileSet */
+    desert_2: null,
+    /** @type TileSet */
+    desert_3: null,
+    /** @type TileSet */
+    desert_4: null,
     /** @type TileSet */
     town_2: null,
     /** @type TileSet */

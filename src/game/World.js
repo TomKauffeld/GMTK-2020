@@ -197,7 +197,7 @@ class World
                     const item = new Item(this, this.mobs[i].biome, this.mobs[i].pos.x, this.mobs[i].pos.y);
                     this.addItem(item);
                 }
-                if (this.mob[i].entityId === this.player.entityId)
+                if (this.mobs[i].entityId === this.player.entityId)
                 {
                     this.score = this.player.score;
                     this.end = true;

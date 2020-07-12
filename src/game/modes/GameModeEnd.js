@@ -14,7 +14,7 @@ class GameModeEnd extends GameMode
     constructor(score)
     {
         super('End');
-        this.score = score;
+        this.score = Math.round(score);
     }
 
     /**

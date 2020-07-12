@@ -28,6 +28,7 @@ class World
         this.table = Ressources.words[`world_${id}`]; // use the number 1 by default to define the map
         this.last = false; //verify if the input is press during the last tick
         this.id = id;
+        this.corruption = 1;
         /** @type Mob[] */
         this.mobs = [];
 
@@ -211,6 +212,10 @@ class World
                     this.id = Math.floor(Math.random() * 3) + 1; //output an id of a map different of the curent map
                 }
                 this.loadNewMap(this.id);
+                this.corruption += 1;
+                if (((this.corruption)*Math.random(0,2)) > 12 ){
+                    this.player.settings.changeSettings();
+                }
             }
             this.last = true;
         }

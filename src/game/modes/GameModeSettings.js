@@ -14,8 +14,8 @@ class GameModeSettings extends GameModeButtons
      */
     constructor(previous = null)
     {
-        super('Settings', ['Return to menu', `input mode : ${Settings.keys.mode}`]);
-        this.input = `input mode : ${Settings.keys.mode}`;
+        super('Settings', ['Return to menu', `input mode: ${Settings.keys.mode}`]);
+        this.input = `input mode: ${Settings.keys.mode}`;
         this.previous = previous;
     }
 

@@ -8,6 +8,7 @@ import {p5InstanceExtensions, Image} from 'p5';
 function load(sketch) {
     UI.life_bar_back = sketch.loadImage('res/ui/Bar_Back.png');
     UI.life_bar_front = sketch.loadImage('res/ui/Bar_Red_Front.png');
+    UI.title = sketch.loadImage('res/glitchyland_title.png');
     return UI;
 }
 
@@ -16,8 +17,9 @@ const UI = {
     /** @type {Image} */
     life_bar_front: null,
     /** @type {Image} */
-    life_bar_back: null
-
+    life_bar_back: null,
+    /** @type {Image} */
+    title: null,
 };
 
 export default UI;

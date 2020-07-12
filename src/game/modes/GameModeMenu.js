@@ -5,12 +5,14 @@ import GameModePlay from './GameModePlay';
 import GameModeSettings from './GameModeSettings';
 import GameModeEdit from './GameModeEdit';
 import GameModeHelp from './GameModeHelp';
+import GameModeCredits from './GameModeCredits';
+import Ressources from '../../gfx/Ressources';
 
 class GameModeMenu extends GameModeButtons
 {
     constructor()
     {
-        super('Menu', ['Play', 'Settings', 'Help','Edit']);
+        super('Menu', ['Play', 'Settings', 'Help', 'Credits']);
     }
 
     /**
@@ -44,6 +46,9 @@ class GameModeMenu extends GameModeButtons
         case 'edit':
             this.setGameMode(new GameModeEdit());
             break;
+        case 'credits':
+            this.setGameMode(new GameModeCredits());
+            break;
         }
     }
 
@@ -57,6 +62,18 @@ class GameModeMenu extends GameModeButtons
     render(sketch, scale, width, height)
     {
         super.render(sketch, scale, width, height);
+        const image = Ressources.ui.title;
+        const res = image.height / image.width;
+        let h = this.firstButton * 0.8;
+        let w = h / res;
+        if (w > width * scale * 0.9)
+        {
+            w = width * scale * 0.9;
+            h = w * res;
+        }
+        const x = width / 2 * scale - w/2;
+        const y = (this.firstButton - h) / 2;
+        sketch.image(image, x, y, w, h);
     }
 }
 

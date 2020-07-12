@@ -20,7 +20,7 @@ class GameModeHelp extends GameMode
     tick(sketch, time)
     {
         super.tick(sketch, time);
-        if (sketch.keyIsPressed)
+        if (sketch.keyIsPressed || sketch.mouseIsPressed)
         {
             this.setGameMode(new GameModeMenu());
         }
@@ -45,8 +45,8 @@ class GameModeHelp extends GameMode
         if ( Settings.keys.mode == 'qwerty'){
             sketch.text('Move: w a s d', width/2*scale, height/2*scale-scale*1.5);
         } 
-        sketch.text('Attack : SpaceBar', width/2*scale, height/2*scale);    
-        sketch.text('Switch World : F', width/2*scale, height/2*scale+scale*1.5);    
+        sketch.text('Attack: SpaceBar', width/2*scale, height/2*scale);
+        sketch.text('Switch World: F', width/2*scale, height/2*scale+scale*1.5);
     }
 }
 

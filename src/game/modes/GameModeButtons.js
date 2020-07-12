@@ -15,6 +15,7 @@ class GameModeButtons extends GameMode
         super(name);
         this.buttons = buttons;
         this.pressed = false;
+        this.firstButton = -1;
     }
 
     /**
@@ -93,6 +94,10 @@ class GameModeButtons extends GameMode
         }
         if (image !== null)
         {
+            if (this.firstButton < 0)
+            {
+                this.firstButton = y;
+            }
             sketch.image(image, x, y, w, h);
         }
         sketch.fill(255);
@@ -123,6 +128,7 @@ class GameModeButtons extends GameMode
     render(sketch, scale, width, height)
     {
         super.render(sketch, scale, width, height);
+        this.firstButton = -1;
         const h = (this.buttons.length) * 0.75;
         let y = - h / 2;
         if (this.buttons.length === 1)

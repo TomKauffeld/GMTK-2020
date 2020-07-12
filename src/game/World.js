@@ -333,7 +333,10 @@ class World
         const res = Ressources.ui.life_bar_back.height / Ressources.ui.life_bar_back.width;
         sketch.image(Ressources.ui.life_bar_back, 0, 0, size, size * res);
         const part = Math.max(this.player.life / 100, 0);
-        sketch.image(Ressources.ui.life_bar_front, 0, 0, size * part, size * res, 0, 0, part * Ressources.ui.life_bar_front.width, Ressources.ui.life_bar_front.height);
+        if (this.player.life > 0)
+        {
+            sketch.image(Ressources.ui.life_bar_front, 0, 0, size * part, size * res, 0, 0, part * Ressources.ui.life_bar_front.width, Ressources.ui.life_bar_front.height);
+        }
         //score & strength displaying :
         sketch.textAlign('left');
         sketch.fill(0, 102, 153);

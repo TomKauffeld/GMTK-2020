@@ -214,7 +214,7 @@ class World
                 this.loadNewMap(this.id);
                 this.corruption += 1;
                 if (((this.corruption)*Math.random(0,2)) > 12 ){
-                    this.player.settings.changeSettings();
+                    Settings.inverseControls();
                 }
             }
             this.last = true;

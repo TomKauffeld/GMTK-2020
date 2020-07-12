@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import {p5InstanceExtension} from 'p5';
+import {p5InstanceExtensions} from 'p5';
 // eslint-disable-next-line no-unused-vars
 import Table from '../Table';
 // eslint-disable-next-line no-unused-vars
@@ -428,6 +428,12 @@ class World
         sketch.text(Math.round(this.player.strength * 100) / 100, scale * 0.5 + x, scale);
         sketch.text(Math.round(this.corruption), scale * 0.5 + x, scale * 1.3);
         sketch.text(this.mobs.length - 1, scale * 0.5 + x, scale * 1.6);
+        if (Settings.keys.inversed)
+        {
+            sketch.fill(255, 0, 0);
+            sketch.text('Inversed controls', scale / 7, scale * 1.9);
+        }
+
     }
 }
 

@@ -19,7 +19,7 @@ function setQuerty()
     Settings.keys.right = 68;
     Settings.keys.attack = 32;
     Settings.keys.back = 8;
-    Settings.keys.change = 16;
+    Settings.keys.change = 70;
     Settings.keys.inversed = false;
     Settings.keys.mode = 'qwerty';
     return Settings;
@@ -33,7 +33,7 @@ function setAzerty()
     Settings.keys.right = 68;
     Settings.keys.attack = 32;
     Settings.keys.back = 8;
-    Settings.keys.change = 16;
+    Settings.keys.change = 70;
     Settings.keys.inversed = false;
     Settings.keys.mode = 'azerty';
     return Settings;
@@ -50,7 +50,7 @@ const Settings = {
         down: 83,
         attack: 32,
         back: 8,
-        change: 16,
+        change: 70,
         editor: {
             type_up: 33,
             type_down: 34,

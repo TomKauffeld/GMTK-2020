@@ -49,6 +49,11 @@ class World
         this.score = 0;
     }
 
+    distance(x1, y1, x2, y2)
+    {
+        return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+    }
+
     /**
      * 
      * @param {Mob} from 
@@ -57,10 +62,10 @@ class World
     inRange(from, to)
     {
         const fx = from.getPointX();
-        const fy = from.pos.x + from.height / 2;
+        const fy = from.pos.y + from.height / 2;
         const tx = to.getPointX();
-        const ty = to.pos.x + from.height / 2;
-        const R = Math.sqrt(Math.pow(tx - fx, 2) + Math.pow(ty - fy, 2));
+        const ty = to.pos.y + to.height / 2;
+        const R = this.distance(fx, fy, tx, ty);
         if (R > from.getRange())
         {
             return false;

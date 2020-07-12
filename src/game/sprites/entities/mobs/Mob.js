@@ -129,7 +129,7 @@ class Mob extends Entity
                 this.dead += time;
                 this.animation.frame = this.texture.size.x - 1;
             }
-            if (this.animation.frame === 3 && this.attack)
+            if (this.animation.frame === 3 && this.attack && this.life <= 0)
             {
                 this.world.attack(this);
             }

@@ -47,6 +47,7 @@ class World
 
         this.end = false;
         this.score = 0;
+        this.lastScoreColorChanged = 0;
     }
 
     /**
@@ -216,7 +217,7 @@ class World
                 if (this.mobs[i].entityId !== this.player.entityId && this.mobs[i].biome !== this.getBiome())
                 {
                     this.player.score += 100;
-                    this.score = this.player.score;
+                    this.score = this.player.score;   
                     const item = new Item(this, this.mobs[i].biome, this.mobs[i].pos.x, this.mobs[i].pos.y);
                     this.addItem(item);
                 }
@@ -373,7 +374,16 @@ class World
         }
         //score & strength displaying :
         sketch.textAlign('left');
-        sketch.fill(0, 102, 153);
+        if(this.lastScoreColorChanged!=this.corruption)
+        {
+            sketch.fill(Math.floor(Math.random() * Math.floor(255)), Math.floor(Math.random() * Math.floor(255)), Math.floor(Math.random() * Math.floor(255)));
+            this.lastScoreColorChanged=this.corruption;
+        }
+        if (this.corruption<7)
+        {
+            sketch.fill(0, 102, 153);
+        }
+        
         sketch.textSize(scale / 4);
         const x = Math.max(sketch.textWidth('Strength : '), sketch.textWidth('Score : '));
         sketch.text('Strength : ', scale / 7, scale * 1.1);

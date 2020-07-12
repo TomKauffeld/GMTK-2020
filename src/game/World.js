@@ -38,8 +38,12 @@ class World
         this.items = [];
 
         this.player = new Player(this, 1, 1, 2); //create player character and place it on the map
+        while (this.isSolid(this.player.getPointX(), this.player.getPointY()))
+        {
+            this.player.pos.x = Math.random() * (this.table.getColumnCount() - 1);
+            this.player.pos.y = Math.random() * (this.table.getRowCount() - 1);
+        }
         this.addMob(this.player);
-        this.addMob(new VoidMob(this, 2, 2, 2));
 
         this.end = false;
         this.score = 0;

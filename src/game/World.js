@@ -28,6 +28,7 @@ class World
         this.table = Ressources.words[`world_${id}`]; // use the number 1 by default to define the map
         this.last = false; //verify if the input is press during the last tick
         this.id = id;
+        this.corruption = 1;
         /** @type Mob[] */
         this.mobs = [];
 
@@ -211,6 +212,10 @@ class World
                     this.id = Math.floor(Math.random() * 3) + 1; //output an id of a map different of the curent map
                 }
                 this.loadNewMap(this.id);
+                this.corruption += 1;
+                if (((this.corruption)*Math.random(0,2)) > 12 ){
+                    this.player.settings.changeSettings();
+                }
             }
             this.last = true;
         }
@@ -327,17 +332,20 @@ class World
         const size = 5 * scale;
         const res = Ressources.ui.life_bar_back.height / Ressources.ui.life_bar_back.width;
         sketch.image(Ressources.ui.life_bar_back, 0, 0, size, size * res);
-        const part = this.player.life / 100;
-        sketch.image(Ressources.ui.life_bar_front, 0, 0, size * part, size * res, 0, 0, part * Ressources.ui.life_bar_front.width, Ressources.ui.life_bar_front.height);
+        const part = Math.max(this.player.life / 100, 0);
+        if (this.player.life > 0)
+        {
+            sketch.image(Ressources.ui.life_bar_front, 0, 0, size * part, size * res, 0, 0, part * Ressources.ui.life_bar_front.width, Ressources.ui.life_bar_front.height);
+        }
         //score & strength displaying :
         sketch.textAlign('left');
         sketch.fill(0, 102, 153);
-        sketch.textSize(30);
-        const x = (sketch.textWidth('Strength : '), sketch.textWidth('Score : '));
-        sketch.text('Strength : ', 20, 100);
-        sketch.text('Score : ', 20, 70);
-        sketch.text(Math.round(this.player.strength * 100) / 100, 60 + x, 100);
-        sketch.text(Math.round(this.player.score * 100) / 100, 60 + x, 70);
+        sketch.textSize(scale / 4);
+        const x = Math.max(sketch.textWidth('Strength : '), sketch.textWidth('Score : '));
+        sketch.text('Strength : ', scale / 7, scale * 1.1);
+        sketch.text('Score : ', scale / 7, scale * 0.7);
+        sketch.text(Math.round(this.player.strength * 100) / 100, scale * 0.6 + x, scale * 1.1);
+        sketch.text(Math.round(this.player.score * 100) / 100, scale * 0.6 + x, scale * 0.7);
     }
 }
 

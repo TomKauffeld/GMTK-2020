@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import {p5InstanceExtensions} from 'p5';
 import GameMode from './GameMode';
+import GameModeMenu from './GameModeMenu';
 
 
 class GameModeHelp extends GameMode
@@ -18,6 +19,10 @@ class GameModeHelp extends GameMode
     tick(sketch, time)
     {
         super.tick(sketch, time);
+        if (sketch.keyIsPressed)
+        {
+            this.setGameMode(new GameModeMenu());
+        }
     }
 
     /**

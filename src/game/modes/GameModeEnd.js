@@ -25,7 +25,7 @@ class GameModeEnd extends GameMode
     tick(sketch, time)
     {
         super.tick(sketch, time);
-        if (sketch.keyIsDown(Settings.keys.back))
+        if (sketch.keyIsPressed)
         {
             this.setGameMode(new GameModeMenu());
         }

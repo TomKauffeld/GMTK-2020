@@ -38,6 +38,11 @@ class Mob extends Entity
         };
         this.oldImage = null;
         this.strength = 20;
+        this.regen = {
+            lastAttack: 0,
+            lastHeal: 0,
+            life: this.life
+        };
     }
     
     isDead()
@@ -137,6 +142,21 @@ class Mob extends Entity
         }
         if (this.life > 0)
         {
+            if (this.life >= this.regen.life)
+            {
+                this.regen.lastAttack = Math.max(this.regen.lastAttack - time, 0);
+            }
+            else
+            {
+                this.regen.lastAttack = 3;
+            }
+            this.regen.lastHeal = Math.max(this.regen.lastHeal - time, 0);
+            if (this.regen.lastHeal <= 0 && this.regen.lastAttack <= 0)
+            {
+                this.life = Math.min(this.life + 1, 100);
+                this.regen.lastHeal = 0.5;
+            }
+            this.regen.life = this.life;
             switch(this.pos.d)
             {
             case 0:

@@ -1,7 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import {p5InstanceExtensions} from 'p5';
 import GameMode from './GameMode';
-import Settings from '../Settings';
 import GameModeMenu from './GameModeMenu';
 
 

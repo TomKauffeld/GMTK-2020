@@ -116,7 +116,7 @@ Tile.collection = {};
  * @param {number} height 
  * @param {number} border_size
  */
-Tile.Create = function(type, name, x, y, solid = false, width = 1, height = 1, border = BORDER_NONE, border_size = 0.4)
+Tile.Create = function(type, name, x, y, solid = false, width = 1, height = 1, border = BORDER_NONE, border_size = 0.5)
 {
     new Tile(type, name, x, y, solid, width, height, border, border_size);
 };
@@ -206,6 +206,9 @@ function load()
         const solid = [true, false, false, true][i-1];
 
         Tile.Create(`desert_${i}`, 'dark_m_m_light', 1, 1, solid, 1, 1);
+
+        Tile.Create(`desert_${i}`, 'dark_dot', 3, 3, solid, 1, 1, BORDER_ALL);
+
         Tile.Create(`desert_${i}`, 'dark_t_l_light', 0, 0, solid, 1, 1, BORDER_TOP_LEFT);
         Tile.Create(`desert_${i}`, 'dark_m_l_light', 0, 1, solid, 1, 1, BORDER_LEFT);
         Tile.Create(`desert_${i}`, 'dark_b_l_light', 0, 2, solid, 1, 1, BORDER_BOTTOM_LEFT);
@@ -223,7 +226,10 @@ function load()
         Tile.Create(`desert_${i}`, 'dark_h_m_light', 1, 3, solid, 1, 1, BORDER_TOP | BORDER_BOTTOM);
         Tile.Create(`desert_${i}`, 'dark_h_e_light', 2, 3, solid, 1, 1, BORDER_TOP | BORDER_BOTTOM | BORDER_RIGHT);
 
-        Tile.Create(`desert_${i}`, 'dark_dot', 3, 3, solid, 1, 1, BORDER_ALL);
+        Tile.Create(`desert_${i}`, 'corner_1_b_r', 7, 0, !solid, 1, 1, BORDER_TOP_LEFT);
+        Tile.Create(`desert_${i}`, 'corner_1_b_l', 9, 0, !solid, 1, 1, BORDER_TOP_RIGHT);
+        Tile.Create(`desert_${i}`, 'corner_1_t_l', 9, 2, !solid, 1, 1, BORDER_BOTTOM_RIGHT);
+        Tile.Create(`desert_${i}`, 'corner_1_t_r', 7, 2, !solid, 1, 1, BORDER_BOTTOM_LEFT);
     }
 
 
@@ -237,12 +243,12 @@ function load()
     Tile.Create('town_2', 'stone_b_r_grass', 2, 2, false, 1, 1);
     Tile.Create('town_2', 'stone_t_m_grass', 1, 0, false, 1, 1);
     Tile.Create('town_2', 'stone_b_m_grass', 1, 2, false, 1, 1);
-    Tile.Create('town_2', 'stone_m_m_grass', 3, 0, false,  1, 1);
-    Tile.Create('town_2', 'grass_m_m_stone', 3, 2, false,  1, 1);
-    Tile.Create('town_2', 'corner_1_t_l',    0, 3, false,  1, 1, BORDER_TOP_LEFT);
-    Tile.Create('town_2', 'corner_1_t_r',    1, 3, false,  1, 1, BORDER_TOP_RIGHT);
-    Tile.Create('town_2', 'corner_1_b_l',    0, 4, false,  1, 1, BORDER_BOTTOM_LEFT);
-    Tile.Create('town_2', 'corner_1_b_r',    1, 4, false,  1, 1, BORDER_BOTTOM_RIGHT);
+    Tile.Create('town_2', 'stone_m_m_grass', 3, 0, false, 1, 1);
+    Tile.Create('town_2', 'grass_m_m_stone', 3, 2, false, 1, 1);
+    Tile.Create('town_2', 'corner_1_t_l',    0, 3, false, 1, 1, BORDER_TOP_LEFT);
+    Tile.Create('town_2', 'corner_1_t_r',    1, 3, false, 1, 1, BORDER_TOP_RIGHT);
+    Tile.Create('town_2', 'corner_1_b_l',    0, 4, false, 1, 1, BORDER_BOTTOM_LEFT);
+    Tile.Create('town_2', 'corner_1_b_r',    1, 4, false, 1, 1, BORDER_BOTTOM_RIGHT);
     Tile.Create('town_2', 'corner_2_b_r',    2, 3, true,  1, 1, BORDER_BOTTOM_RIGHT, 0.6);
     Tile.Create('town_2', 'corner_2_b_l',    3, 3, true,  1, 1, BORDER_BOTTOM_LEFT, 0.6);
     Tile.Create('town_2', 'corner_2_t_r',    2, 4, true,  1, 1, BORDER_TOP_RIGHT, 0.6);

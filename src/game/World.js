@@ -56,7 +56,11 @@ class World
      */
     inRange(from, to)
     {
-        const R = Math.sqrt(Math.pow(to.getPointX() - from.getPointX(), 2) + Math.pow(to.getPointY() - from.getPointY(), 2));
+        const fx = from.getPointX();
+        const fy = from.pos.x + from.height / 2;
+        const tx = to.getPointX();
+        const ty = to.pos.x + from.height / 2;
+        const R = Math.sqrt(Math.pow(tx - fx, 2) + Math.pow(ty - fy, 2));
         if (R > from.getRange())
         {
             return false;
@@ -66,7 +70,7 @@ class World
             return true;
         }
         const r = Math.PI * 0.25;
-        const A = Math.atan2(to.getPointY() - from.getPointY(), to.getPointX() - from.getPointX());
+        const A = Math.atan2(ty - fy, tx - fx);
         const D = [Math.PI * 0.5, 0, Math.PI * 1.5, Math.PI][from.pos.d];
         const S = D - r < 0 ? Math.PI * 2 - D - r : D - r;
         const E = D + r > Math.PI * 2 ? r + D - Math.PI * 2: D + r;
@@ -119,14 +123,14 @@ class World
         this.table = Ressources.words[`world_${id}`];
         for (let i = 0; i < this.mobs.length; i++)
         {
-            if (this.mobs[i].biome === this.id)
+            if (this.mobs[i].biome === this.getBiome())
             {
                 this.mobs[i].life = -1;
             }
         }
         for (let i = 0; i < this.items.length; i++)
         {
-            if (this.items[i].biome === this.id)
+            if (this.items[i].biome === this.getBiome())
             {
                 this.items[i].removeReady = true;
             }

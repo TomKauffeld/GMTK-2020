@@ -152,12 +152,6 @@ class World
         let l = 0;
         let x = Math.random() * (this.table.getColumnCount() - 1);
         let y = Math.random() * (this.table.getRowCount() - 1);
-        while (this.isSolid(x, y) && l < 100 && Math.sqrt(Math.pow(this.player.getPointX() - x, 2) + Math.pow(this.player.getPointY() - y, 2)) > 3)
-        {
-            x = Math.random() * (this.table.getColumnCount() - 1);
-            y = Math.random() * (this.table.getRowCount() - 1);
-            l++;
-        }
         if (l < 100)
         {
             l = 0;
@@ -187,7 +181,13 @@ class World
             }
             if (mob !== null)
             {
-    
+                l = 0;
+                while (l < 1000 && (this.isSolid(mob.getPointX(), mob.getPointY()) || Math.sqrt(Math.pow(this.player.getPointX() - mob.getPointX(), 2) + Math.pow(this.player.getPointY() - mob.getPointY(), 2)) < 5))
+                {
+                    mob.pos.x = Math.random() * (this.table.getColumnCount() - 1);
+                    mob.pos.y = Math.random() * (this.table.getRowCount() - 1);
+                    l++;
+                }
                 this.addMob(mob);
             }
         }

@@ -40,13 +40,13 @@ class GameModeHelp extends GameMode
         sketch.textSize(scale);
         sketch.textAlign(sketch.CENTER, sketch.CENTER);
         if ( Settings.keys.mode == 'azerty'){
-            sketch.text('Move : z q s d', width/2*scale, height/2*scale-scale*1.5);
+            sketch.text('Move: z q s d', width/2*scale, height/2*scale-scale*1.5);
         } 
         if ( Settings.keys.mode == 'qwerty'){
-            sketch.text('Move : w a s d', width/2*scale, height/2*scale-scale*1.5);
+            sketch.text('Move: w a s d', width/2*scale, height/2*scale-scale*1.5);
         } 
-        sketch.text('Attack : SpaceBar', width/2*scale, height/2*scale);    
-        sketch.text('Switch World : F', width/2*scale, height/2*scale+scale*1.5);    
+        sketch.text('Attack: SpaceBar', width/2*scale, height/2*scale);    
+        sketch.text('Switch World: F', width/2*scale, height/2*scale+scale*1.5);    
     }
 }
 

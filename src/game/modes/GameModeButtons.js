@@ -63,6 +63,7 @@ class GameModeButtons extends GameMode
         const h = w / 2.6;
         const x = posX * scale + width / 2 - w / 2;
         const y = posY * scale / 2.6 + height / 2 - h / 2;
+        let s = 0;
         const b = typeof Ressources.buttons[button] === 'object' ? Ressources.buttons[button] : null;
         let image = null;
         if (sketch.mouseX >= x && sketch.mouseX <= x + w && sketch.mouseY >= y && sketch.mouseY <= y + h)
@@ -70,6 +71,7 @@ class GameModeButtons extends GameMode
             if (this.isPressed(sketch))
             {
                 image = b === null ? null : b.selected;
+                s = 2;
             }
             else
             {
@@ -77,10 +79,12 @@ class GameModeButtons extends GameMode
                 {
                     this.onClick(button);
                     image = b === null ? null : b.selected;
+                    s = 2;
                 }
                 else
                 {
                     image = b === null ? null : b.highlighted;
+                    s = 1;
                 }
             }
         }
@@ -99,13 +103,18 @@ class GameModeButtons extends GameMode
             sketch.stroke(0);
             sketch.strokeWeight(4);
             sketch.textAlign(sketch.CENTER, sketch.CENTER);
-            sketch.textSize(h * 0.5);
+            sketch.textSize(h * 0.4);
             let tw = sketch.textWidth(button);
             if (tw > w * 0.7)
             {
-                sketch.textSize(h * 0.5 * w * 0.7 / tw);
+                sketch.textSize(h * 0.4 * w * 0.7 / tw);
             }
-            sketch.text(button, x + w / 2, y + h / 2);
+            let by = y + h / 2;
+            if (s > 1)
+            {
+                by += h / 40;
+            }
+            sketch.text(button, x + w / 2, by);
         }
     }
 

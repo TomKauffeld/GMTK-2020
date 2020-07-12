@@ -243,6 +243,10 @@ class World
             }
         }
         this.score = this.player.score;
+        
+        if (Math.random() < 0.1 * time * Math.min(1, this.corruption / 1000)){
+            Settings.inverseControls();
+        }
         if (sketch.keyIsDown(Settings.keys.change))
         {
             if (!this.last)
@@ -254,7 +258,7 @@ class World
                 }
                 this.loadNewMap(this.id);
                 this.corruption += 1;
-                if (((this.corruption)*Math.random(0,2)) > 12 ){
+                if (Math.random() < 0.1 * Math.min(1, this.corruption / 10)){
                     Settings.inverseControls();
                 }
             }

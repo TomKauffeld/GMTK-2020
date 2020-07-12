@@ -38,6 +38,11 @@ class Player extends Mob
         return false;
     }
 
+    getRange()
+    {
+        return 1;
+    }
+
     /**
      * 
      * @param {p5InstanceExtensions} sketch 

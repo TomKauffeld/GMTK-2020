@@ -89,7 +89,7 @@ class Mob extends Entity
      */
     getRange()
     {
-        return 1;
+        return 0.6;
     }
 
 

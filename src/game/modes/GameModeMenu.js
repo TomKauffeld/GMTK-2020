@@ -4,12 +4,13 @@ import GameModeButtons from './GameModeButtons';
 import GameModePlay from './GameModePlay';
 import GameModeSettings from './GameModeSettings';
 import GameModeEdit from './GameModeEdit';
+import GameModeHelp from './GameModeHelp';
 
 class GameModeMenu extends GameModeButtons
 {
     constructor()
     {
-        super('Menu', ['Play', 'Settings', 'Edit']);
+        super('Menu', ['Play', 'Settings', 'Help','Edit']);
     }
 
     /**
@@ -36,6 +37,9 @@ class GameModeMenu extends GameModeButtons
             break;
         case 'settings':
             this.setGameMode(new GameModeSettings(this));
+            break;
+        case 'help':
+            this.setGameMode(new GameModeHelp());
             break;
         case 'edit':
             this.setGameMode(new GameModeEdit());

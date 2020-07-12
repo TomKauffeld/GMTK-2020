@@ -54,7 +54,7 @@ class Item extends Entity
         }
         else
         {
-            this.world.player.score += Math.floor(Math.random()*5+2)*this.world.corruption;
+            this.world.player.score += Math.floor(Math.random()*50+25)*this.world.corruption;
         }
         this.removeReady = true;
     }

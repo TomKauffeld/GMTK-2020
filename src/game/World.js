@@ -337,12 +337,12 @@ class World
         //score & strength displaying :
         sketch.textAlign('left');
         sketch.fill(0, 102, 153);
-        sketch.textSize(30);
-        const x = (sketch.textWidth('Strength : '), sketch.textWidth('Score : '));
-        sketch.text('Strength : ', 20, 100);
-        sketch.text('Score : ', 20, 70);
-        sketch.text(Math.round(this.player.strength * 100) / 100, 60 + x, 100);
-        sketch.text(Math.round(this.player.score * 100) / 100, 60 + x, 70);
+        sketch.textSize(scale / 4);
+        const x = Math.max(sketch.textWidth('Strength : '), sketch.textWidth('Score : '));
+        sketch.text('Strength : ', scale / 7, scale * 1.1);
+        sketch.text('Score : ', scale / 7, scale * 0.7);
+        sketch.text(Math.round(this.player.strength * 100) / 100, scale * 0.6 + x, scale * 1.1);
+        sketch.text(Math.round(this.player.score * 100) / 100, scale * 0.6 + x, scale * 0.7);
     }
 }
 

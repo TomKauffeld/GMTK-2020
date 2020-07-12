@@ -210,6 +210,7 @@ class World
      */
     tick(sketch, time)
     {
+        this.corruption += time * Math.random() * 0.2;
         if (Math.random() < 0.01 && this.mobs.length < Math.min(100, this.corruption * 2 + 20))
         {
             this.spawnMonster();
@@ -225,6 +226,7 @@ class World
                     this.score = this.player.score;   
                     const item = new Item(this, this.mobs[i].biome, this.mobs[i].pos.x, this.mobs[i].pos.y);
                     this.addItem(item);
+                    this.corruption += Math.random() * 0.5;
                 }
                 if (this.mobs[i].entityId === this.player.entityId)
                 {
@@ -379,22 +381,24 @@ class World
         }
         //score & strength displaying :
         sketch.textAlign('left');
-        if(this.lastScoreColorChanged!=this.corruption)
+        if(this.lastScoreColorChanged != Math.floor(this.corruption * 0.9))
         {
             sketch.fill(Math.floor(Math.random() * Math.floor(255)), Math.floor(Math.random() * Math.floor(255)), Math.floor(Math.random() * Math.floor(255)));
-            this.lastScoreColorChanged=this.corruption;
+            this.lastScoreColorChanged = Math.floor(this.corruption * 0.9);
         }
-        if (this.corruption<7)
+        if (this.corruption < 7)
         {
             sketch.fill(0, 102, 153);
         }
         
         sketch.textSize(scale / 4);
-        const x = Math.max(sketch.textWidth('Strength : '), sketch.textWidth('Score : '));
-        sketch.text('Strength : ', scale / 7, scale * 1.1);
+        const x = sketch.textWidth('Corruption : ');
         sketch.text('Score : ', scale / 7, scale * 0.7);
-        sketch.text(Math.round(this.player.strength * 100) / 100, scale * 0.6 + x, scale * 1.1);
-        sketch.text(Math.round(this.player.score * 100) / 100, scale * 0.6 + x, scale * 0.7);
+        sketch.text('Strength : ', scale / 7, scale);
+        sketch.text('Corruption : ', scale / 7, scale * 1.3);
+        sketch.text(Math.round(this.player.score), scale * 0.5 + x, scale * 0.7);
+        sketch.text(Math.round(this.player.strength * 100) / 100, scale * 0.5 + x, scale);
+        sketch.text(Math.round(this.corruption), scale * 0.5 + x, scale * 1.3);
     }
 }
 

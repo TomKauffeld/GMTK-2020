@@ -3,6 +3,7 @@ import {p5InstanceExtensions} from 'p5';
 import GameMode from './GameMode';
 import World from '../World';
 import GameModeSettings from './GameModeSettings';
+import GameModeEnd from './GameModeEnd';
 import Settings from '../Settings';
 
 class GameModePlay extends GameMode
@@ -28,6 +29,10 @@ class GameModePlay extends GameMode
         else
         {
             this.world.tick(sketch, time);
+            if (this.world.end)
+            {
+                this.setGameMode(new GameModeEnd(this.world.score));
+            }
         }
     }
 

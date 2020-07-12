@@ -38,6 +38,9 @@ class World
         this.player = new Player(this, 1, 1, 2); //create player character and place it on the map
         this.addMob(this.player);
         this.addMob(new VoidMob(this, 2, 2, 2));
+
+        this.end = false;
+        this.score = 0;
     }
 
     /**
@@ -190,8 +193,14 @@ class World
                 if (this.mobs[i].entityId !== this.player.entityId && this.mobs[i].biome !== this.id)
                 {
                     this.player.score += 100;
+                    this.score = this.player.score;
                     const item = new Item(this, this.mobs[i].biome, this.mobs[i].pos.x, this.mobs[i].pos.y);
                     this.addItem(item);
+                }
+                if (this.mob[i].entityId === this.player.entityId)
+                {
+                    this.score = this.player.score;
+                    this.end = true;
                 }
                 this.mobs.splice(i, 1);
             }
@@ -202,6 +211,7 @@ class World
                 this.items.splice(i,1);
             }
         }
+        this.score = this.player.score;
         if (sketch.keyIsDown(Settings.keys.change))
         {
             if (!this.last)

@@ -1,13 +1,20 @@
 // eslint-disable-next-line no-unused-vars
 import {p5InstanceExtensions} from 'p5';
 import GameMode from './GameMode';
+import Settings from '../Settings';
+import GameModeMenu from './GameModeMenu';
 
 
 class GameModeEnd extends GameMode
 {
-    constructor()
+    /**
+     * 
+     * @param {number} score 
+     */
+    constructor(score)
     {
         super('End');
+        this.score = score;
     }
 
     /**
@@ -18,6 +25,10 @@ class GameModeEnd extends GameMode
     tick(sketch, time)
     {
         super.tick(sketch, time);
+        if (sketch.keyIsDown(Settings.keys.back))
+        {
+            this.setGameMode(new GameModeMenu());
+        }
     }
 
     /**
@@ -30,6 +41,9 @@ class GameModeEnd extends GameMode
     render(sketch, scale, width, height)
     {
         super.render(sketch, scale, width, height);
+        sketch.textSize(scale);
+        sketch.textAlign(sketch.CENTER, sketch.CENTER);
+        sketch.text(`Score : ${this.score}`, width / 2 * scale, height / 2 * scale);
     }
 }
 

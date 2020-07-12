@@ -16,6 +16,8 @@ import ForestMob from './sprites/entities/mobs/ForestMob';
 import SnowMob from './sprites/entities/mobs/SnowMob';
 import Settings from './Settings';
 
+const AUTO_CHANGE = 60;
+
 class World
 {
     /**
@@ -45,6 +47,7 @@ class World
         }
         this.addMob(this.player);
 
+        this.autoChange = AUTO_CHANGE;
         this.end = false;
         this.score = 0;
         this.lastScoreColorChanged = 0;
@@ -210,6 +213,26 @@ class World
      */
     tick(sketch, time)
     {
+        if (this.corruption > 20)
+        {
+            if (this.autoChange > 0)
+            {
+                this.autoChange = Math.max(this.autoChange, 0);
+            }
+            else
+            {
+                this.autoChange = AUTO_CHANGE;
+                if (Math.random() < 0.125)
+                {
+                    const old = this.id;
+                    while (old === this.id)
+                    {
+                        this.id = Math.floor(Math.random() * 3) + 1; //output an id of a map different of the curent map
+                    }
+                    this.loadNewMap(this.id);
+                }
+            }
+        }
         this.corruption += time * Math.random() * 0.2;
         if (Math.random() < 0.01 && this.mobs.length < Math.min(100, this.corruption * 2 + 20))
         {

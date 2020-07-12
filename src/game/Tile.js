@@ -135,7 +135,7 @@ function load()
         Tile.Create(`grassland_${i}`, 'grass_b_r_dirt', 2, 3, false, 1, 1, BORDER_BOTTOM_RIGHT);
         Tile.Create(`grassland_${i}`, 'grass_t_m_dirt', 1, 1, false, 1, 1, BORDER_TOP);
         Tile.Create(`grassland_${i}`, 'grass_b_m_dirt', 1, 3, false, 1, 1, BORDER_BOTTOM);
-        Tile.Create(`grassland_${i}`, 'grass_m_m_dirt', 0, 0, true,  1, 1, BORDER_ALL);
+        Tile.Create(`grassland_${i}`, 'grass_m_m_dirt', 0, 0, true,  1, 1, BORDER_ALL, 0.3);
         Tile.Create(`grassland_${i}`, 'dirt_m_m_grass', 2, 0, true,  1, 1, BORDER_ALL);
         Tile.Create(`grassland_${i}`, 'dirt_b_r_grass', 0, 4, true,  1, 1, BORDER_TOP_LEFT, 0.6);
         Tile.Create(`grassland_${i}`, 'dirt_b_l_grass', 1, 4, true,  1, 1, BORDER_TOP_RIGHT, 0.6);
@@ -175,7 +175,7 @@ function load()
     Tile.Create('grassland_4', 'dirt_t_m_grass', 1, 1, true, 1, 1, BORDER_TOP);
     Tile.Create('grassland_4', 'dirt_b_m_grass', 1, 3, true, 1, 1, BORDER_BOTTOM);
     Tile.Create('grassland_4', 'dirt_m_m_grass', 0, 0, true, 1, 1, BORDER_ALL);
-    Tile.Create('grassland_4', 'grass_m_m_dirt', 2, 0, false, 1, 1, BORDER_ALL);
+    Tile.Create('grassland_4', 'grass_m_m_dirt', 2, 0, true, 1, 1, BORDER_ALL, 0.3);
     Tile.Create('grassland_4', 'grass_b_r_dirt', 0, 4, false, 1, 1, BORDER_TOP_LEFT);
     Tile.Create('grassland_4', 'grass_b_l_dirt', 1, 4, false, 1, 1, BORDER_TOP_RIGHT);
     Tile.Create('grassland_4', 'grass_t_r_dirt', 0, 5, false, 1, 1, BORDER_BOTTOM_LEFT);
@@ -194,7 +194,7 @@ function load()
     Tile.Create('iceland', 'snow_t_m_ice', 1, 1, false, 1, 1, BORDER_TOP);
     Tile.Create('iceland', 'snow_b_m_ice', 1, 3, false, 1, 1, BORDER_BOTTOM);
     Tile.Create('iceland', 'snow_m_m_ice', 0, 0, false,  1, 1);
-    Tile.Create('iceland', 'ice_m_m_snow', 2, 0, true,  1, 1, BORDER_ALL);
+    Tile.Create('iceland', 'ice_m_m_snow', 2, 0, true,  1, 1, BORDER_ALL, 0.3);
     Tile.Create('iceland', 'ice_b_r_snow', 0, 4, true, 1, 1, BORDER_TOP_LEFT, 0.6);
     Tile.Create('iceland', 'ice_b_l_snow', 1, 4, true, 1, 1, BORDER_TOP_RIGHT, 0.6);
     Tile.Create('iceland', 'ice_t_r_snow', 0, 5, true, 1, 1, BORDER_BOTTOM_LEFT, 0.6);
@@ -207,7 +207,7 @@ function load()
 
         Tile.Create(`desert_${i}`, 'dark_m_m_light', 1, 1, solid, 1, 1);
 
-        Tile.Create(`desert_${i}`, 'dark_dot', 3, 3, solid, 1, 1, BORDER_ALL);
+        Tile.Create(`desert_${i}`, 'dark_dot', 3, 3, solid, 1, 1, BORDER_ALL, 0.3);
 
         Tile.Create(`desert_${i}`, 'dark_t_l_light', 0, 0, solid, 1, 1, BORDER_TOP_LEFT);
         Tile.Create(`desert_${i}`, 'dark_m_l_light', 0, 1, solid, 1, 1, BORDER_LEFT);
@@ -266,7 +266,7 @@ function load()
         Tile.Create(`town_${i}`, 'floor_t_m_wall', 1, 0, false, 1, 1, BORDER_TOP);
         Tile.Create(`town_${i}`, 'floor_b_m_wall', 1, 2, false, 1, 1, BORDER_BOTTOM);
         Tile.Create(`town_${i}`, 'floor_m_m_wall', 3, 0, true,  1, 1, BORDER_ALL);
-        Tile.Create(`town_${i}`, 'wall_m_m_floor', 3, 2, true,  1, 1, BORDER_ALL);
+        Tile.Create(`town_${i}`, 'wall_m_m_floor', 3, 2, true,  1, 1, BORDER_ALL, 0.3);
         Tile.Create(`town_${i}`, 'corner_1_t_l',   3, 4, true,  1, 1, BORDER_BOTTOM_LEFT,  0.6);
         Tile.Create(`town_${i}`, 'corner_1_t_r',   2, 4, true,  1, 1, BORDER_BOTTOM_RIGHT, 0.6);
         Tile.Create(`town_${i}`, 'corner_1_b_l',   3, 3, true,  1, 1, BORDER_TOP_RIGHT,    0.6);

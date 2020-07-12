@@ -53,8 +53,6 @@ class GameModeMenu extends GameModeButtons
     render(sketch, scale, width, height)
     {
         super.render(sketch, scale, width, height);
-        //this.drawButton(sketch, width * scale, height * scale, 'play', 0, -0.75);
-        //this.drawButton(sketch, width * scale, height * scale, 'settings', 0, +0.75);
     }
 }
 

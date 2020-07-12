@@ -3,6 +3,7 @@ import {p5InstanceExtensions} from 'p5';
 import GameMode from './GameMode';
 import World from '../World';
 import GameModeSettings from './GameModeSettings';
+import Settings from '../Settings';
 
 class GameModePlay extends GameMode
 {
@@ -20,7 +21,7 @@ class GameModePlay extends GameMode
     tick(sketch, time)
     {
         super.tick(sketch, time);
-        if (sketch.keyIsDown(sketch.ESCAPE))
+        if (sketch.keyIsDown(Settings.keys.back))
         {
             this.setGameMode(new GameModeSettings(this));
         }

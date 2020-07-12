@@ -189,7 +189,6 @@ class GameModeEdit extends GameMode
     constructor()
     {
         super('Game');
-        this.settings = new Settings();
         this.table = Table.load();
         if (this.table === null)
         {
@@ -216,9 +215,9 @@ class GameModeEdit extends GameMode
      */
     keyIsDown(sketch, action)
     {
-        if (typeof this.settings.keys[action] === 'number')
+        if (typeof Settings.keys[action] === 'number')
         {
-            return sketch.keyIsDown(this.settings.keys[action]);
+            return sketch.keyIsDown(Settings.keys[action]);
         }
         return false;
     }
@@ -244,11 +243,11 @@ class GameModeEdit extends GameMode
             return;
         }
         super.tick(sketch, time);
-        if (sketch.keyIsPressed && !this.lastKey && sketch.keyIsDown(sketch.ESCAPE))
+        if (sketch.keyIsPressed && !this.lastKey && sketch.keyIsDown(Settings.keys.back))
         {
             this.setGameMode(new GameModeMenu());
         }
-        if (sketch.keyIsPressed && !this.lastKey && sketch.keyIsDown(33)) //Pageup
+        if (sketch.keyIsPressed && !this.lastKey && sketch.keyIsDown(Settings.keys.editor.type_up))
         {
             this.selectedType++;
             this.selectedType %= this.types.length;
@@ -257,7 +256,7 @@ class GameModeEdit extends GameMode
                 this.selectedBlock = 0;
             }
         }
-        else if (sketch.keyIsPressed && !this.lastKey && sketch.keyIsDown(34)) // PageDown
+        else if (sketch.keyIsPressed && !this.lastKey && sketch.keyIsDown(Settings.keys.editor.type_down))
         {
             this.selectedType--;
             if (this.selectedType < 0)
@@ -269,7 +268,7 @@ class GameModeEdit extends GameMode
                 this.selectedBlock = 0;
             }
         }
-        else if (sketch.keyIsPressed && !this.lastKey && sketch.keyIsDown(sketch.RIGHT_ARROW))
+        else if (sketch.keyIsPressed && !this.lastKey && sketch.keyIsDown(Settings.keys.editor.block_right))
         {
             const maxY = Math.floor(sketch.height / this.scale) - 2;
             let x = Math.floor(this.selectedBlock / maxY);
@@ -281,7 +280,7 @@ class GameModeEdit extends GameMode
                 this.selectedBlock = Math.max(i, 0);
             }
         }
-        else if (sketch.keyIsPressed && !this.lastKey && sketch.keyIsDown(sketch.LEFT_ARROW))
+        else if (sketch.keyIsPressed && !this.lastKey && sketch.keyIsDown(Settings.keys.editor.block_left))
         {
             const maxY = Math.floor(sketch.height / this.scale) - 2;
             let x = Math.floor(this.selectedBlock / maxY);
@@ -293,7 +292,7 @@ class GameModeEdit extends GameMode
                 this.selectedBlock = Math.max(i, 0);
             }
         }
-        else if (sketch.keyIsPressed && !this.lastKey && sketch.keyIsDown(sketch.UP_ARROW))
+        else if (sketch.keyIsPressed && !this.lastKey && sketch.keyIsDown(Settings.keys.editor.block_up))
         {
             const maxY = Math.floor(sketch.height / this.scale) - 2;
             let x = Math.floor(this.selectedBlock / maxY);
@@ -305,7 +304,7 @@ class GameModeEdit extends GameMode
                 this.selectedBlock = Math.max(i, 0);
             }
         }
-        else if (sketch.keyIsPressed && !this.lastKey && sketch.keyIsDown(sketch.DOWN_ARROW))
+        else if (sketch.keyIsPressed && !this.lastKey && sketch.keyIsDown(Settings.keys.editor.block_down))
         {
             const maxY = Math.floor(sketch.height / this.scale) - 2;
             let x = Math.floor(this.selectedBlock / maxY);
@@ -329,23 +328,20 @@ class GameModeEdit extends GameMode
                         {
                             if (sketch.mouseX - this.x >= (sketch.width - this.x) / 2)
                             {
-                                if (confirm('export ? '))
+                                const image = sketch.createImage(this.table.getColumnCount() * 16, this.table.getRowCount() * 16);
+                                for (let x = 0; x < this.table.getColumnCount(); x++)
                                 {
-                                    const image = sketch.createImage(this.table.getColumnCount() * 16, this.table.getRowCount() * 16);
-                                    for (let x = 0; x < this.table.getColumnCount(); x++)
+                                    for (let y = 0; y < this.table.getRowCount(); y++)
                                     {
-                                        for (let y = 0; y < this.table.getRowCount(); y++)
+                                        const tile = this.getTile(x, y);
+                                        if (tile !== null)
                                         {
-                                            const tile = this.getTile(x, y);
-                                            if (tile !== null)
-                                            {
-                                                const i = tile.getImage();
-                                                image.copy(i, 0, 0, i.width, i.height, x * 16, y * 16, 16, 16);
-                                            }
+                                            const i = tile.getImage();
+                                            image.copy(i, 0, 0, i.width, i.height, x * 16, y * 16, 16, 16);
                                         }
                                     }
-                                    image.save('map.png', 'png');
                                 }
+                                image.save('map.png', 'png');
                             }
                         }
                         else if (sketch.mouseY > 20 && sketch.mouseY < 30)

@@ -6,13 +6,13 @@ import Mob from './sprites/entities/mobs/Mob';
 import Entity from './sprites/entities/Entity';
 import Tile from './Tile';
 import Player from './sprites/entities/mobs/Player';
-import Settings from './Settings';
 import Ressources from '../gfx/Ressources';
 import VoidMob from './sprites/entities/mobs/VoidMob';
 import Item from './sprites/entities/item/Item';
 import DesertMob from './sprites/entities/mobs/DesertMob';
 import ForestMob from './sprites/entities/mobs/ForestMob';
 import SnowMob from './sprites/entities/mobs/SnowMob';
+import Settings from './Settings';
 
 class World
 {
@@ -35,7 +35,7 @@ class World
         /** @type Item[] */
         this.items = [];
 
-        this.player = new Player(this, 1, 1, 2, new Settings()); //create player character and place it on the map
+        this.player = new Player(this, 1, 1, 2); //create player character and place it on the map
         this.addMob(this.player);
         this.addMob(new VoidMob(this, 2, 2, 2));
     }
@@ -202,7 +202,7 @@ class World
                 this.items.splice(i,1);
             }
         }
-        if (sketch.keyIsDown(sketch.BACKSPACE))
+        if (sketch.keyIsDown(Settings.keys.change))
         {
             if (!this.last)
             {

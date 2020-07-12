@@ -15,13 +15,10 @@ class Player extends Mob
      * @param {number} posX 
      * @param {number} posY 
      * @param {number} dir  
-     * @param {Settings} settings
-     * @param {number} score
      */
-    constructor(world, posX, posY, dir, settings)
+    constructor(world, posX, posY, dir)
     {
-        super(world, 0, Ressources.sprites.mobs.player[`${settings.player.sexe}_${settings.player.class}`], 'player', posX, posY, dir, 2, 1, 1, 100);
-        this.settings = settings;
+        super(world, 0, Ressources.sprites.mobs.player[`${Settings.player.sexe}_${Settings.player.class}`], 'player', posX, posY, dir, 2, 1, 1, 100);
         this.score = 0;
         this.strength = 100;
     }
@@ -34,9 +31,9 @@ class Player extends Mob
      */
     keyIsDown(sketch, action)
     {
-        if (typeof this.settings.keys[action] === 'number')
+        if (typeof Settings.keys[action] === 'number')
         {
-            return sketch.keyIsDown(this.settings.keys[action]);
+            return sketch.keyIsDown(Settings.keys[action]);
         }
         return false;
     }

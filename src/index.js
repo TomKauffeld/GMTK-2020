@@ -1,6 +1,7 @@
 import p5 from 'p5';
 import Game from './game/Game';
 import GameModeMenu from './game/modes/GameModeMenu';
+import Settings from './game/Settings';
 import Ressources from './gfx/Ressources';
 
 /**
@@ -16,6 +17,22 @@ function s(sketch)
     
     sketch.preload = () => {
         Ressources.load(sketch);
+        try
+        {
+            const s = localStorage.getItem('mode');
+            if (s === 'azerty')
+            {
+                Settings.setAzerty();
+            }
+            else
+            {
+                Settings.setQuerty();
+            }
+        }
+        catch(error)
+        {
+            Settings.setQuerty();
+        }
     };
 
     sketch.setup = () => {

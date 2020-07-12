@@ -400,9 +400,11 @@ class World
         sketch.text('Score : ', scale / 7, scale * 0.7);
         sketch.text('Strength : ', scale / 7, scale);
         sketch.text('Corruption : ', scale / 7, scale * 1.3);
+        sketch.text('Mobs : ', scale / 7, scale * 1.6);
         sketch.text(Math.round(this.player.score), scale * 0.5 + x, scale * 0.7);
         sketch.text(Math.round(this.player.strength * 100) / 100, scale * 0.5 + x, scale);
         sketch.text(Math.round(this.corruption), scale * 0.5 + x, scale * 1.3);
+        sketch.text(this.mobs.length - 1, scale * 0.5 + x, scale * 1.6);
     }
 }
 

@@ -46,7 +46,7 @@ class GameModeHelp extends GameMode
             sketch.text('Move : w a s d', width/2*scale, height/2*scale-scale*1.5);
         } 
         sketch.text('Attack : SpaceBar', width/2*scale, height/2*scale);    
-        sketch.text('Switch World : Shift', width/2*scale, height/2*scale+scale*1.5);    
+        sketch.text('Switch World : F', width/2*scale, height/2*scale+scale*1.5);    
     }
 }
 

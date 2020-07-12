@@ -1,5 +1,7 @@
 // eslint-disable-next-line no-unused-vars
-import {p5InstanceExtensions} from 'p5';
+import {p5InstanceExtension} from 'p5';
+// eslint-disable-next-line no-unused-vars
+import Table from '../Table';
 // eslint-disable-next-line no-unused-vars
 import Mob from './sprites/entities/mobs/Mob';
 // eslint-disable-next-line no-unused-vars
@@ -23,7 +25,7 @@ class World
     constructor(id)
     {
         /**
-         * @type {p5.Table}
+         * @type {Table}
          */
         this.table = Ressources.words[`world_${id}`]; // use the number 1 by default to define the map
         this.last = false; //verify if the input is press during the last tick
@@ -127,6 +129,19 @@ class World
         }
     }
 
+    getBiome()
+    {
+        const biomes = [1, 3, 2];
+        if (this.id > 0 && this.id <= biomes.length)
+        {
+            return biomes[this.id - 1];
+        }
+        else
+        {
+            return 1;
+        }
+    }
+
     spawnMonster()
     {
         let mob = null;
@@ -161,7 +176,7 @@ class World
                     mob = new VoidMob(this, x, y, 2);
                     break;
                 }
-                if (mob.biome === this.id)
+                if (mob.biome === this.getBiome())
                 {
                     mob = null;
                 }
@@ -190,7 +205,7 @@ class World
             this.mobs[i].tick(sketch, time);
             if (this.mobs[i].dead > 1)
             {
-                if (this.mobs[i].entityId !== this.player.entityId && this.mobs[i].biome !== this.id)
+                if (this.mobs[i].entityId !== this.player.entityId && this.mobs[i].biome !== this.getBiome())
                 {
                     this.player.score += 100;
                     this.score = this.player.score;
@@ -236,6 +251,7 @@ class World
     }
 
     /**
+     * 
      * @param {number} x 
      * @param {number} y 
      * @returns {Tile|null}
@@ -250,7 +266,7 @@ class World
         }
         else
         {
-            let r = this.table.get(y, x);
+            const r = this.table.get(y, x);
             if (typeof r === 'string' && typeof Tile.tiles[r] === 'object')
             {
                 return Tile.tiles[r];
@@ -314,8 +330,8 @@ class World
 
         const minX = Math.max(0, offset.x - width / 2);
         const minY = Math.max(0, offset.y - height / 2);
-        const maxX = Math.min(minX + width, this.table.getColumnCount());
-        const maxY = Math.min(minY + height, this.table.getRowCount());
+        const maxX = width - offset.x;
+        const maxY = height - offset.y;
         for (let y = minY; y < maxY; y++)
         {
             for (let x = minX; x < maxX; x++)

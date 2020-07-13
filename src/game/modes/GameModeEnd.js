@@ -24,7 +24,7 @@ class GameModeEnd extends GameMode
     tick(sketch, time)
     {
         super.tick(sketch, time);
-        if (sketch.keyIsPressed)
+        if (sketch.keyIsPressed || sketch.mouseIsPressed)
         {
             this.setGameMode(new GameModeMenu());
         }

@@ -55,7 +55,7 @@ class GameModeCredits extends GameMode
         sketch.textSize(scale / 2);
         sketch.text('Designer: ', width/2*scale, scale * 6.7);
         sketch.textSize(scale / 4);
-        sketch.text('The Ben Aplha', width/2*scale, scale * 7.5);
+        sketch.text('TheBenAlpha', width/2*scale, scale * 7.5);
     }
 }
 

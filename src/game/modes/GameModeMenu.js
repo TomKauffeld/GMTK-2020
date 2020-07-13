@@ -12,7 +12,7 @@ class GameModeMenu extends GameModeButtons
 {
     constructor()
     {
-        super('Menu', ['Play', 'Settings', 'Help', 'Credits']);
+        super('Menu', ['Play', 'Settings', 'Help', 'Edit', 'Credits']);
     }
 
     /**

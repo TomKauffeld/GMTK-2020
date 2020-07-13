@@ -42,7 +42,7 @@ class GameModeEnd extends GameMode
         super.render(sketch, scale, width, height);
         sketch.textSize(scale);
         sketch.textAlign(sketch.CENTER, sketch.CENTER);
-        sketch.text(`Score : ${this.score}`, width / 2 * scale, height / 2 * scale);
+        sketch.text(`Score: ${this.score}`, width / 2 * scale, height / 2 * scale);
     }
 }
 

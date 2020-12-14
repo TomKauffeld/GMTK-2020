@@ -11,7 +11,7 @@ class GameModeEdit extends GameMode
 {
     constructor()
     {
-        super('Game');
+        super('Edit map');
         this.table = Table.load();
         if (this.table === null)
         {

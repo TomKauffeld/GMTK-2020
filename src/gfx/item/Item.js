@@ -2,13 +2,15 @@
 import {p5InstanceExtensions} from 'p5';
 import TileSet from '../TileSet';
 
+import items from '../../res/items.png';
+
 /**
  * 
  * @param {p5InstanceExtensions} sketch 
  */
 function load(sketch)
 {
-    Item.foredrop_item = TileSet.Create(sketch,'res/items.png', 1);
+    Item.foredrop_item = TileSet.Create(sketch, items, 1);
     return Item;
 }
 

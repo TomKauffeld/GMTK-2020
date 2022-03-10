@@ -2,83 +2,18 @@
 const path = require('path');
 const webpack = require('webpack');
 
-/*
- * SplitChunksPlugin is enabled by default and replaced
- * deprecated CommonsChunkPlugin. It automatically identifies modules which
- * should be splitted of chunk by heuristics using module duplication count and
- * module category (i. e. node_modules). And splits the chunks…
- *
- * It is safe to remove "splitChunks" from the generated configuration
- * and was added as an educational example.
- *
- * https://webpack.js.org/plugins/split-chunks-plugin/
- *
- */
-
-/*
- * We've enabled TerserPlugin for you! This minifies your app
- * in order to load faster and run less javascript.
- *
- * https://github.com/webpack-contrib/terser-webpack-plugin
- *
- */
-
-const TerserPlugin = require('terser-webpack-plugin');
-
-const workboxPlugin = require('workbox-webpack-plugin');
-
 module.exports = {
-    mode: 'development',
-
-    devServer: {
-        contentBase: path.join(__dirname, 'dist'),
-        compress: true,
-        port: 9000,
-        open: true,
+    entry: path.resolve(__dirname, 'src', 'index.js'),
+    output: {
+        filename: 'main.js',
+        path: path.resolve(__dirname, 'dist'),
     },
-
-    plugins: [
-        new webpack.optimize.ModuleConcatenationPlugin(),
-        new webpack.ProgressPlugin(),
-        new workboxPlugin.GenerateSW({
-            swDest: 'sw.js',
-            clientsClaim: true,
-            skipWaiting: false,
-            maximumFileSizeToCacheInBytes: 1024 * 1024 * 10,
-        })
-    ],
-
     module: {
         rules: [
             {
-                test: /.(js|jsx)$/,
-                include: [],
-                loader: 'babel-loader'
-            }
-        ]
-    },
-
-    optimization: {
-        minimizer: [new TerserPlugin({
-            cache: true,
-            parallel: true,
-            sourceMap: false,
-
-        })],
-        chunkIds: 'size',
-
-        splitChunks: {
-            cacheGroups: {
-                vendors: {
-                    priority: -10,
-                    test: /[\\/]node_modules[\\/]/
-                }
+                test: /\.(png|svg|jpg|jpeg|gif|csv)$/i,
+                type: 'asset/resource',
             },
-
-            chunks: 'async',
-            minChunks: 1,
-            minSize: 30000,
-            name: true
-        }
-    }
+        ],
+    },
 };

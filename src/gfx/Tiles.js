@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import {p5InstanceExtensions} from 'p5';
 import TileSet from './TileSet';
+import tiles from '../res/tiles.png';
 
 
 /**
@@ -8,7 +9,7 @@ import TileSet from './TileSet';
  * @param {p5InstanceExtensions} sketch 
  */
 function load(sketch) {
-    sketch.loadImage('res/tiles.png', (image) => {
+    sketch.loadImage(tiles, (image) => {
         const main = new TileSet(image, 16);
         main.calculate();
         for(let i = 0; i < 4; i++)

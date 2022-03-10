@@ -2,13 +2,15 @@
 import {p5InstanceExtensions, Image} from 'p5';
 import TileSet from '../TileSet';
 
+import buttons from '../../res/buttons.png';
+
 /**
  * 
  * @param {p5InstanceExtensions} sketch 
  */
 function load(sketch)
 {
-    sketch.loadImage('res/buttons.png', (image) => {
+    sketch.loadImage(buttons, (image) => {
         const main = new TileSet(image, 3, 1);
         main.calculate();
         Buttons.normal = main.getTile(0, 0, 1, 1);

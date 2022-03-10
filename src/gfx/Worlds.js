@@ -3,15 +3,19 @@ import {p5InstanceExtensions, Table as p5Table, TableRow} from 'p5';
 
 import Table from '../Table';
 
+import world_1 from '../res/worlds/world_1.csv';
+import world_2 from '../res/worlds/world_2.csv';
+import world_3 from '../res/worlds/world_3.csv';
+
 
 /**
  * 
  * @param {p5InstanceExtensions} sketch 
  */
 function load(sketch) {
-    for(let i = 1; i <= 3; i++)
+    [world_1, world_2, world_3].forEach((world, index) => 
     {
-        sketch.loadStrings(`res/worlds/world_${i}.csv`, (lines) => {
+        sketch.loadStrings(world, (lines) => {
             const t = new p5Table();
             for (let i = 0; i < lines.length; i++)
             {
@@ -38,9 +42,9 @@ function load(sketch) {
                     table.setName(x, y, l.trim());
                 }
             }
-            Worlds[`world_${i}`] = table;
+            Worlds[`world_${index}`] = table;
         });
-    }
+    });
     return Worlds;
 }
 

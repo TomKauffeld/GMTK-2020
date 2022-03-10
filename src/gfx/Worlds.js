@@ -42,7 +42,7 @@ function load(sketch) {
                     table.setName(x, y, l.trim());
                 }
             }
-            Worlds[`world_${index}`] = table;
+            Worlds[`world_${index + 1}`] = table;
         });
     });
     return Worlds;

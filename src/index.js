@@ -36,8 +36,13 @@ function s(sketch)
     };
 
     sketch.setup = () => {
-        sketch.createCanvas(parent.clientWidth, parent.clientHeight);
+        const canvas = sketch.createCanvas(parent.clientWidth, parent.clientHeight);
         sketch.frameRate(60);
+        const context = canvas.elt.getContext('2d');    
+        context.mozImageSmoothingEnabled = false;
+        context.webkitImageSmoothingEnabled = false;
+        context.msImageSmoothingEnabled = false;
+        context.imageSmoothingEnabled = false;
     };
 
     sketch.draw = () => {

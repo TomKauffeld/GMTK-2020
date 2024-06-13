@@ -4,4 +4,4 @@ Our participation in the Game Makers Tool Kit Game Jam 2020 : https://itch.io/ja
 Out Of Control
 
 # BenchMark
-![bench](https://github.com/TomKauffeld/GMTK-2020/raw/master/design/Benchmark.jpg)
+![bench](./design/Benchmark.jpg)
